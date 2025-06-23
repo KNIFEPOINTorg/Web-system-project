@@ -1,0 +1,395 @@
+
+@media (max-width: 1200px) {
+  :root {
+    --container-max-width: 1024px;
+    --grid-columns-desktop: 3;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-h1: 2.2rem;
+    --font-h2: 1.6rem;
+    --font-h3: 1.3rem;
+    --grid-columns-desktop: 2;
+    --grid-columns-tablet: 2;
+  }
+
+  .nav-container {
+    padding: 0 var(--space-md);
+  }
+
+  .nav-links {
+    gap: var(--space-lg);
+  }
+
+  .nav-brand {
+    font-size: 1.3rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .category-card {
+    min-height: 160px;
+    padding: var(--space-lg);
+  }
+
+  .category-name {
+    font-size: var(--font-h5);
+  }
+
+  .product-image {
+    height: 240px;
+  }
+
+  .product-title {
+    font-size: var(--font-h5);
+  }
+
+  .region-badge,
+  .location-badge {
+    font-size: 0.7rem;
+    padding: var(--space-xs);
+    max-width: 150px;
+  }
+
+  .product-info {
+    padding: var(--space-md);
+  }
+
+  .current-price {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: var(--font-small);
+    min-height: 44px;
+  }
+
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  .section-padding {
+    padding: var(--space-2xl) 0;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .auth-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+
+  .auth-branding {
+    padding: var(--space-xl);
+    min-height: 200px;
+  }
+
+  .branding-content h1 {
+    font-size: 2rem;
+  }
+
+  .features-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .feature-item {
+    flex: 0 0 calc(50% - var(--space-sm));
+    font-size: var(--font-micro);
+  }
+
+  .auth-form-container {
+    padding: var(--space-xl);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-h1: 1.8rem;
+    --font-h2: 1.4rem;
+    --grid-columns-desktop: 1;
+    --grid-columns-tablet: 1;
+    --grid-columns-mobile: 1;
+  }
+
+  .nav-container {
+    padding: 0 var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-brand {
+    font-size: 1.2rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .category-card {
+    min-height: 140px;
+    padding: var(--space-md);
+  }
+
+  .category-name {
+    font-size: var(--font-h5);
+    margin-bottom: var(--space-xs);
+  }
+
+  .category-description {
+    font-size: var(--font-micro);
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-image {
+    height: 280px;
+  }
+
+  .product-title {
+    font-size: var(--font-h5);
+    line-height: 1.2;
+  }
+
+  .product-description {
+    font-size: var(--font-micro);
+  }
+
+  .region-badge,
+  .location-badge {
+    font-size: 0.65rem;
+    padding: 4px 6px;
+    max-width: 120px;
+  }
+
+  .product-info {
+    padding: var(--space-md);
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
+  .section-padding {
+    padding: var(--space-xl) 0;
+  }
+
+  .section-header h2 {
+    font-size: var(--font-h2);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .auth-container {
+    padding: var(--space-md);
+  }
+
+  .auth-wrapper {
+    max-width: 100%;
+    min-height: auto;
+  }
+
+  .auth-branding {
+    padding: var(--space-lg);
+    min-height: 150px;
+  }
+
+  .branding-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .branding-content p {
+    font-size: var(--font-small);
+  }
+
+  .features-list {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .feature-item {
+    flex: none;
+    justify-content: center;
+  }
+
+  .auth-form-container {
+    padding: var(--space-lg);
+  }
+
+  .user-type-options {
+    gap: var(--space-sm);
+  }
+
+  .user-type-option {
+    padding: var(--space-md);
+  }
+
+  .option-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+
+  .option-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .method-tabs {
+    flex-direction: column;
+  }
+
+  .social-login {
+    gap: var(--space-sm);
+  }
+
+  .connection-message {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    background: var(--bg-tertiary);
+    padding: var(--space-sm);
+    text-align: center;
+    font-size: var(--font-micro);
+    color: var(--text-secondary);
+    z-index: 999;
+  }
+
+  .diaspora-welcome {
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-small);
+    margin: var(--space-md) 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 320px) {
+  :root {
+    --font-h1: 1.6rem;
+    --font-h2: 1.2rem;
+  }
+
+  .container {
+    padding: 0 var(--space-xs);
+  }
+
+  .auth-form-container {
+    padding: var(--space-md);
+  }
+
+  .user-type-option {
+    padding: var(--space-sm);
+  }
+
+  .option-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .product-image img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .auth-wrapper {
+    grid-template-columns: 1fr 1fr;
+    max-width: 800px;
+  }
+
+  .auth-branding {
+    min-height: auto;
+  }
+
+  .features-list {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .feature-item {
+    font-size: var(--font-micro);
+  }
+}
+
+@media print {
+  .navbar,
+  .footer,
+  .btn,
+  .auth-branding {
+    display: none;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .container {
+    max-width: none;
+    padding: 0;
+  }
+}
