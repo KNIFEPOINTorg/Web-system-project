@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - LFLshop Ethiopian Marketplace</title>
+    <meta name="description" content="Browse our complete collection of authentic Ethiopian products including traditional clothing, coffee, spices, and handcrafted items.">
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">LFLshop</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="collections.html" class="active">Collections</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="page-header" style="background: var(--bg-secondary); padding: var(--space-2xl) 0; text-align: center;">
+        <div class="container">
+            <h1 style="font-family: var(--font-heading); font-size: var(--font-h1); color: var(--text-primary); margin-bottom: var(--space-md);">
+                Our Collections
+            </h1>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                Discover authentic Ethiopian craftsmanship through our carefully curated collections of traditional and modern products.
+            </p>
+        </div>
+    </section>
+
+    
+    <section class="collections-content section-padding">
+        <div class="container">
+            
+            <div class="search-filter-bar" style="background: var(--bg-primary); padding: var(--space-lg); border-radius: var(--radius-small); box-shadow: var(--shadow-subtle); margin-bottom: var(--space-2xl);">
+                <div style="display: flex; gap: var(--space-lg); align-items: center; flex-wrap: wrap;">
+                    <div class="search-box" style="flex: 1; min-width: 300px;">
+                        <div style="position: relative;">
+                            <input type="text" placeholder="Search products..." style="width: 100%; padding: var(--space-md); border: 1px solid var(--border-secondary); border-radius: var(--radius-small); font-family: var(--font-primary);">
+                            <i class="fas fa-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-controls" style="display: flex; gap: var(--space-md); align-items: center;">
+                        <select style="padding: var(--space-md); border: 1px solid var(--border-secondary); border-radius: var(--radius-small); font-family: var(--font-primary);">
+                            <option value="">All Categories</option>
+                            <option value="clothing">Traditional Clothing</option>
+                            <option value="coffee">Coffee & Spices</option>
+                            <option value="handicrafts">Handicrafts</option>
+                            <option value="jewelry">Jewelry</option>
+                        </select>
+                        
+                        <select style="padding: var(--space-md); border: 1px solid var(--border-secondary); border-radius: var(--radius-small); font-family: var(--font-primary);">
+                            <option value="">All Regions</option>
+                            <option value="oromia">Oromia</option>
+                            <option value="amhara">Amhara</option>
+                            <option value="snnp">SNNP</option>
+                            <option value="addis-ababa">Addis Ababa</option>
+                        </select>
+                        
+                        <button class="btn btn-primary">
+                            <i class="fas fa-filter"></i>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+    
+            <div class="results-info" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); padding-bottom: var(--space-md); border-bottom: 1px solid var(--border-secondary);">
+                <div>
+                    <h3 style="color: var(--text-primary); margin: 0;">Showing 24 of 156 products</h3>
+                    <p style="color: var(--text-secondary); margin: 0; font-size: var(--font-small);">Authentic Ethiopian craftsmanship</p>
+                </div>
+                
+                <div class="sort-controls" style="display: flex; align-items: center; gap: var(--space-md);">
+                    <span style="color: var(--text-secondary); font-size: var(--font-small);">Sort by:</span>
+                    <select style="padding: var(--space-sm) var(--space-md); border: 1px solid var(--border-secondary); border-radius: var(--radius-small); font-family: var(--font-primary);">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            
+            <div class="products-grid" id="collections-products-grid">
+                
+                <div class="product-card" onclick="showProductDemo()">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Traditional Habesha Kemis" loading="lazy">
+                        <div class="region-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Amhara
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Traditional Habesha Kemis</h3>
+                        <p class="product-description">Elegant handwoven traditional Ethiopian dress</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">4.8 (24 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">2,500</span>
+                            <span class="price-currency">ETB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" onclick="showProductDemo()">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ethiopian Coffee" loading="lazy">
+                        <div class="region-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Oromia
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ethiopian Coffee - Yirgacheffe</h3>
+                        <p class="product-description">Premium single-origin coffee with floral notes</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.9 (156 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">450</span>
+                            <span class="price-currency">ETB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" onclick="showProductDemo()">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1544829885-9a56ca0fe9e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Handwoven Basket" loading="lazy">
+                        <div class="region-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            SNNP
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Handwoven Ethiopian Basket</h3>
+                        <p class="product-description">Traditional basket from natural materials</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.7 (43 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">350</span>
+                            <span class="price-currency">ETB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" onclick="showProductDemo()">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Berbere Spice" loading="lazy">
+                        <div class="region-badge">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Addis Ababa
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Berbere Spice Blend</h3>
+                        <p class="product-description">Authentic Ethiopian spice blend</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.6 (89 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">180</span>
+                            <span class="price-currency">ETB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: var(--space-md); margin-top: var(--space-2xl);">
+                <button class="btn btn-outline" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                    Previous
+                </button>
+                
+                <div class="page-numbers" style="display: flex; gap: var(--space-xs);">
+                    <button class="page-btn active" style="padding: var(--space-sm) var(--space-md); border: 1px solid var(--color-primary); background: var(--color-primary); color: var(--bg-primary); border-radius: var(--radius-small);">1</button>
+                    <button class="page-btn" style="padding: var(--space-sm) var(--space-md); border: 1px solid var(--border-secondary); background: var(--bg-primary); color: var(--text-primary); border-radius: var(--radius-small);">2</button>
+                    <button class="page-btn" style="padding: var(--space-sm) var(--space-md); border: 1px solid var(--border-secondary); background: var(--bg-primary); color: var(--text-primary); border-radius: var(--radius-small);">3</button>
+                    <span style="padding: var(--space-sm); color: var(--text-muted);">...</span>
+                    <button class="page-btn" style="padding: var(--space-sm) var(--space-md); border: 1px solid var(--border-secondary); background: var(--bg-primary); color: var(--text-primary); border-radius: var(--radius-small);">7</button>
+                </div>
+                
+                <button class="btn btn-outline">
+                    Next
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>LFLshop</h4>
+                    <p style="color: var(--text-secondary);">Connecting Ethiopian artisans with the world.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="collections.html">All Products</a></li>
+                        <li><a href="collections.html?category=clothing">Traditional Clothing</a></li>
+                        <li><a href="collections.html?category=coffee">Coffee & Spices</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#shipping">Shipping</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Artisans</h4>
+                    <ul>
+                        <li><a href="signup.html">Become a Seller</a></li>
+                        <li><a href="#seller-guide">Seller Guide</a></li>
+                        <li><a href="#fair-trade">Fair Trade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LFLshop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div id="notification-container"></div>
+
+    
+    <script src="js/main.js"></script>
+    <script>
+        function showProductDemo() {
+            showNotification('Product details page will be implemented in the full version', 'info');
+        }
+    </script>
+</body>
+</html>

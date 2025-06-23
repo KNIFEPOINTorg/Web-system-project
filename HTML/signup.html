@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - LFLshop Ethiopian Marketplace</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">LFLshop</a>
+            <div class="nav-actions">
+                <a href="signin.html" class="btn btn-outline">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-wrapper">
+            <div class="auth-branding">
+                <div class="branding-content">
+                    <h1>Join LFLshop</h1>
+                    <p>Discover authentic Ethiopian craftsmanship and connect with artisans from around the world.</p>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="far fa-gem"></i>
+                            <span>Shop authentic handcrafted items</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="far fa-building"></i>
+                            <span>Sell your own creations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="far fa-shield-alt"></i>
+                            <span>Secure and verified transactions</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="far fa-heart"></i>
+                            <span>Support Ethiopian artisans</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-form-container">
+                <div class="auth-form">
+                    <div class="form-header">
+                        <h2>Create Your Account</h2>
+                        <p>Choose how you'd like to use LFLshop</p>
+                    </div>
+
+                    <div class="user-type-selection">
+                        <h3>Account Type</h3>
+                        <div class="user-type-options">
+                            <label class="user-type-option active" data-type="shop-only">
+                                <input type="radio" name="userType" value="Shop Only" checked>
+                                <div class="option-content">
+                                    <div class="option-icon">
+                                        <i class="far fa-shopping-bag"></i>
+                                    </div>
+                                    <div class="option-details">
+                                        <h4>Shop Only</h4>
+                                        <p>Browse and purchase authentic Ethiopian crafts. No verification required.</p>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="user-type-option" data-type="shop-sell">
+                                <input type="radio" name="userType" value="Shop & Sell">
+                                <div class="option-content">
+                                    <div class="option-icon">
+                                        <i class="far fa-building"></i>
+                                    </div>
+                                    <div class="option-details">
+                                        <h4>Shop & Sell</h4>
+                                        <p>Shop and sell your products. Requires business verification.</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <form id="signup-form" class="registration-form">
+                        <div class="contact-method-selection">
+                            <h3>How would you like to sign up?</h3>
+                            <div class="method-tabs">
+                                <button type="button" class="method-tab active" data-method="email">
+                                    <i class="far fa-envelope"></i> Email
+                                </button>
+                                <button type="button" class="method-tab" data-method="phone">
+                                    <i class="far fa-phone"></i> Phone
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+                                    <span class="error-message" id="firstName-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                                    <span class="error-message" id="lastName-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group contact-input" id="email-input">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                            <div class="form-group contact-input hidden" id="phone-input">
+                                <label for="phone">Phone Number *</label>
+                                <div class="form-row">
+                                    <select id="countryCode" name="countryCode" class="form-input">
+                                        <option value="+251">🇪🇹 +251 (Ethiopia)</option>
+                                        <option value="+1">🇺🇸 +1 (USA)</option>
+                                        <option value="+44">🇬🇧 +44 (UK)</option>
+                                        <option value="+49">🇩🇪 +49 (Germany)</option>
+                                    </select>
+                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="912345678">
+                                </div>
+                                <span class="error-message" id="phone-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password *</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="password" name="password" class="form-input" required>
+                                    <button type="button" class="password-toggle" data-target="password">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="error-message" id="password-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password *</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+                                    <button type="button" class="password-toggle" data-target="confirmPassword">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="error-message" id="confirmPassword-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+                            </label>
+                            <span class="error-message" id="terms-error"></span>
+                        </div>
+                        <button type="submit" class="submit-btn" id="signup-btn">
+                            <span class="btn-text">Create Account</span>
+                            <span class="btn-loader">
+                                <i class="fas fa-spinner fa-spin"></i> Creating Account...
+                            </span>
+                        </button>
+
+                        <div class="form-divider">
+                            <span>or</span>
+                        </div>
+                        <div class="social-login">
+                            <button type="button" class="social-btn google-btn">
+                                <i class="fab fa-google"></i>
+                                Continue with Google
+                            </button>
+                            <button type="button" class="social-btn facebook-btn">
+                                <i class="fab fa-facebook"></i>
+                                Continue with Facebook
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="signin.html">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/validation.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
