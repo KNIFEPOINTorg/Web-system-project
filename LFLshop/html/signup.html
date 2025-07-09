@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .auth-container {
+            min-height: calc(100vh - var(--navbar-height));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            padding: var(--space-8) 0;
+        }
+        
+        .auth-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-12);
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .auth-logo {
+            margin-bottom: var(--space-4);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .auth-logo img {
+            height: 60px;
+            width: auto;
+        }
+        
+        .auth-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .auth-form {
+            margin-bottom: var(--space-6);
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-5);
+        }
+        
+        .form-section {
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .form-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: var(--space-6);
+        }
+        
+        .section-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .section-icon {
+            color: var(--primary-color);
+            font-size: var(--text-base);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: var(--space-4);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            font-size: var(--text-base);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+        
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin-bottom: var(--space-2);
+        }
+        
+        .user-type-option {
+            position: relative;
+        }
+        
+        .user-type-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+        .user-type-card {
+            border: 2px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6) var(--space-4);
+            text-align: center;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            background: var(--white);
+            position: relative;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-type-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .user-type-option input[type="radio"]:checked + .user-type-card {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--bg-accent) 0%, rgba(212, 165, 116, 0.1) 100%);
+            box-shadow: 0 4px 16px rgba(212, 165, 116, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .user-type-option input[type="radio"]:checked + .user-type-card::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--primary-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .user-type-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: var(--space-3);
+            transition: all var(--transition-fast);
+        }
+        
+        .user-type-option input[type="radio"]:checked + .user-type-card .user-type-icon {
+            transform: scale(1.1);
+        }
+        
+        .user-type-title {
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+        
+        .user-type-description {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: 1.4;
+            max-width: 180px;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+        
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 2px;
+        }
+        
+        .terms-text {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .terms-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .auth-footer p {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-4);
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: var(--font-medium);
+            text-decoration: none;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-type-selector {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .user-type-card {
+                min-height: 120px;
+                padding: var(--space-5) var(--space-3);
+            }
+            
+            .user-type-icon {
+                font-size: 2rem;
+            }
+            
+            .user-type-description {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <!-- Navigation Icons (Hidden on public pages) -->
+                <div class="nav-icons" style="display: none;">
+                    <a href="#" class="nav-icon notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="auth-links">
+                    <a href="signin.html">Sign In</a>
+                    <span class="auth-divider">|</span>
+                    <a href="signup.html">Sign Up</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Join Ethiopia's premier marketplace for authentic products</p>
+            </div>
+
+            <form class="auth-form" id="signup-form">
+                <!-- Account Type Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-tag section-icon"></i>
+                        Account Type
+                    </div>
+                    <div class="form-group">
+                        <div class="user-type-selector">
+                            <div class="user-type-option">
+                                <input type="radio" name="user-type" id="customer" value="customer" checked>
+                                <label for="customer" class="user-type-card">
+                                    <div class="user-type-icon">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </div>
+                                    <div class="user-type-title">Shop Products</div>
+                                    <div class="user-type-description">Browse and buy authentic Ethiopian products</div>
+                                </label>
+                            </div>
+                            <div class="user-type-option">
+                                <input type="radio" name="user-type" id="seller" value="seller">
+                                <label for="seller" class="user-type-card">
+                                    <div class="user-type-icon">
+                                        <i class="fas fa-store"></i>
+                                    </div>
+                                    <div class="user-type-title">Sell Products</div>
+                                    <div class="user-type-description">Start selling your authentic Ethiopian products</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user section-icon"></i>
+                        Personal Information
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name" class="form-label">First Name</label>
+                            <input type="text" id="first-name" class="form-input" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name" class="form-label">Last Name</label>
+                            <input type="text" id="last-name" class="form-input" placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <!-- Security Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-lock section-icon"></i>
+                        Security
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-input" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" id="confirm-password" class="form-input" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact & Location Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-map-marker-alt section-icon"></i>
+                        Contact & Location
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" class="form-input" placeholder="+251 911 123 456">
+                    </div>
+                    <div class="form-group">
+                        <label for="region" class="form-label">City</label>
+                        <select id="region" class="form-select" required>
+                            <option value="">Select your city</option>
+                            <option value="addis-ababa">Addis Ababa</option>
+                            <option value="dire-dawa">Dire Dawa</option>
+                            <option value="mekelle">Mekelle</option>
+                            <option value="gondar">Gondar</option>
+                            <option value="awassa">Awassa</option>
+                            <option value="bahir-dar">Bahir Dar</option>
+                            <option value="jimma">Jimma</option>
+                            <option value="jijiga">Jijiga</option>
+                            <option value="shashamane">Shashamane</option>
+                            <option value="nekemte">Nekemte</option>
+                            <option value="harar">Harar</option>
+                            <option value="debre-markos">Debre Markos</option>
+                            <option value="yirgacheffe">Yirgacheffe</option>
+                            <option value="lalibela">Lalibela</option>
+                            <option value="axum">Axum</option>
+                            <option value="somali">Somali</option>
+                            <option value="benishangul">Benishangul-Gumuz</option>
+                            <option value="gambela">Gambela</option>
+                            <option value="harari">Harari</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Terms and Submit -->
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms" class="terms-text">
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. 
+                        I also agree to receive marketing communications from LFLshop.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full btn-lg" id="signup-submit-btn">
+                    <i class="fas fa-user-plus"></i>
+                    <span id="submit-btn-text">Create Account</span>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account?</p>
+                <a href="signin.html">Sign in here</a>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/auth-state-manager.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            
+            // Update button text based on user type selection
+            const userTypeRadios = document.querySelectorAll('input[name="user-type"]');
+            userTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateSubmitButton();
+                });
+            });
+            
+            // Initialize button text
+            updateSubmitButton();
+            
+            // Handle signup form submission - simplified without KYC
+            const signupForm = document.getElementById('signup-form');
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Let auth manager handle all registrations directly
+                if (typeof authManager !== 'undefined' && authManager.handleSignUp) {
+                    authManager.handleSignUp(e);
+                }
+            });
+        });
+
+        // Update submit button text based on user type - simplified without KYC
+        function updateSubmitButton() {
+            const userType = document.querySelector('input[name="user-type"]:checked').value;
+            const submitBtnText = document.getElementById('submit-btn-text');
+            const submitBtnIcon = document.querySelector('#signup-submit-btn i');
+
+            // Same button text for all user types - no KYC step
+            submitBtnText.textContent = 'Create Account';
+            submitBtnIcon.className = 'fas fa-user-plus';
+        }
+
+
+    </script>
+</body>
+</html>

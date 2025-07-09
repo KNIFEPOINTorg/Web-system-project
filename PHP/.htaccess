@@ -1,0 +1,11 @@
+# Protect PHP configuration files
+<FilesMatch "^(config|database)">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Allow access to API endpoints and handlers
+<FilesMatch "\.(php)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>

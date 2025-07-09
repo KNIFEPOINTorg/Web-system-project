@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard - LFLshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard-styles.css">
+    <link rel="stylesheet" href="../css/category-selector.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="expand-icon">+</div>
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="collections.html">Collections</a></li>
+                <li><a href="sale.html">Sale</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-icons">
+                    <!-- Notification Icon -->
+                    <div class="notification-dropdown" id="notification-dropdown" style="display: none;">
+                        <a href="#" class="nav-icon notification-icon" id="notification-icon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count" id="notification-count">0</span>
+                        </a>
+                        <div class="notification-panel" id="notification-panel">
+                            <div class="notification-header">
+                                <h4>Notifications</h4>
+                                <div class="notification-actions">
+                                    <button class="mark-all-read" id="mark-all-read">Mark all read</button>
+                                    <button class="clear-all" id="clear-all">Clear all</button>
+                                </div>
+                            </div>
+                            <div class="notification-list" id="notification-list">
+                                <!-- Notifications will be populated here -->
+                            </div>
+                            <div class="notification-footer">
+                                <a href="#" class="view-all-notifications">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Icon -->
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="nav-cart-count">0</span>
+                    </a>
+
+                    <!-- Auth Links -->
+                    <div class="auth-links">
+                        <a href="signin.html">Sign In</a>
+                        <span class="auth-divider">|</span>
+                        <a href="signup.html">Sign Up</a>
+                    </div>
+
+                    <!-- Profile Dropdown -->
+                    <div class="profile-dropdown" style="display: none;">
+                        <a href="#" class="nav-icon user-icon"><i class="far fa-user"></i></a>
+                        <div class="dropdown-menu">
+                            <!-- Content will be populated by auth.js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="sidebar-user-name">John Doe</h3>
+                    <p id="sidebar-user-email">john@example.com</p>
+                    <span class="user-badge" id="sidebar-user-type">Shop & Sell</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <a href="#overview" class="nav-link" data-section="overview">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orders" class="nav-link" data-section="orders">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>My Orders</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#wishlist" class="nav-link" data-section="wishlist">
+                            <i class="fas fa-heart"></i>
+                            <span>Wishlist</span>
+                        </a>
+                    </li>
+                    <li class="nav-item shopper-only">
+                        <a href="#recommendations" class="nav-link" data-section="recommendations">
+                            <i class="fas fa-magic"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li class="nav-item shopper-only">
+                        <a href="#browsing-history" class="nav-link" data-section="browsing-history">
+                            <i class="fas fa-history"></i>
+                            <span>Browsing History</span>
+                        </a>
+                    </li>
+                    <li class="nav-item shopper-only">
+                        <a href="#loyalty" class="nav-link" data-section="loyalty">
+                            <i class="fas fa-star"></i>
+                            <span>Loyalty Program</span>
+                        </a>
+                    </li>
+                    <li class="nav-item seller-only" style="display: none;">
+                        <a href="#products" class="nav-link" data-section="products">
+                            <i class="fas fa-box"></i>
+                            <span>My Products</span>
+                        </a>
+                    </li>
+                    <li class="nav-item seller-only" style="display: none;">
+                        <a href="#sales" class="nav-link" data-section="sales">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Sales Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile" class="nav-link" data-section="profile">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="dashboard-main">
+            <!-- Overview Section -->
+            <section class="dashboard-section active" id="overview">
+                <div class="section-header">
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome back! Here's what's happening with your account.</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-orders">12</h3>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="wishlist-count">5</h3>
+                            <p>Wishlist Items</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card shopper-only">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-spent">$485.50</h3>
+                            <p>Total Spent</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card shopper-only">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="loyalty-points">245</h3>
+                            <p>Loyalty Points</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card seller-only" style="display: none;">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="products-count">24</h3>
+                            <p>Products Listed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card seller-only" style="display: none;">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-earnings">$2,450</h3>
+                            <p>Total Earnings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Order Placed</h4>
+                                <p>Traditional Habesha Dress - Order #LFL-2024-001</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Item Added to Wishlist</h4>
+                                <p>Silver Filigree Necklace</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item seller-only" style="display: none;">
+                            <div class="activity-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>New Review Received</h4>
+                                <p>5-star review for Ethiopian Coffee Beans</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <a href="explore.html" class="action-card">
+                            <i class="fas fa-search"></i>
+                            <span>Browse Products</span>
+                        </a>
+                        
+                        <a href="#orders" class="action-card" onclick="switchSection('orders')">
+                            <i class="fas fa-list"></i>
+                            <span>View Orders</span>
+                        </a>
+                        
+                        <a href="#wishlist" class="action-card" onclick="switchSection('wishlist')">
+                            <i class="fas fa-heart"></i>
+                            <span>My Wishlist</span>
+                        </a>
+                        
+                        <a href="#" class="action-card seller-only" style="display: none;">
+                            <i class="fas fa-plus"></i>
+                            <span>Add Product</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section class="dashboard-section" id="orders">
+                <div class="section-header">
+                    <h1>My Orders</h1>
+                    <p>Track and manage your orders</p>
+                </div>
+                
+                <div class="orders-container">
+                    <div class="order-filters">
+                        <button class="filter-btn active" data-filter="all">All Orders</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="out-for-delivery">Out for Delivery</button>
+                        <button class="filter-btn" data-filter="delivered">Delivered</button>
+                    </div>
+                    
+                    <div class="orders-list" id="orders-list">
+                        <!-- Orders will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wishlist Section -->
+            <section class="dashboard-section" id="wishlist">
+                <div class="section-header">
+                    <h1>My Wishlist</h1>
+                    <p>Items you've saved for later</p>
+                </div>
+
+                <div class="wishlist-grid" id="wishlist-grid">
+                    <!-- Wishlist items will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Recommendations Section (Shopper Only) -->
+            <section class="dashboard-section shopper-only" id="recommendations" style="display: none;">
+                <div class="section-header">
+                    <h1>Recommended For You</h1>
+                    <p>Handpicked items based on your preferences and browsing history</p>
+                </div>
+
+                <div class="recommendations-grid" id="recommendations-grid">
+                    <!-- Recommendations will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Browsing History Section (Shopper Only) -->
+            <section class="dashboard-section shopper-only" id="browsing-history" style="display: none;">
+                <div class="section-header">
+                    <h1>Recently Viewed</h1>
+                    <p>Items you've looked at recently</p>
+                    <button class="btn-secondary clear-history-btn">
+                        <i class="fas fa-trash"></i> Clear History
+                    </button>
+                </div>
+
+                <div class="browsing-history-grid" id="browsing-history-grid">
+                    <!-- Browsing history will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Loyalty Program Section (Shopper Only) -->
+            <section class="dashboard-section shopper-only" id="loyalty" style="display: none;">
+                <div class="section-header">
+                    <h1>Loyalty Program</h1>
+                    <p>Earn points with every purchase and unlock exclusive rewards</p>
+                </div>
+
+                <div class="loyalty-container">
+                    <!-- Membership Status -->
+                    <div class="membership-card">
+                        <div class="membership-header">
+                            <div class="membership-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="membership-info">
+                                <h3 id="membership-level">Bronze Member</h3>
+                                <p>Member since January 2024</p>
+                            </div>
+                        </div>
+
+                        <div class="points-display">
+                            <div class="current-points">
+                                <span class="points-number" id="current-points">245</span>
+                                <span class="points-label">Points</span>
+                            </div>
+                            <div class="next-tier">
+                                <p>55 points to Silver tier</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 82%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Available Rewards -->
+                    <div class="rewards-section">
+                        <h3>Available Rewards</h3>
+                        <div class="rewards-grid">
+                            <div class="reward-card">
+                                <div class="reward-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="reward-info">
+                                    <h4>10% Off Next Purchase</h4>
+                                    <p>100 points</p>
+                                    <button class="btn-primary redeem-btn">Redeem</button>
+                                </div>
+                            </div>
+
+                            <div class="reward-card">
+                                <div class="reward-icon">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <div class="reward-info">
+                                    <h4>Free Shipping</h4>
+                                    <p>150 points</p>
+                                    <button class="btn-primary redeem-btn">Redeem</button>
+                                </div>
+                            </div>
+
+                            <div class="reward-card locked">
+                                <div class="reward-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div class="reward-info">
+                                    <h4>Exclusive Gift</h4>
+                                    <p>300 points</p>
+                                    <button class="btn-secondary" disabled>Not Available</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Points History -->
+                    <div class="points-history">
+                        <h3>Recent Points Activity</h3>
+                        <div class="points-list">
+                            <div class="points-item">
+                                <div class="points-action">
+                                    <i class="fas fa-plus text-success"></i>
+                                    <span>Purchase - Order #LFL-2024-001</span>
+                                </div>
+                                <div class="points-amount">+45 points</div>
+                                <div class="points-date">Jan 20, 2024</div>
+                            </div>
+
+                            <div class="points-item">
+                                <div class="points-action">
+                                    <i class="fas fa-plus text-success"></i>
+                                    <span>Purchase - Order #LFL-2024-002</span>
+                                </div>
+                                <div class="points-amount">+78 points</div>
+                                <div class="points-date">Jan 18, 2024</div>
+                            </div>
+
+                            <div class="points-item">
+                                <div class="points-action">
+                                    <i class="fas fa-minus text-danger"></i>
+                                    <span>Redeemed - 10% Off Coupon</span>
+                                </div>
+                                <div class="points-amount">-100 points</div>
+                                <div class="points-date">Jan 15, 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section (Seller Only) -->
+            <section class="dashboard-section seller-only" id="products" style="display: none;">
+                <div class="section-header">
+                    <h1>My Products</h1>
+                    <p>Manage your product listings</p>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="openAddProductModal()">
+                            <i class="fas fa-plus"></i> Add New Product
+                        </button>
+                        <button class="btn btn-outline" onclick="openCustomCategoryModal()">
+                            <i class="fas fa-tags"></i> Request Custom Category
+                        </button>
+                    </div>
+                </div>
+
+                <div class="products-container">
+                    <!-- Product Filters -->
+                    <div class="products-filters">
+                        <div class="filter-group">
+                            <label for="category-filter">Category:</label>
+                            <select id="category-filter" class="filter-select">
+                                <option value="">All Categories</option>
+                                <!-- Categories will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="status-filter">Status:</label>
+                            <select id="status-filter" class="filter-select">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="draft">Draft</option>
+                                <option value="out-of-stock">Out of Stock</option>
+                            </select>
+                        </div>
+                        <div class="search-group">
+                            <input type="text" id="product-search" placeholder="Search products..." class="search-input">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="products-grid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sales Analytics Section (Seller Only) -->
+            <section class="dashboard-section seller-only" id="sales" style="display: none;">
+                <div class="section-header">
+                    <h1>Sales Analytics</h1>
+                    <p>Track your sales performance</p>
+                </div>
+                
+                <div class="analytics-container">
+                    <div class="analytics-cards">
+                        <div class="analytics-card">
+                            <h3>This Month</h3>
+                            <div class="metric">
+                                <span class="value">$1,250</span>
+                                <span class="label">Revenue</span>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Orders</h3>
+                            <div class="metric">
+                                <span class="value">45</span>
+                                <span class="label">This Month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Average Rating</h3>
+                            <div class="metric">
+                                <span class="value">4.8</span>
+                                <span class="label">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Settings Section -->
+            <section class="dashboard-section" id="profile">
+                <div class="section-header">
+                    <h1>Profile Settings</h1>
+                    <p>Manage your account information</p>
+                </div>
+                
+                <div class="profile-container">
+                    <form class="profile-form" id="profile-form">
+                        <div class="form-section">
+                            <h3>Personal Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profile-firstName">First Name</label>
+                                    <input type="text" id="profile-firstName" value="John">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-lastName">Last Name</label>
+                                    <input type="text" id="profile-lastName" value="Doe">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="profile-email">Email Address</label>
+                                <input type="email" id="profile-email" value="john@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="profile-phone">Phone Number</label>
+                                <input type="tel" id="profile-phone" value="+1 (555) 123-4567">
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Account Type</h3>
+                            <div class="account-type-display">
+                                <div class="current-type">
+                                    <i class="fas fa-store"></i>
+                                    <div>
+                                        <h4>Shop & Sell Account</h4>
+                                        <p>You can buy and sell products on LFLshop</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-secondary upgrade-btn" style="display: none;">
+                                    <i class="fas fa-arrow-up"></i> Upgrade to Seller
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                            <button type="button" class="btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Product</h2>
+                <button class="modal-close" onclick="closeAddProductModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="add-product-form" class="product-form">
+                <!-- Basic Product Information -->
+                <div class="form-section">
+                    <h3>Basic Information</h3>
+
+                    <div class="form-group">
+                        <label for="product-name">Product Name <span class="required">*</span></label>
+                        <input type="text" id="product-name" name="productName" required
+                               placeholder="e.g., Traditional Habesha Dress">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-description">Description <span class="required">*</span></label>
+                        <textarea id="product-description" name="productDescription" rows="4" required
+                                  placeholder="Describe your product in detail..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-price">Price (ETB) <span class="required">*</span></label>
+                            <input type="number" id="product-price" name="productPrice" required
+                                   min="0" step="0.01" placeholder="0.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-quantity">Quantity <span class="required">*</span></label>
+                            <input type="number" id="product-quantity" name="productQuantity" required
+                                   min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="form-section">
+                    <div id="product-category-selector">
+                        <!-- Category selector will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Product Images -->
+                <div class="form-section">
+                    <h3>Product Images</h3>
+                    <div class="image-upload-area">
+                        <div class="upload-zone" onclick="document.getElementById('product-images').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload images or drag and drop</p>
+                            <small>Supported formats: JPG, PNG, WebP (Max 5MB each)</small>
+                        </div>
+                        <input type="file" id="product-images" name="productImages" multiple
+                               accept="image/*" style="display: none;">
+                        <div id="image-preview" class="image-preview-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Additional Details -->
+                <div class="form-section">
+                    <h3>Additional Details</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-sku">SKU (Optional)</label>
+                            <input type="text" id="product-sku" name="productSku"
+                                   placeholder="Product SKU">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-weight">Weight (kg)</label>
+                            <input type="number" id="product-weight" name="productWeight"
+                                   min="0" step="0.01" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-tags">Tags (comma-separated)</label>
+                        <input type="text" id="product-tags" name="productTags"
+                               placeholder="e.g., handmade, traditional, cotton">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="product-featured" name="productFeatured">
+                            <span class="checkmark"></span>
+                            Feature this product
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeAddProductModal()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Add Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Category Request Modal -->
+    <div id="custom-category-modal" class="modal" style="display: none;">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Request Custom Category</h2>
+                <button class="modal-close" onclick="closeCustomCategoryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="custom-category-form-container">
+                <!-- Custom category form will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/notifications.js"></script>
+    <script src="../javascript/navigation.js"></script>
+    <script src="../javascript/toast-notifications.js"></script>
+    <script src="../javascript/seller-accounts.js"></script>
+    <script src="../javascript/category-system.js"></script>
+    <script src="../javascript/category-selector.js"></script>
+    <script src="../javascript/custom-category-system.js"></script>
+    <script src="../javascript/sellers.js"></script>
+    <script src="../javascript/dashboard.js"></script>
+    <script src="../javascript/dashboard-script.js"></script>
+</body>
+</html>

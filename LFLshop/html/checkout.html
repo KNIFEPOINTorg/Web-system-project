@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - LFLshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/checkout-styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="expand-icon">+</div>
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="collections.html">Collections</a></li>
+                <li><a href="sale.html">Sale</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-icons">
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="nav-cart-count">0</span>
+                    </a>
+                    <div class="auth-links">
+                        <a href="signin.html">Sign In</a>
+                        <span class="auth-divider">|</span>
+                        <a href="signup.html">Sign Up</a>
+                    </div>
+                    <div class="profile-dropdown" style="display: none;">
+                        <a href="#" class="nav-icon user-icon"><i class="far fa-user"></i></a>
+                        <div class="dropdown-menu">
+                            <!-- Content will be populated by auth.js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Container -->
+    <div class="checkout-container">
+        <!-- Progress Steps -->
+        <div class="checkout-progress">
+            <div class="progress-step active">
+                <div class="step-number">1</div>
+                <span>Cart</span>
+            </div>
+            <div class="progress-step active">
+                <div class="step-number">2</div>
+                <span>Delivery</span>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">3</div>
+                <span>Payment</span>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">4</div>
+                <span>Confirmation</span>
+            </div>
+        </div>
+
+        <div class="checkout-content">
+            <!-- Left Side - Checkout Form -->
+            <div class="checkout-form">
+                <!-- Delivery Information -->
+                <section class="checkout-section">
+                    <h2><i class="fas fa-truck"></i> Delivery Information</h2>
+                    <div class="delivery-notice">
+                        <div class="notice-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="notice-content">
+                            <h4>Major Ethiopian Cities Delivery</h4>
+                            <p>We deliver to major cities across Ethiopia. Select your city below for delivery options.</p>
+                        </div>
+                    </div>
+
+                    <form id="delivery-form">
+                        <input type="hidden" id="csrf-token" name="csrf_token" value="">
+                        <!-- Contact Information -->
+                        <div class="form-section">
+                            <h3>Contact Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <div class="phone-input">
+                                    <select id="countryCode">
+                                        <option value="+251">🇪🇹 +251</option>
+                                    </select>
+                                    <input type="tel" id="phone" name="phone" placeholder="9 12 34 56 78" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Address -->
+                        <div class="form-section">
+                            <h3>Delivery Address</h3>
+                            <div class="location-restriction">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Delivery available to major Ethiopian cities</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <select id="city" name="city" required>
+                                    <option value="">Select City</option>
+                                    <option value="addis-ababa">Addis Ababa</option>
+                                    <option value="dire-dawa">Dire Dawa</option>
+                                    <option value="mekelle">Mekelle</option>
+                                    <option value="gondar">Gondar</option>
+                                    <option value="hawassa">Hawassa</option>
+                                    <option value="bahir-dar">Bahir Dar</option>
+                                    <option value="dessie">Dessie</option>
+                                    <option value="jimma">Jimma</option>
+                                    <option value="jijiga">Jijiga</option>
+                                    <option value="shashemene">Shashemene</option>
+                                    <option value="arba-minch">Arba Minch</option>
+                                    <option value="nekemte">Nekemte</option>
+                                    <option value="debre-markos">Debre Markos</option>
+                                    <option value="adama">Adama (Nazret)</option>
+                                    <option value="bishoftu">Bishoftu (Debre Zeit)</option>
+                                    <option value="sebeta">Sebeta</option>
+                                    <option value="sodo">Sodo</option>
+                                    <option value="dilla">Dilla</option>
+                                    <option value="asella">Asella</option>
+                                    <option value="kombolcha">Kombolcha</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="district">District/Area *</label>
+                                <input type="text" id="district" name="district" placeholder="Enter district or area name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="streetAddress">Street Address *</label>
+                                <input type="text" id="streetAddress" name="streetAddress" placeholder="House number, street name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="landmark">Nearby Landmark</label>
+                                <input type="text" id="landmark" name="landmark" placeholder="e.g., Near Meskel Square, Behind Commercial Bank">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="deliveryNotes">Delivery Instructions</label>
+                                <textarea id="deliveryNotes" name="deliveryNotes" rows="3" placeholder="Special instructions for delivery (e.g., gate code, building entrance)"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Delivery Options -->
+                <section class="checkout-section">
+                    <h2><i class="fas fa-shipping-fast"></i> Delivery Options</h2>
+                    
+                    <div class="delivery-options">
+                        <!-- LFLshop Fast Delivery -->
+                        <div class="delivery-option active" data-option="lfl-delivery">
+                            <div class="option-header">
+                                <input type="radio" name="deliveryMethod" value="lfl-delivery" checked>
+                                <div class="option-info">
+                                    <h4>LFLshop Fast Delivery</h4>
+                                    <p>Our own delivery service for faster transfer times</p>
+                                </div>
+                                <div class="option-price">
+                                    <span class="price">50 ETB</span>
+                                </div>
+                            </div>
+                            <div class="option-details">
+                                <div class="delivery-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Same day delivery (2-6 hours) - Addis Ababa</span>
+                                </div>
+                                <div class="delivery-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span>1-2 business days - Other cities</span>
+                                </div>
+                                <div class="delivery-features">
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Real-time tracking</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>SMS notifications</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Direct contact with delivery person</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Third-party Delivery -->
+                        <div class="delivery-option" data-option="partner-delivery">
+                            <div class="option-header">
+                                <input type="radio" name="deliveryMethod" value="partner-delivery">
+                                <div class="option-info">
+                                    <h4>ZayRide Delivery</h4>
+                                    <p>Trusted local delivery partner</p>
+                                </div>
+                                <div class="option-price">
+                                    <span class="price">35 ETB</span>
+                                </div>
+                            </div>
+                            <div class="option-details">
+                                <div class="delivery-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span>2-3 business days</span>
+                                </div>
+                                <div class="delivery-features">
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Reliable service</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>SMS updates</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Affordable rates</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coming Soon Notice -->
+                    <div class="coming-soon-notice">
+                        <div class="notice-header">
+                            <i class="fas fa-rocket"></i>
+                            <h4>Expanding Soon!</h4>
+                        </div>
+                        <p>We're working to bring LFLshop delivery to more cities across Ethiopia. Local shipping and broader delivery areas will be available soon.</p>
+                        <div class="expansion-cities">
+                            <span class="city">Gambela</span>
+                            <span class="city">Afar</span>
+                            <span class="city">Harar</span>
+                            <span class="city">Axum</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Delivery Time Selection -->
+                <section class="checkout-section">
+                    <h2><i class="fas fa-calendar-alt"></i> Preferred Delivery Time</h2>
+                    
+                    <div class="time-selection">
+                        <div class="time-option">
+                            <input type="radio" name="deliveryTime" value="asap" id="asap" checked>
+                            <label for="asap">
+                                <div class="time-info">
+                                    <h4>As Soon As Possible</h4>
+                                    <p>Deliver at the earliest available time</p>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div class="time-option">
+                            <input type="radio" name="deliveryTime" value="scheduled" id="scheduled">
+                            <label for="scheduled">
+                                <div class="time-info">
+                                    <h4>Schedule Delivery</h4>
+                                    <p>Choose a specific date and time</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="scheduled-time" id="scheduled-time" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deliveryDate">Delivery Date</label>
+                                <input type="date" id="deliveryDate" name="deliveryDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="deliveryTimeSlot">Time Slot</label>
+                                <select id="deliveryTimeSlot" name="deliveryTimeSlot">
+                                    <option value="">Select time slot</option>
+                                    <option value="morning">Morning (9:00 AM - 12:00 PM)</option>
+                                    <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
+                                    <option value="evening">Evening (5:00 PM - 8:00 PM)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment Section -->
+                <section class="checkout-section">
+                    <h2><i class="fas fa-credit-card"></i> Payment Method</h2>
+
+                    <div class="payment-options">
+                        <div class="payment-option active" data-payment="cash">
+                            <div class="option-header">
+                                <input type="radio" name="paymentMethod" value="cash" checked>
+                                <div class="option-info">
+                                    <h4>Cash on Delivery</h4>
+                                    <p>Pay when your order arrives</p>
+                                </div>
+                                <div class="option-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-option disabled" data-payment="card">
+                            <div class="option-header">
+                                <input type="radio" name="paymentMethod" value="card" disabled>
+                                <div class="option-info">
+                                    <h4>Credit/Debit Card</h4>
+                                    <p>Coming soon</p>
+                                </div>
+                                <div class="option-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-option disabled" data-payment="mobile">
+                            <div class="option-header">
+                                <input type="radio" name="paymentMethod" value="mobile" disabled>
+                                <div class="option-info">
+                                    <h4>Mobile Payment</h4>
+                                    <p>Coming soon</p>
+                                </div>
+                                <div class="option-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Action Buttons -->
+                <div class="checkout-actions">
+                    <button type="button" class="btn-secondary back-btn" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-arrow-left"></i> Back to Cart
+                    </button>
+                    <button type="button" class="btn-primary place-order-btn" id="place-order-btn">
+                        <i class="fas fa-check-circle"></i> Place Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side - Order Summary -->
+            <div class="order-summary">
+                <div class="summary-card">
+                    <h3>Order Summary</h3>
+                    
+                    <div class="order-items" id="checkout-order-items">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-line">
+                            <span>Subtotal (<span id="checkout-item-count">0</span> items):</span>
+                            <span id="checkout-subtotal">0 ETB</span>
+                        </div>
+                        <div class="total-line">
+                            <span>Delivery Fee:</span>
+                            <span id="delivery-fee">50 ETB</span>
+                        </div>
+                        <div class="total-line total">
+                            <span>Total:</span>
+                            <span id="order-total">0 ETB</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-summary">
+                        <h4>Delivery Details</h4>
+                        <div class="delivery-info">
+                            <div class="info-item">
+                                <i class="fas fa-truck"></i>
+                                <span id="selected-delivery">LFLshop Fast Delivery</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span id="delivery-time-display">Same day delivery (2-6 hours)</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="delivery-location">Ethiopia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="modal" id="confirmation-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="confirmation-content">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Order Confirmed!</h2>
+                <p>Thank you for your order. We'll contact you shortly to confirm delivery details.</p>
+                <div class="order-number">
+                    Order #<span id="order-number"></span>
+                </div>
+                <div class="confirmation-actions">
+                    <button class="btn-primary" onclick="window.location.href='index.html'">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification" id="notification" style="display: none;">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <span class="notification-message"></span>
+            <button class="notification-close">&times;</button>
+        </div>
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/form-validator.js"></script>
+    <script src="../javascript/checkout.js"></script>
+    <script>
+        // Ethiopian phone validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('blur', function() {
+                    const phone = this.value.trim();
+                    const countryCode = document.getElementById('countryCode').value;
+                    const fullPhone = countryCode === '+251' ? '+251' + phone : phone;
+
+                    if (phone && !FormValidator.validateEthiopianPhone(fullPhone)) {
+                        this.setCustomValidity('Please enter a valid Ethiopian phone number (09/07 or +251)');
+                        this.style.borderColor = '#dc3545';
+                    } else {
+                        this.setCustomValidity('');
+                        this.style.borderColor = '#28a745';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            padding: 2rem;
+        }
+        
+        .error-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            background: #dc3545;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            animation: shake 0.6s ease-in-out;
+        }
+        
+        .error-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .error-message {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .error-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .error-reason {
+            font-weight: 600;
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .help-info {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .test-cards {
+            background: #e7f3ff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .test-cards h4 {
+            color: #0066cc;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-cards ul {
+            text-align: left;
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="error-icon">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <h1 class="error-title">Payment Failed</h1>
+            <p class="error-message">
+                We're sorry, but your payment could not be processed. Please check your payment details and try again.
+            </p>
+            
+            <div class="error-details">
+                <div class="error-reason">Reason: <span id="error-reason">Payment declined</span></div>
+                <div>Transaction ID: <span id="transaction-id">N/A</span></div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="checkout.html" class="btn btn-primary">
+                    <i class="fas fa-redo"></i> Try Again
+                </a>
+                <a href="cart.html" class="btn btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> Back to Cart
+                </a>
+            </div>
+            
+            <div class="help-info">
+                <p><strong>Need Help?</strong></p>
+                <p>If you continue to experience issues, please contact our support team or try a different payment method.</p>
+                
+                <div class="test-cards">
+                    <h4>Demo Test Cards:</h4>
+                    <ul>
+                        <li><strong>Success:</strong> 4111 1111 1111 1111</li>
+                        <li><strong>Declined:</strong> 4000 0000 0000 0002</li>
+                        <li><strong>Any CVV and future expiry date</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get error details from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const reason = urlParams.get('reason') || 'Payment declined';
+            const transactionId = urlParams.get('transaction_id') || 'N/A';
+            
+            document.getElementById('error-reason').textContent = reason;
+            document.getElementById('transaction-id').textContent = transactionId;
+        });
+    </script>
+</body>
+</html>

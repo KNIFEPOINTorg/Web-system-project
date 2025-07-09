@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFLshop Dashboard - View Product</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/action-buttons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>LFLshop</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    Home
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <span class="nav-icon">📦</span>
+                    Orders
+                </a>
+                <a href="products.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    List Your Product
+                </a>
+                <a href="listings.html" class="nav-item active">
+                    <span class="nav-icon">👥</span>
+                    My Listing
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    Analytics
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <span class="breadcrumb">LFLshop</span>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="notifications" onclick="toggleNotifications()">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge">3</span>
+                        <div id="notificationDropdown" class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read" onclick="markAllAsRead()">Mark all as read</button>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <div class="notification-icon-small">📦</div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">New Order Received</div>
+                                        <div class="notification-text">Order #1237 from Sarah Johnson</div>
+                                        <div class="notification-time">2 minutes ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-footer">
+                                <a href="#" class="view-all-link">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="help-icon">
+                        <span>❓</span>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <a href="listings.html" class="back-button">← Back to My Listings</a>
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <h1 id="productTitle">Handwoven Basket</h1>
+                            <p>Product details and performance overview</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-outline" onclick="editProduct()">
+                                <i class="fas fa-edit"></i>
+                                Edit Product
+                            </button>
+                            <button class="btn btn-secondary" onclick="shareProduct()">
+                                <i class="fas fa-share"></i>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view-product-container">
+                    <div class="product-main-info">
+                        <div class="product-images">
+                            <div class="main-image">
+                                <img id="mainProductImage" src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop" alt="Product Image">
+                            </div>
+                            <div class="image-thumbnails">
+                                <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=80&h=80&fit=crop" alt="Thumbnail 1" class="thumbnail active">
+                                <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=80&h=80&fit=crop&sat=-100" alt="Thumbnail 2" class="thumbnail">
+                                <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=80&h=80&fit=crop&hue=30" alt="Thumbnail 3" class="thumbnail">
+                            </div>
+                        </div>
+
+                        <div class="product-details">
+                            <div class="product-header">
+                                <h2 id="productName">Handwoven Basket</h2>
+                                <div class="product-meta">
+                                    <span class="sku">SKU: <span id="productSku">HB001</span></span>
+                                    <span class="status active" id="productStatus">Active</span>
+                                </div>
+                            </div>
+
+                            <div class="pricing-info">
+                                <div class="price-main" id="productPrice">$45.00</div>
+                                <div class="price-compare" id="comparePrice">$60.00</div>
+                                <div class="savings">Save $15.00 (25%)</div>
+                            </div>
+
+                            <div class="product-description">
+                                <h3>Description</h3>
+                                <p id="productDescription">Beautiful handwoven basket made from natural materials. Perfect for storage or decoration. Each piece is unique and crafted by skilled artisans using traditional techniques passed down through generations.</p>
+                            </div>
+
+                            <div class="product-specifications">
+                                <h3>Specifications</h3>
+                                <div class="spec-grid">
+                                    <div class="spec-item">
+                                        <span class="spec-label">Category:</span>
+                                        <span class="spec-value" id="productCategory">Home Decor</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Size:</span>
+                                        <span class="spec-value" id="productSize">Medium</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Color:</span>
+                                        <span class="spec-value" id="productColor">Brown</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Weight:</span>
+                                        <span class="spec-value" id="productWeight">0.5 kg</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Stock:</span>
+                                        <span class="spec-value" id="productStock">25 units</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-label">Delivery:</span>
+                                        <span class="spec-value" id="deliveryInfo">Local - $5.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-analytics">
+                        <div class="analytics-card">
+                            <h3>Performance Overview</h3>
+                            <div class="analytics-grid">
+                                <div class="metric">
+                                    <div class="metric-value">156</div>
+                                    <div class="metric-label">Total Views</div>
+                                    <div class="metric-change positive">+12%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">23</div>
+                                    <div class="metric-label">Orders</div>
+                                    <div class="metric-change positive">+8%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">14.7%</div>
+                                    <div class="metric-label">Conversion</div>
+                                    <div class="metric-change positive">+2.1%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">$1,035</div>
+                                    <div class="metric-label">Revenue</div>
+                                    <div class="metric-change positive">+15%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent-activity">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon">📦</div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">New Order</div>
+                                        <div class="activity-text">Order #1237 - 2 units</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">⭐</div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">New Review</div>
+                                        <div class="activity-text">5-star review from Sarah J.</div>
+                                        <div class="activity-time">1 day ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">👁️</div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Product Viewed</div>
+                                        <div class="activity-text">15 new views today</div>
+                                        <div class="activity-time">Today</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-actions">
+                            <h3>Actions</h3>
+                            <div class="action-buttons-vertical">
+                                <button class="action-btn-full" onclick="duplicateProduct()">
+                                    <i class="fas fa-copy"></i>
+                                    Duplicate Product
+                                </button>
+                                <button class="action-btn-full" onclick="toggleVisibility()">
+                                    <i class="fas fa-eye-slash"></i>
+                                    Hide from Store
+                                </button>
+                                <button class="action-btn-full" onclick="viewAnalytics()">
+                                    <i class="fas fa-chart-line"></i>
+                                    Detailed Analytics
+                                </button>
+                                <button class="action-btn-full danger" onclick="deleteProduct()">
+                                    <i class="fas fa-trash"></i>
+                                    Delete Product
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-products">
+                    <h3>Related Products</h3>
+                    <div class="related-grid">
+                        <div class="related-item">
+                            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=100&h=100&fit=crop" alt="Related Product">
+                            <div class="related-info">
+                                <div class="related-name">Traditional Coffee Set</div>
+                                <div class="related-price">$89.00</div>
+                            </div>
+                        </div>
+                        <div class="related-item">
+                            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=100&h=100&fit=crop" alt="Related Product">
+                            <div class="related-info">
+                                <div class="related-name">Ethiopian Spice Blend</div>
+                                <div class="related-price">$25.00</div>
+                            </div>
+                        </div>
+                        <div class="related-item">
+                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=100&h=100&fit=crop" alt="Related Product">
+                            <div class="related-info">
+                                <div class="related-name">Leather Sandals</div>
+                                <div class="related-price">$65.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Get product ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id') || 'HB001';
+
+        // Sample product data
+        const productData = {
+            'HB001': {
+                name: 'Handwoven Basket',
+                sku: 'HB001',
+                price: '$45.00',
+                comparePrice: '$60.00',
+                description: 'Beautiful handwoven basket made from natural materials. Perfect for storage or decoration. Each piece is unique and crafted by skilled artisans using traditional techniques passed down through generations.',
+                category: 'Home Decor',
+                size: 'Medium',
+                color: 'Brown',
+                weight: '0.5 kg',
+                stock: '25 units',
+                delivery: 'Local - $5.00',
+                status: 'active',
+                image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop'
+            }
+        };
+
+        // Load product data on page load
+        window.onload = function() {
+            loadProductData();
+        };
+
+        function loadProductData() {
+            const product = productData[productId];
+            if (product) {
+                document.getElementById('productTitle').textContent = product.name;
+                document.getElementById('productName').textContent = product.name;
+                document.getElementById('productSku').textContent = product.sku;
+                document.getElementById('productPrice').textContent = product.price;
+                document.getElementById('comparePrice').textContent = product.comparePrice;
+                document.getElementById('productDescription').textContent = product.description;
+                document.getElementById('productCategory').textContent = product.category;
+                document.getElementById('productSize').textContent = product.size;
+                document.getElementById('productColor').textContent = product.color;
+                document.getElementById('productWeight').textContent = product.weight;
+                document.getElementById('productStock').textContent = product.stock;
+                document.getElementById('deliveryInfo').textContent = product.delivery;
+                document.getElementById('mainProductImage').src = product.image;
+                
+                const statusElement = document.getElementById('productStatus');
+                statusElement.textContent = product.status.charAt(0).toUpperCase() + product.status.slice(1);
+                statusElement.className = `status ${product.status}`;
+            }
+        }
+
+        function editProduct() {
+            window.location.href = `edit-product.html?id=${productId}`;
+        }
+
+        function shareProduct() {
+            const url = window.location.origin + '/product/' + productId;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Product URL copied to clipboard!');
+            });
+        }
+
+        function duplicateProduct() {
+            if (confirm('Create a copy of this product?')) {
+                alert('Product duplicated successfully! Redirecting to edit the copy...');
+                // In a real app, this would create a copy and redirect to edit it
+                window.location.href = 'edit-product.html?id=new&template=' + productId;
+            }
+        }
+
+        function toggleVisibility() {
+            const currentStatus = document.getElementById('productStatus').textContent.toLowerCase();
+            if (currentStatus === 'active') {
+                if (confirm('Hide this product from your store?')) {
+                    alert('Product hidden from store.');
+                    document.getElementById('productStatus').textContent = 'Hidden';
+                    document.getElementById('productStatus').className = 'status draft';
+                }
+            } else {
+                if (confirm('Make this product visible in your store?')) {
+                    alert('Product is now visible in store.');
+                    document.getElementById('productStatus').textContent = 'Active';
+                    document.getElementById('productStatus').className = 'status active';
+                }
+            }
+        }
+
+        function viewAnalytics() {
+            window.location.href = `analytics.html?product=${productId}`;
+        }
+
+        function deleteProduct() {
+            if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+                alert('Product deleted successfully!');
+                window.location.href = 'listings.html';
+            }
+        }
+
+        // Thumbnail image switching
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('mainProductImage').src = this.src.replace('80x80', '400x400');
+            });
+        });
+
+        // Notification system
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function markAllAsRead() {
+            const unreadItems = document.querySelectorAll('.notification-item.unread');
+            unreadItems.forEach(item => {
+                item.classList.remove('unread');
+            });
+            
+            const badge = document.querySelector('.notification-badge');
+            badge.style.display = 'none';
+            
+            document.getElementById('notificationDropdown').style.display = 'none';
+        }
+
+        // Close notification dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const notifications = document.querySelector('.notifications');
+            const dropdown = document.getElementById('notificationDropdown');
+            
+            if (!notifications.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        document.getElementById('notificationDropdown').addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

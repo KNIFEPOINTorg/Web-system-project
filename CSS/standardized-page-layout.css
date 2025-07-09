@@ -1,0 +1,332 @@
+/* Standardized Page Layout System - LFLshop */
+/* Based on collections.html template with monochrome design consistency */
+
+/* Page Layout Foundation */
+.page-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--background-primary);
+}
+
+/* Standardized Navigation (consistent across all pages) */
+.navbar {
+    height: var(--navbar-height);
+    background: var(--background-primary);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-primary);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-dropdown);
+}
+
+.nav-container {
+    max-width: var(--container-wide-max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--container-padding);
+    height: 100%;
+}
+
+/* Breadcrumb Navigation (for secondary pages) */
+.breadcrumb-section {
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--border-primary);
+    padding: var(--space-md) 0;
+}
+
+.breadcrumb-nav {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-primary);
+    font-size: var(--font-small);
+    color: var(--text-secondary);
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.breadcrumb-item a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast) var(--transition-smooth);
+}
+
+.breadcrumb-item a:hover {
+    color: var(--text-primary);
+}
+
+.breadcrumb-separator {
+    color: var(--text-muted);
+}
+
+/* Page Header (for secondary pages - NO hero sections) */
+.page-header {
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--border-primary);
+    padding: var(--space-2xl) 0;
+}
+
+.page-header-content {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-xl);
+}
+
+.page-header-text h1 {
+    font-family: var(--font-heading);
+    font-size: var(--font-h1);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+    line-height: 1.2;
+}
+
+.page-header-text p {
+    font-family: var(--font-primary);
+    font-size: var(--font-body);
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.page-header-stats {
+    display: flex;
+    gap: var(--space-xl);
+    flex-shrink: 0;
+}
+
+.header-stat-item {
+    text-align: center;
+    min-width: 80px;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.stat-label {
+    font-family: var(--font-primary);
+    font-size: var(--font-micro);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--space-xs);
+}
+
+/* Main Content Area */
+.page-main {
+    flex: 1;
+    background: var(--background-primary);
+}
+
+.page-content {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--container-padding);
+}
+
+/* Two-Column Layout (with sidebar) */
+.content-with-sidebar {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+
+/* Sidebar Styles (permanently visible) */
+.content-sidebar {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-small);
+    padding: var(--space-lg);
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--space-lg));
+    max-height: calc(100vh - var(--navbar-height) - var(--space-2xl));
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.sidebar-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-h4);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+/* Main Content Area (when with sidebar) */
+.main-content-area {
+    min-height: 500px;
+}
+
+/* Single Column Layout (without sidebar) */
+.content-single-column {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Ethiopian Cultural Elements */
+.ethiopian-page-accent {
+    border-top: 3px solid var(--primary-color);
+    position: relative;
+}
+
+.ethiopian-page-accent::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--primary-color) 33%, 
+        var(--accent-color) 33% 66%, 
+        var(--primary-color) 66%);
+}
+
+/* Standardized Footer (consistent across all pages) */
+.page-footer {
+    background: var(--background-secondary);
+    border-top: 1px solid var(--border-primary);
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: var(--container-wide-max-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--container-padding);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .content-with-sidebar {
+        grid-template-columns: 240px 1fr;
+        gap: var(--space-lg);
+    }
+    
+    .page-header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-lg);
+    }
+    
+    .page-header-stats {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-with-sidebar {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+    
+    .content-sidebar {
+        position: static;
+        order: 2;
+        max-height: none;
+    }
+    
+    .main-content-area {
+        order: 1;
+    }
+    
+    .page-header-content {
+        padding: 0 var(--space-md);
+    }
+    
+    .page-content {
+        padding: var(--space-lg) var(--space-md);
+    }
+    
+    .breadcrumb-nav {
+        padding: 0 var(--space-md);
+    }
+    
+    .page-header-stats {
+        flex-wrap: wrap;
+        gap: var(--space-md);
+    }
+    
+    .header-stat-item {
+        min-width: 60px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header-text h1 {
+        font-size: var(--font-h2);
+    }
+    
+    .page-header-text p {
+        font-size: var(--font-small);
+    }
+    
+    .page-content {
+        padding: var(--space-md);
+    }
+}
+
+/* Page-Specific Modifiers */
+.page-layout--collections {
+    /* Collections page specific styles */
+}
+
+.page-layout--about {
+    /* About page specific styles */
+}
+
+.page-layout--product-detail {
+    /* Product detail page specific styles */
+}
+
+/* Utility Classes for Page Layout */
+.no-hero {
+    /* Ensures no hero section styling */
+}
+
+.with-breadcrumbs {
+    /* Pages that include breadcrumb navigation */
+}
+
+.with-sidebar {
+    /* Pages that include sidebar */
+}
+
+.ethiopian-context {
+    /* Pages with enhanced Ethiopian cultural context */
+}

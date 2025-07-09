@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFLshop - Ethiopian Marketplace | Authentic Ethiopian Products</title>
+    <meta name="description" content="Support Ethiopian creators and discover authentic Ethiopian products. Shop directly from local artisans and help preserve cultural heritage. Coffee, textiles, spices, and handicrafts from Ethiopia.">
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="Ethiopian marketplace, Ethiopian products, Ethiopian coffee, traditional textiles, Ethiopian spices, handicrafts, local artisans, Ethiopia shopping, authentic Ethiopian goods">
+    <meta name="author" content="LFLshop">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="LFLshop - Ethiopian Marketplace">
+    <meta property="og:description" content="Support Ethiopian creators and discover authentic Ethiopian products. Shop directly from local artisans.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lflshop.com">
+    <meta property="og:image" content="../Logo/LOCALS.png">
+    <meta property="og:site_name" content="LFLshop">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LFLshop - Ethiopian Marketplace">
+    <meta name="twitter:description" content="Support Ethiopian creators and discover authentic Ethiopian products.">
+    <meta name="twitter:image" content="../Logo/LOCALS.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lflshop.com">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../Logo/LOCALS.png">
+    <link rel="apple-touch-icon" href="../Logo/LOCALS.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/auth-navigation.css">
+    <link rel="stylesheet" href="../css/enhanced-search.css">
+    <link rel="stylesheet" href="../css/mobile-optimization.css">
+    <style>
+        /* Professional Clean Design - Matching About Page Standard */
+        
+        /* Hero Section - Clean Professional */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            padding: var(--space-16) 0;
+            text-align: center;
+        }
+        
+        .hero-badge {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-6);
+        }
+        
+        .main-heading {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            line-height: 1.2;
+        }
+        
+        .subheading {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-8);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-12);
+            margin: var(--space-12) 0;
+        }
+        
+        .trust-item {
+            text-align: center;
+        }
+        
+        .trust-number {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: var(--space-2);
+            letter-spacing: 0.5px;
+        }
+        
+        .trust-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+        
+        /* Category Cards - Professional Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-6);
+            margin: var(--space-12) 0;
+            justify-content: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .category-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+        
+        .category-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .category-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition);
+        }
+        
+        .category-card:hover .category-img {
+            transform: scale(1.05);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.9), rgba(139, 115, 85, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        
+        .category-card:hover .category-overlay {
+            opacity: 1;
+        }
+        
+        .category-icon {
+            color: var(--white);
+            font-size: var(--text-3xl);
+        }
+        
+        .category-content {
+            padding: var(--space-6);
+            text-align: center;
+        }
+        
+        .category-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .category-content p {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+            line-height: 1.5;
+        }
+        
+        .category-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            width: 100%;
+        }
+        
+        .category-btn:hover {
+            background: var(--accent-color);
+        }
+        
+        /* Sections - Professional Spacing */
+        .featured-categories {
+            background: var(--white);
+            padding: var(--space-16) 0;
+        }
+        
+        .featured-products {
+            background: var(--bg-secondary);
+            padding: var(--space-16) 0;
+        }
+        
+        .trust-section {
+            background: var(--white);
+            padding: var(--space-16) 0;
+        }
+        
+        /* Section Headers - Consistent with About Page */
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+        
+        .section-header h2 {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .section-header p {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Trust/Features Grid - Professional */
+        .quality-guarantees {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-8);
+            margin-top: var(--space-12);
+            justify-content: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .guarantee-item {
+            text-align: center;
+            padding: var(--space-6);
+        }
+        
+        .guarantee-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            transition: transform var(--transition);
+        }
+        
+        .guarantee-item:hover .guarantee-icon {
+            transform: scale(1.1);
+        }
+        
+        .guarantee-icon i {
+            color: var(--white);
+            font-size: var(--text-2xl);
+        }
+        
+        .guarantee-item h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+        }
+        
+        .guarantee-item p {
+            font-size: var(--text-base);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-6);
+            justify-content: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .no-products-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--space-16);
+            color: var(--text-secondary);
+        }
+        
+        .no-products-message i {
+            font-size: var(--text-4xl);
+            color: var(--border-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .no-products-message h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .no-products-message p {
+            margin-bottom: var(--space-6);
+        }
+        
+        /* Footer Logo */
+        .footer-logo-large {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .footer-logo-large img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Hide unwanted elements */
+        .accessibility-toolbar,
+        #accessibility-toolbar {
+            display: none !important;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .categories-grid,
+            .products-grid,
+            .quality-guarantees {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .categories-grid,
+            .products-grid,
+            .quality-guarantees {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: var(--text-3xl);
+            }
+            
+            .trust-indicators {
+                flex-direction: column;
+                gap: var(--space-6);
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .categories-grid,
+            .products-grid,
+            .quality-guarantees {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .hero-section {
+                padding: var(--space-12) 0;
+            }
+            
+            .featured-categories,
+            .featured-products,
+            .trust-section {
+                padding: var(--space-12) 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <!-- Enhanced Search Container -->
+                <div class="search-container enhanced-search">
+                    <div class="search-input-wrapper">
+                        <input type="text"
+                               id="globalSearchInput"
+                               placeholder="Search Ethiopian products..."
+                               class="search-bar"
+                               autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <button class="search-clear" id="searchClear" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Search Suggestions Dropdown -->
+                    <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                        <div class="suggestions-header">
+                            <span>Search Suggestions</span>
+                        </div>
+                        <div class="suggestions-list" id="suggestionsList">
+                            <!-- Dynamic suggestions will be inserted here -->
+                        </div>
+                        <div class="suggestions-footer">
+                            <button class="view-all-results" id="viewAllResults">
+                                <i class="fas fa-search"></i>
+                                View all results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Icons (Hidden by default, shown when authenticated) -->
+                <div class="nav-icons" style="display: none;">
+                    <a href="../wishlist.php" class="nav-icon" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="../notifications.php" class="nav-icon" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </a>
+                </div>
+
+                <!-- User Menu (Hidden by default, shown when authenticated) -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-menu-toggle">
+                        <span>User Name</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <a href="../dashboard.php" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="../account-settings.php" class="dropdown-item">
+                            <i class="fas fa-user-cog"></i>
+                            Account Settings
+                        </a>
+                        <a href="../orders.php" class="dropdown-item">
+                            <i class="fas fa-shopping-bag"></i>
+                            My Orders
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Links (Shown by default, hidden when authenticated) -->
+                <div class="auth-links">
+                    <a href="../login.php">Sign In</a>
+                    <span class="auth-divider">|</span>
+                    <a href="../register.php">Sign Up</a>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-store"></i>
+                    <span>LFL Shop</span>
+                </div>
+                <h1 class="main-heading">Empower Ethiopian Creators</h1>
+                <p class="subheading">LFLshop is an online marketplace dedicated to showcasing <strong>authentic, handmade Ethiopian products</strong> created by talented local artisans. Every purchase directly supports <strong>small businesses, independent creators, and Ethiopian cultural heritage</strong>.</p>
+
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-number">NEW</span>
+                        <span class="trust-label">Platform</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">SECURE</span>
+                        <span class="trust-label">Shopping</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">24/7</span>
+                        <span class="trust-label">Support</span>
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="collections.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-shopping-bag"></i>
+                        Shop Now
+                    </a>
+                    <a href="sale.html" class="btn btn-outline btn-lg">
+                        <i class="fas fa-tags"></i>
+                        View Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shop by Category</h2>
+                <p>Browse our wide selection of products across different categories</p>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card" onclick="navigateToCategory('textiles')">
+                    <div class="category-image">
+                        <img src="../IMG/sepehr-salehi-0T_TM-JOPYo-unsplash.jpg" alt="Traditional Textiles" class="category-img">
+                        <div class="category-overlay">
+                            <div class="category-icon">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Clothing</h3>
+                        <p>Men's and women's fashion</p>
+                        <button class="category-btn">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="navigateToCategory('coffee')">
+                    <div class="category-image">
+                        <img src="../IMG/arthur-a-M-yKK5TJ7iw-unsplash.jpg" alt="Coffee" class="category-img">
+                        <div class="category-overlay">
+                            <div class="category-icon">
+                                <i class="fas fa-coffee"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Coffee</h3>
+                        <p>Premium coffee beans</p>
+                        <button class="category-btn">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="navigateToCategory('spices')">
+                    <div class="category-image">
+                        <img src="../IMG/mohammad-mardani-U_Mkmwb57Fk-unsplash.jpg" alt="Food" class="category-img">
+                        <div class="category-overlay">
+                            <div class="category-icon">
+                                <i class="fas fa-pepper-hot"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Food</h3>
+                        <p>Fresh ingredients and spices</p>
+                        <button class="category-btn">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="navigateToCategory('jewelry')">
+                    <div class="category-image">
+                        <img src="../IMG/apple-lao-onjfPTehjhE-unsplash.jpg" alt="Jewelry" class="category-img">
+                        <div class="category-overlay">
+                            <div class="category-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <h3>Jewelry</h3>
+                        <p>Beautiful accessories</p>
+                        <button class="category-btn">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Discover our most popular and trending products</p>
+            </div>
+            
+            <div class="products-grid" id="featured-products-grid">
+                <!-- Products will be loaded dynamically -->
+                <div class="no-products-message" style="grid-column: 1 / -1; text-align: center; padding: var(--space-16); color: var(--text-secondary);">
+                    <i class="fas fa-box-open" style="font-size: var(--text-4xl); margin-bottom: var(--space-4); color: var(--border-primary);"></i>
+                    <h3 style="margin-bottom: var(--space-2); color: var(--text-primary);">No Products Available</h3>
+                    <p style="margin-bottom: var(--space-6);">Products will appear here when sellers add them to the marketplace.</p>
+                    <a href="signup.html" class="btn btn-primary" style="margin-right: var(--space-4);">
+                        <i class="fas fa-plus"></i> Become a Seller
+                    </a>
+                    <a href="collections.html" class="btn btn-outline">
+                        <i class="fas fa-shopping-bag"></i> Browse All
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="collections.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-arrow-right"></i>
+                    View All Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose LFL Shop?</h2>
+                <p>We're committed to providing the best shopping experience for our customers</p>
+            </div>
+
+            <div class="quality-guarantees">
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Fast Shipping</h3>
+                    <p>Quick and reliable delivery to get your products to you as soon as possible</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Shopping</h3>
+                    <p>Your personal information and payments are protected with advanced security</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Quality Guarantee</h3>
+                    <p>We work directly with creators to ensure every product meets our quality standards</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our customer service team is here to help you anytime, anywhere</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Large Logo -->
+            <div class="footer-logo-large">
+                <img src="../Logo/LOCALS.png" alt="LFLshop - Supporting Ethiopian Creators">
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <h3>LFLshop</h3>
+                        <p><i class="fas fa-store"></i> Your Online Marketplace</p>
+                    </div>
+                    <div class="company-info">
+                        <p>Connecting buyers and sellers in a trusted online marketplace</p>
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i> hello@lflshop.com</span>
+                            <span><i class="fas fa-phone"></i> +1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-links-container">
+                    <div class="footer-column">
+                        <h4>Shop</h4>
+                        <ul class="footer-links">
+                            <li><a href="collections.html">All Products</a></li>
+                            <li><a href="sale.html">Sale Items</a></li>
+                            <li><a href="#" onclick="checkAuthForCart()">Shopping Cart</a></li>
+                            <li><a href="#" onclick="checkAuthForDashboard()">My Account</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html">Contact Us</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Shipping Info</a></li>
+                            <li><a href="#">Quality Standards</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Sell</h4>
+                        <ul class="footer-links">
+                            <li><a href="#" onclick="checkAuthForSellerDashboard()">Seller Dashboard</a></li>
+                            <li><a href="signup.html">Start Selling</a></li>
+                            <li><a href="#">Seller Resources</a></li>
+                            <li><a href="#">Fees</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <div class="social-links">
+                        <a href="https://instagram.com/lflshop_ethiopia" class="social-icon" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/lflshop.ethiopia" class="social-icon" aria-label="Like us on Facebook" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/lflshop_et" class="social-icon" aria-label="Follow us on Twitter" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://t.me/lflshop_ethiopia" class="social-icon" aria-label="Join our Telegram channel" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                    <div class="company-badge">
+                        <i class="fas fa-heart"></i>
+                        <span>Made with care</span>
+                    </div>
+                </div>
+
+                <div class="footer-bottom-right">
+                    <div class="legal-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                    <div class="footer-copyright">
+                        <p>&copy; 2024 LFLshop. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "LFLshop",
+        "description": "Ethiopian marketplace supporting local creators and artisans",
+        "url": "https://lflshop.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://lflshop.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "LFLshop",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://lflshop.com/Logo/LOCALS.png"
+            }
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "LFLshop",
+        "description": "Ethiopian marketplace connecting local artisans with global customers",
+        "url": "https://lflshop.com",
+        "logo": "https://lflshop.com/Logo/LOCALS.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "Amharic"]
+        },
+        "areaServed": {
+            "@type": "Country",
+            "name": "Ethiopia"
+        },
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Ethiopian Coffee",
+                    "category": "Food & Beverages"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Traditional Textiles",
+                    "category": "Clothing & Accessories"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Ethiopian Spices",
+                    "category": "Food & Beverages"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Handicrafts",
+                    "category": "Arts & Crafts"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Load configuration first -->
+    <script src="../javascript/config.js"></script>
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/auth-aware-navigation.js"></script>
+    <script src="../javascript/search-functionality.js"></script>
+    <script>
+        // Category navigation
+        function navigateToCategory(categoryId) {
+            window.location.href = `collections.html?category=${categoryId}`;
+        }
+
+        // Secure navigation functions
+        function checkAuthForCart() {
+            if (authNavigation.isAuthenticated) {
+                window.location.href = 'cart.html';
+            } else {
+                authNavigation.showAuthRequiredMessage('access your cart');
+            }
+        }
+
+        function checkAuthForDashboard() {
+            if (authNavigation.isAuthenticated) {
+                window.location.href = authNavigation.getDashboardLink();
+            } else {
+                authNavigation.showAuthRequiredMessage('access your dashboard');
+            }
+        }
+
+        function checkAuthForSellerDashboard() {
+            if (authNavigation.isAuthenticated && authNavigation.currentUser?.user_type === 'seller') {
+                window.location.href = 'seller-dashboard.html';
+            } else if (authNavigation.isAuthenticated) {
+                showNotification('Only sellers can access the creator dashboard');
+            } else {
+                authNavigation.showAuthRequiredMessage('access the creator dashboard');
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Don't auto-load products - show waiting message instead
+            showWaitingMessage();
+        });
+
+        function showWaitingMessage() {
+            const productsGrid = document.getElementById('featured-products-grid');
+            const noProductsMessage = document.querySelector('.no-products-message');
+            
+            if (noProductsMessage) {
+                noProductsMessage.style.display = 'block';
+            }
+        }
+
+        // Secure add to cart function
+        async function addToCartFromHome(productId) {
+            // Check authentication first
+            if (!authNavigation.isAuthenticated) {
+                authNavigation.showAuthRequiredMessage('add items to cart');
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/cart.php?action=add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    await authNavigation.loadCartCount();
+                    showNotification('Product added to cart!');
+                } else {
+                    showNotification(data.message);
+                }
+            } catch (error) {
+                showNotification('Failed to add item to cart');
+            }
+        }
+
+        function viewProduct(productId) {
+            window.location.href = `product-detail.html?id=${productId}`;
+        }
+
+        // Load products dynamically from API
+        async function loadFeaturedProducts() {
+            try {
+                const response = await fetch('../api/products.php?action=featured&limit=4');
+                const data = await response.json();
+
+                const productsGrid = document.getElementById('featured-products-grid');
+                const noProductsMessage = document.querySelector('.no-products-message');
+
+                if (!data.success || !data.data || data.data.length === 0) {
+                    if (noProductsMessage) {
+                        noProductsMessage.style.display = 'block';
+                    }
+                    return;
+                }
+
+                if (noProductsMessage) {
+                    noProductsMessage.style.display = 'none';
+                }
+
+                const featuredProducts = data.data;
+
+                productsGrid.innerHTML = featuredProducts.map(product => `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${product.image || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${product.name}">
+                            <div class="product-badge">Ethiopian Made</div>
+                            <div class="product-overlay">
+                                <button class="btn btn-primary btn-sm" onclick="viewProduct(${product.id})">View Product</button>
+                                <button class="btn btn-secondary btn-sm" onclick="addToCartFromHome(${product.id})">
+                                    ${authNavigation.isAuthenticated ? 'Add to Cart' : 'Sign In to Buy'}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <p class="product-description">${product.description || 'Authentic Ethiopian product'}</p>
+                            <div class="product-price">
+                                <span class="current-price">${parseFloat(product.price).toLocaleString()} ETB</span>
+                                ${product.sale_price ? `<span class="original-price">${parseFloat(product.sale_price).toLocaleString()} ETB</span>` : ''}
+                            </div>
+                            <div class="product-seller">
+                                <span>By <a href="seller-profile.html?seller=${product.seller_id}" class="seller-link">${product.seller_name || 'Ethiopian Creator'}</a></span>
+                                <span class="seller-location">${product.location || 'Ethiopia'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                const noProductsMessage = document.querySelector('.no-products-message');
+                if (noProductsMessage) {
+                    noProductsMessage.style.display = 'block';
+                }
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--accent-color, #007bff);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 3000;
+                font-size: 0.875rem;
+                font-weight: 500;
+                animation: slideIn 0.3s ease-out;
+                max-width: 300px;
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+                style.remove();
+            }, 3000);
+        }
+    </script>
+
+    <!-- Authentication State Manager -->
+    <script src="../javascript/auth-state-manager.js"></script>
+
+    <!-- Enhanced Search Functionality -->
+    <script src="../javascript/enhanced-search.js"></script>
+
+    <!-- Initialize Authentication and Search -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize authentication state manager
+            if (window.authStateManager) {
+                window.authStateManager.init().then(() => {
+                    console.log('Authentication state manager initialized');
+                });
+            }
+
+            // Initialize enhanced search
+            if (window.enhancedSearch) {
+                window.enhancedSearch.init();
+                console.log('Enhanced search initialized');
+            }
+
+            // Initialize user menu dropdown
+            const userMenuToggle = document.querySelector('.user-menu-toggle');
+            const userDropdown = document.querySelector('.user-dropdown');
+
+            if (userMenuToggle && userDropdown) {
+                userMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    userDropdown.style.opacity = userDropdown.style.opacity === '1' ? '0' : '1';
+                    userDropdown.style.visibility = userDropdown.style.visibility === 'visible' ? 'hidden' : 'visible';
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.style.opacity = '0';
+                        userDropdown.style.visibility = 'hidden';
+                    }
+                });
+            }
+        });
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                fetch('../php/handlers/auth_handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'action=logout'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect || 'index.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales & Discounts - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/auth-navigation.css">
+    <style>
+        .sales-container {
+            padding: var(--space-6) 0;
+            min-height: calc(100vh - var(--navbar-height));
+        }
+        
+        .sales-header {
+            background: var(--white);
+            padding: var(--space-6) 0;
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        
+        .sales-content {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: var(--space-6);
+        }
+        
+        .sales-sidebar {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: var(--space-1);
+        }
+        
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            font-size: var(--text-sm);
+        }
+        
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+        
+        .sales-main {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            box-shadow: var(--shadow);
+        }
+        
+        .sales-section {
+            display: none;
+        }
+        
+        .sales-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-3);
+            color: var(--white);
+            font-size: var(--text-lg);
+        }
+        
+        .stat-number {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .form-section {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-4);
+            border: 1px solid var(--border-light);
+        }
+        
+        .form-section-title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3);
+        }
+        
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--space-3);
+        }
+        
+        .sales-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--space-4);
+        }
+        
+        .sales-table th,
+        .sales-table td {
+            padding: var(--space-3);
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+            font-size: var(--text-sm);
+        }
+        
+        .sales-table th {
+            background: var(--bg-secondary);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+        }
+        
+        .product-image-small {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            object-fit: cover;
+        }
+        
+        .status-badge {
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            text-transform: uppercase;
+        }
+        
+        .status-active {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        
+        .status-scheduled {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+        
+        .status-expired {
+            background: rgba(108, 117, 125, 0.1);
+            color: var(--dark-gray);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--space-1);
+        }
+        
+        .btn-icon {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xs);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: flex-end;
+            margin-top: var(--space-4);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .no-sales {
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--text-secondary);
+        }
+        
+        .no-sales i {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--space-3);
+            color: var(--border-primary);
+        }
+        
+        .discount-preview {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-top: var(--space-4);
+        }
+        
+        .discount-preview h4 {
+            margin: 0 0 var(--space-3) 0;
+            color: var(--text-primary);
+        }
+        
+        .price-comparison {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin: var(--space-2) 0;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            font-size: var(--text-lg);
+        }
+        
+        .sale-price {
+            color: var(--error);
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+        }
+        
+        .savings {
+            background: var(--error);
+            color: var(--white);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+        }
+        
+        @media (max-width: 768px) {
+            .sales-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sales-sidebar {
+                position: static;
+                order: 2;
+            }
+            
+            .sales-main {
+                order: 1;
+            }
+            
+            .form-row,
+            .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="auth-links">
+                    <a href="seller-dashboard.html">Seller Dashboard</a>
+                    <span class="auth-divider">|</span>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sales-container">
+        <div class="container">
+            <div class="sales-header">
+                <div class="container">
+                    <h1><i class="fas fa-tags"></i> Sales & Discounts</h1>
+                    <p>Create and manage sales campaigns for your products</p>
+                </div>
+            </div>
+
+            <div class="sales-content">
+                <aside class="sales-sidebar">
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="#" class="nav-item active" data-section="overview">
+                                <i class="fas fa-chart-line"></i>
+                                Sales Overview
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="active-sales">
+                                <i class="fas fa-fire"></i>
+                                Active Sales
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="create-sale">
+                                <i class="fas fa-plus"></i>
+                                Create Sale
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="scheduled">
+                                <i class="fas fa-clock"></i>
+                                Scheduled Sales
+                            </a>
+                        </li>
+                        <li>
+                            <a href="seller-dashboard.html" class="nav-item">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <main class="sales-main">
+                    <!-- Overview Section -->
+                    <div id="overview-section" class="sales-section active">
+                        <h2 class="section-title">
+                            <i class="fas fa-chart-line"></i>
+                            Sales Performance
+                        </h2>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="stat-number" id="active-sales-count">0</div>
+                                <div class="stat-label">Active Sales</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="stat-number" id="sale-orders">0</div>
+                                <div class="stat-label">Sale Orders</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="stat-number" id="sale-revenue">0</div>
+                                <div class="stat-label">Sale Revenue (ETB)</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="stat-number" id="avg-discount">0%</div>
+                                <div class="stat-label">Avg. Discount</div>
+                            </div>
+                        </div>
+
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                            <button class="btn btn-primary" onclick="showSection('create-sale')">
+                                <i class="fas fa-plus"></i>
+                                Create New Sale
+                            </button>
+                            <button class="btn btn-outline" onclick="showSection('active-sales')">
+                                <i class="fas fa-fire"></i>
+                                View Active Sales
+                            </button>
+                            <button class="btn btn-outline" onclick="showSection('scheduled')">
+                                <i class="fas fa-clock"></i>
+                                Scheduled Sales
+                            </button>
+                        </div>
+
+                        <h3><i class="fas fa-chart-bar"></i> Sales Analytics</h3>
+                        <div style="background: var(--bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center;">
+                            <i class="fas fa-chart-bar" style="font-size: var(--text-xl); color: var(--text-muted); margin-bottom: var(--space-2);"></i>
+                            <p style="color: var(--text-secondary); margin: 0; font-size: var(--text-sm);">No sales data yet</p>
+                            <p style="color: var(--text-muted); font-size: var(--text-xs); margin: var(--space-1) 0 0;">Analytics will appear here once you create sales campaigns</p>
+                        </div>
+                    </div>
+
+                    <!-- Active Sales Section -->
+                    <div id="active-sales-section" class="sales-section">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                            <h2 class="section-title">
+                                <i class="fas fa-fire"></i>
+                                Active Sales
+                            </h2>
+                            <button class="btn btn-primary btn-sm" onclick="showSection('create-sale')">
+                                <i class="fas fa-plus"></i>
+                                Create Sale
+                            </button>
+                        </div>
+                        
+                        <div id="active-sales-container">
+                            <!-- Active sales will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Create Sale Section -->
+                    <div id="create-sale-section" class="sales-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-plus"></i>
+                            Create New Sale
+                        </h2>
+                        
+                        <form id="create-sale-form">
+                            <!-- Sale Details -->
+                            <div class="form-section">
+                                <div class="form-section-title">
+                                    <i class="fas fa-info-circle"></i>
+                                    Sale Details
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Sale Title *</label>
+                                    <input type="text" class="form-input" id="sale-title" placeholder="e.g., Summer Sale, Black Friday Deal" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Sale Description</label>
+                                    <textarea class="form-input" id="sale-description" rows="3" placeholder="Describe your sale campaign..."></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Discount Type *</label>
+                                        <select class="form-input" id="discount-type" required onchange="updateDiscountPreview()">
+                                            <option value="">Select discount type</option>
+                                            <option value="percentage">Percentage Off</option>
+                                            <option value="fixed">Fixed Amount Off</option>
+                                            <option value="buy-one-get-one">Buy One Get One</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Discount Value *</label>
+                                        <input type="number" class="form-input" id="discount-value" placeholder="e.g., 20 for 20%" min="0" required onchange="updateDiscountPreview()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Selection -->
+                            <div class="form-section">
+                                <div class="form-section-title">
+                                    <i class="fas fa-box"></i>
+                                    Select Products
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Apply Sale To *</label>
+                                    <select class="form-input" id="sale-scope" required onchange="toggleProductSelection()">
+                                        <option value="">Select scope</option>
+                                        <option value="all">All My Products</option>
+                                        <option value="category">Products by Category</option>
+                                        <option value="specific">Specific Products</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="category-selection" class="form-group" style="display: none;">
+                                    <label class="form-label">Select Category</label>
+                                    <select class="form-input" id="sale-category">
+                                        <option value="">Select category</option>
+                                        <option value="fashion">Fashion & Clothing</option>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="food">Food & Beverages</option>
+                                        <option value="home">Home & Garden</option>
+                                        <option value="beauty">Beauty & Personal Care</option>
+                                        <option value="sports">Sports & Outdoors</option>
+                                        <option value="books">Books & Media</option>
+                                        <option value="toys">Toys & Games</option>
+                                        <option value="automotive">Automotive</option>
+                                        <option value="health">Health & Wellness</option>
+                                        <option value="jewelry">Jewelry & Accessories</option>
+                                        <option value="art">Art & Crafts</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="product-selection" class="form-group" style="display: none;">
+                                    <label class="form-label">Select Products</label>
+                                    <div id="product-checkboxes" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-light); border-radius: var(--radius); padding: var(--space-3);">
+                                        <!-- Product checkboxes will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sale Duration -->
+                            <div class="form-section">
+                                <div class="form-section-title">
+                                    <i class="fas fa-calendar"></i>
+                                    Sale Duration
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Start Date *</label>
+                                        <input type="datetime-local" class="form-input" id="sale-start" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">End Date *</label>
+                                        <input type="datetime-local" class="form-input" id="sale-end" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm);">
+                                        <input type="checkbox" id="auto-end-sale">
+                                        Automatically end sale when end date is reached
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Discount Preview -->
+                            <div id="discount-preview" class="discount-preview" style="display: none;">
+                                <h4><i class="fas fa-eye"></i> Discount Preview</h4>
+                                <div id="preview-content">
+                                    <!-- Preview will be generated here -->
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="resetSaleForm()">
+                                    <i class="fas fa-times"></i>
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="saveSaleAsDraft()">
+                                    <i class="fas fa-save"></i>
+                                    Save Draft
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-rocket"></i>
+                                    Launch Sale
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Scheduled Sales Section -->
+                    <div id="scheduled-section" class="sales-section">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                            <h2 class="section-title">
+                                <i class="fas fa-clock"></i>
+                                Scheduled Sales
+                            </h2>
+                            <button class="btn btn-primary btn-sm" onclick="showSection('create-sale')">
+                                <i class="fas fa-plus"></i>
+                                Schedule Sale
+                            </button>
+                        </div>
+                        
+                        <div id="scheduled-sales-container">
+                            <!-- Scheduled sales will be loaded here -->
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/auth-aware-navigation.js"></script>
+    <script>
+        // Check seller authentication
+        document.addEventListener('DOMContentLoaded', async function() {
+            const isAuthenticated = await checkSellerAuth();
+            if (isAuthenticated) {
+                setupNavigation();
+                loadProducts();
+                loadSales();
+                updateStats();
+                setupForms();
+                setDefaultDates();
+            }
+        });
+
+        async function checkSellerAuth() {
+            console.log('🔍 Checking seller authentication...');
+
+            // First check localStorage for immediate access
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            console.log('📱 LocalStorage user data:', currentUser);
+
+            if (currentUser && (currentUser.user_type === 'seller' || currentUser.userType === 'seller' || currentUser.type === 'seller')) {
+                console.log('✅ Seller found in localStorage');
+                return true;
+            }
+
+            // If not in localStorage or not a seller, check with server
+            console.log('🔌 Checking with server...');
+            try {
+                const response = await fetch('../api/auth.php?action=check');
+                const data = await response.json();
+                console.log('📡 Server response:', data);
+
+                if (data.success && data.data && data.data.user && data.data.user.user_type === 'seller') {
+                    console.log('✅ Seller authenticated by server');
+                    // Store user data in localStorage for future access
+                    localStorage.setItem('currentUser', JSON.stringify(data.data.user));
+                    return true;
+                } else {
+                    console.log('❌ Not authenticated as seller');
+                    // Not authenticated as seller, redirect to sign in
+                    alert('Access denied. This page is only available for seller accounts.');
+                    window.location.href = 'signin.html';
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Authentication check error:', error);
+                // Error checking authentication, redirect to sign in
+                alert('Access denied. This page is only available for seller accounts.');
+                window.location.href = 'signin.html';
+                return false;
+            }
+        }
+
+        function setupNavigation() {
+            document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+        }
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.sales-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(`${sectionName}-section`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            const navItem = document.querySelector(`[data-section="${sectionName}"]`);
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+            
+            if (sectionName === 'active-sales') {
+                loadActiveSales();
+            } else if (sectionName === 'scheduled') {
+                loadScheduledSales();
+            }
+        }
+
+        function setupForms() {
+            // Create sale form
+            document.getElementById('create-sale-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                createSale();
+            });
+        }
+
+        function setDefaultDates() {
+            const now = new Date();
+            const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+            const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+            
+            document.getElementById('sale-start').value = tomorrow.toISOString().slice(0, 16);
+            document.getElementById('sale-end').value = nextWeek.toISOString().slice(0, 16);
+        }
+
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const container = document.getElementById('product-checkboxes');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: var(--space-4);">No products available. <a href="seller-dashboard.html">Add products first</a>.</p>';
+                return;
+            }
+            
+            container.innerHTML = products.map(product => `
+                <label style="display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2); border-radius: var(--radius); cursor: pointer;" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" value="${product.id}" onchange="updateDiscountPreview()">
+                    <img src="${product.image || 'https://via.placeholder.com/40x40?text=No+Image'}" alt="${product.name}" style="width: 30px; height: 30px; border-radius: var(--radius); object-fit: cover;">
+                    <div>
+                        <div style="font-weight: 500; font-size: var(--text-sm);">${product.name}</div>
+                        <div style="color: var(--text-secondary); font-size: var(--text-xs);">${product.price.toLocaleString()} ETB</div>
+                    </div>
+                </label>
+            `).join('');
+        }
+
+        function toggleProductSelection() {
+            const scope = document.getElementById('sale-scope').value;
+            const categorySelection = document.getElementById('category-selection');
+            const productSelection = document.getElementById('product-selection');
+            
+            categorySelection.style.display = scope === 'category' ? 'block' : 'none';
+            productSelection.style.display = scope === 'specific' ? 'block' : 'none';
+            
+            updateDiscountPreview();
+        }
+
+        function updateDiscountPreview() {
+            const discountType = document.getElementById('discount-type').value;
+            const discountValue = parseFloat(document.getElementById('discount-value').value) || 0;
+            const scope = document.getElementById('sale-scope').value;
+            const previewDiv = document.getElementById('discount-preview');
+            const previewContent = document.getElementById('preview-content');
+            
+            if (!discountType || !discountValue || !scope) {
+                previewDiv.style.display = 'none';
+                return;
+            }
+            
+            previewDiv.style.display = 'block';
+            
+            // Sample product for preview
+            const samplePrice = 1000;
+            let salePrice = samplePrice;
+            let savingsText = '';
+            
+            switch (discountType) {
+                case 'percentage':
+                    salePrice = samplePrice * (1 - discountValue / 100);
+                    savingsText = `${discountValue}% OFF`;
+                    break;
+                case 'fixed':
+                    salePrice = Math.max(0, samplePrice - discountValue);
+                    savingsText = `${discountValue} ETB OFF`;
+                    break;
+                case 'buy-one-get-one':
+                    salePrice = samplePrice / 2;
+                    savingsText = 'BUY 1 GET 1';
+                    break;
+            }
+            
+            previewContent.innerHTML = `
+                <div style="padding: var(--space-3); border: 1px solid var(--border-light); border-radius: var(--radius); background: var(--white);">
+                    <h5 style="margin: 0 0 var(--space-2) 0;">Sample Product Preview</h5>
+                    <div class="price-comparison">
+                        <span class="original-price">${samplePrice.toLocaleString()} ETB</span>
+                        <span class="sale-price">${salePrice.toLocaleString()} ETB</span>
+                        <span class="savings">${savingsText}</span>
+                    </div>
+                    <p style="font-size: var(--text-xs); color: var(--text-secondary); margin: var(--space-2) 0 0;">
+                        Customers save ${(samplePrice - salePrice).toLocaleString()} ETB per item
+                    </p>
+                </div>
+            `;
+        }
+
+        function createSale() {
+            const title = document.getElementById('sale-title').value.trim();
+            const description = document.getElementById('sale-description').value.trim();
+            const discountType = document.getElementById('discount-type').value;
+            const discountValue = parseFloat(document.getElementById('discount-value').value);
+            const scope = document.getElementById('sale-scope').value;
+            const startDate = document.getElementById('sale-start').value;
+            const endDate = document.getElementById('sale-end').value;
+            const autoEnd = document.getElementById('auto-end-sale').checked;
+            
+            if (!title || !discountType || !discountValue || !scope || !startDate || !endDate) {
+                showMessage('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (new Date(startDate) >= new Date(endDate)) {
+                showMessage('End date must be after start date', 'error');
+                return;
+            }
+            
+            let selectedProducts = [];
+            if (scope === 'specific') {
+                selectedProducts = Array.from(document.querySelectorAll('#product-checkboxes input:checked')).map(cb => parseInt(cb.value));
+                if (selectedProducts.length === 0) {
+                    showMessage('Please select at least one product', 'error');
+                    return;
+                }
+            }
+            
+            const newSale = {
+                id: Date.now(),
+                title: title,
+                description: description,
+                discountType: discountType,
+                discountValue: discountValue,
+                scope: scope,
+                category: scope === 'category' ? document.getElementById('sale-category').value : null,
+                selectedProducts: selectedProducts,
+                startDate: startDate,
+                endDate: endDate,
+                autoEnd: autoEnd,
+                status: new Date(startDate) <= new Date() ? 'active' : 'scheduled',
+                createdAt: new Date().toISOString(),
+                orders: 0,
+                revenue: 0
+            };
+            
+            const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+            sales.push(newSale);
+            localStorage.setItem('sales', JSON.stringify(sales));
+            
+            resetSaleForm();
+            showMessage('Sale created successfully!', 'success');
+            updateStats();
+            
+            setTimeout(() => {
+                showSection('active-sales');
+            }, 1500);
+        }
+
+        function saveSaleAsDraft() {
+            showMessage('Sale saved as draft', 'success');
+        }
+
+        function resetSaleForm() {
+            document.getElementById('create-sale-form').reset();
+            document.getElementById('discount-preview').style.display = 'none';
+            document.getElementById('category-selection').style.display = 'none';
+            document.getElementById('product-selection').style.display = 'none';
+            setDefaultDates();
+        }
+
+        function loadSales() {
+            loadActiveSales();
+            loadScheduledSales();
+        }
+
+        function loadActiveSales() {
+            const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+            const activeSales = sales.filter(sale => sale.status === 'active');
+            const container = document.getElementById('active-sales-container');
+            
+            if (activeSales.length === 0) {
+                container.innerHTML = `
+                    <div class="no-sales">
+                        <i class="fas fa-fire"></i>
+                        <h3>No Active Sales</h3>
+                        <p>Create your first sale campaign to boost your sales.</p>
+                        <button class="btn btn-primary" onclick="showSection('create-sale')" style="margin-top: 1rem;">
+                            <i class="fas fa-plus"></i>
+                            Create Your First Sale
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div style="overflow-x: auto;">
+                    <table class="sales-table">
+                        <thead>
+                            <tr>
+                                <th>Sale Campaign</th>
+                                <th>Discount</th>
+                                <th>Duration</th>
+                                <th>Orders</th>
+                                <th>Revenue</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${activeSales.map(sale => `
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <div style="font-weight: 600; font-size: var(--text-sm);">${sale.title}</div>
+                                            <div style="font-size: var(--text-xs); color: var(--text-secondary);">${sale.scope} products</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>${sale.discountValue}${sale.discountType === 'percentage' ? '%' : ' ETB'} OFF</strong>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: var(--text-xs);">
+                                            <div>Until ${new Date(sale.endDate).toLocaleDateString()}</div>
+                                            <div style="color: var(--text-secondary);">${new Date(sale.endDate).toLocaleTimeString()}</div>
+                                        </div>
+                                    </td>
+                                    <td>${sale.orders || 0}</td>
+                                    <td>${(sale.revenue || 0).toLocaleString()} ETB</td>
+                                    <td>
+                                        <span class="status-badge status-active">Active</span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-sm btn-outline btn-icon" title="Edit" onclick="editSale(${sale.id})">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline btn-icon" title="End Sale" onclick="endSale(${sale.id})" style="color: var(--warning);">
+                                                <i class="fas fa-stop"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function loadScheduledSales() {
+            const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+            const scheduledSales = sales.filter(sale => sale.status === 'scheduled');
+            const container = document.getElementById('scheduled-sales-container');
+            
+            if (scheduledSales.length === 0) {
+                container.innerHTML = `
+                    <div class="no-sales">
+                        <i class="fas fa-clock"></i>
+                        <h3>No Scheduled Sales</h3>
+                        <p>Schedule sales campaigns to run automatically in the future.</p>
+                        <button class="btn btn-primary" onclick="showSection('create-sale')" style="margin-top: 1rem;">
+                            <i class="fas fa-plus"></i>
+                            Schedule a Sale
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div style="overflow-x: auto;">
+                    <table class="sales-table">
+                        <thead>
+                            <tr>
+                                <th>Sale Campaign</th>
+                                <th>Discount</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${scheduledSales.map(sale => `
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <div style="font-weight: 600; font-size: var(--text-sm);">${sale.title}</div>
+                                            <div style="font-size: var(--text-xs); color: var(--text-secondary);">${sale.scope} products</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>${sale.discountValue}${sale.discountType === 'percentage' ? '%' : ' ETB'} OFF</strong>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: var(--text-xs);">
+                                            <div>${new Date(sale.startDate).toLocaleDateString()}</div>
+                                            <div style="color: var(--text-secondary);">${new Date(sale.startDate).toLocaleTimeString()}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: var(--text-xs);">
+                                            <div>${new Date(sale.endDate).toLocaleDateString()}</div>
+                                            <div style="color: var(--text-secondary);">${new Date(sale.endDate).toLocaleTimeString()}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge status-scheduled">Scheduled</span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-sm btn-outline btn-icon" title="Edit" onclick="editSale(${sale.id})">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline btn-icon" title="Cancel" onclick="cancelSale(${sale.id})" style="color: var(--error);">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function editSale(saleId) {
+            showMessage('Sale editing feature coming soon!', 'info');
+        }
+
+        function endSale(saleId) {
+            if (!confirm('Are you sure you want to end this sale? This action cannot be undone.')) {
+                return;
+            }
+            
+            const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+            const sale = sales.find(s => s.id === saleId);
+            
+            if (sale) {
+                sale.status = 'expired';
+                sale.endDate = new Date().toISOString();
+                localStorage.setItem('sales', JSON.stringify(sales));
+                
+                loadActiveSales();
+                updateStats();
+                showMessage('Sale ended successfully!', 'success');
+            }
+        }
+
+        function cancelSale(saleId) {
+            if (!confirm('Are you sure you want to cancel this scheduled sale?')) {
+                return;
+            }
+            
+            const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+            const updatedSales = sales.filter(s => s.id !== saleId);
+            
+            localStorage.setItem('sales', JSON.stringify(updatedSales));
+            loadScheduledSales();
+            updateStats();
+            showMessage('Sale cancelled successfully!', 'success');
+        }
+
+        function updateStats() {
+            const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+            const activeSales = sales.filter(sale => sale.status === 'active');
+            
+            document.getElementById('active-sales-count').textContent = activeSales.length;
+            document.getElementById('sale-orders').textContent = sales.reduce((sum, sale) => sum + (sale.orders || 0), 0);
+            document.getElementById('sale-revenue').textContent = sales.reduce((sum, sale) => sum + (sale.revenue || 0), 0).toLocaleString();
+            
+            const avgDiscount = activeSales.length > 0 
+                ? Math.round(activeSales.reduce((sum, sale) => sum + sale.discountValue, 0) / activeSales.length)
+                : 0;
+            document.getElementById('avg-discount').textContent = avgDiscount + '%';
+        }
+
+        function showMessage(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#17a2b8'};
+                color: white;
+                padding: 0.75rem 1rem;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 3000;
+                font-size: var(--text-sm);
+                max-width: 350px;
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

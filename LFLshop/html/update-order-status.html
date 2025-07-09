@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Order Status - LFLshop Seller</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .update-container {
+            padding: var(--space-8) 0;
+            min-height: calc(100vh - var(--navbar-height) - 200px);
+        }
+        
+        .update-header {
+            background: var(--white);
+            color: var(--text-primary);
+            padding: var(--space-6) 0;
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .update-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+        }
+        
+        .order-info {
+            background: var(--bg-secondary);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+        }
+        
+        .order-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+        
+        .order-detail:last-child {
+            margin-bottom: 0;
+        }
+        
+        .order-label {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+        }
+        
+        .order-value {
+            color: var(--text-secondary);
+        }
+        
+        .status-form {
+            margin-bottom: var(--space-6);
+        }
+        
+        .status-options {
+            display: grid;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+        
+        .status-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-4);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .status-option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+        
+        .status-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .status-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(212, 165, 116, 0.1);
+        }
+        
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--text-lg);
+        }
+        
+        .status-pending .status-icon {
+            background: var(--warning);
+        }
+        
+        .status-confirmed .status-icon {
+            background: var(--info);
+        }
+        
+        .status-shipped .status-icon {
+            background: var(--primary-color);
+        }
+        
+        .status-delivered .status-icon {
+            background: var(--success);
+        }
+        
+        .status-cancelled .status-icon {
+            background: var(--error);
+        }
+        
+        .status-details {
+            flex: 1;
+        }
+        
+        .status-title {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .status-description {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .notes-section {
+            margin-bottom: var(--space-6);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: flex-end;
+        }
+        
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+        
+        .btn-back:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        
+        .success-message {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .update-content {
+                margin: 0 var(--space-4);
+                padding: var(--space-6);
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .order-detail {
+                flex-direction: column;
+                gap: var(--space-1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="auth-links">
+                    <a href="seller-dashboard.html">Seller Dashboard</a>
+                    <span class="auth-divider">|</span>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Update Container -->
+    <div class="update-container">
+        <div class="container">
+            <div class="update-header">
+                <h1>Update Order Status</h1>
+                <p>Change the status of customer orders and notify them of updates</p>
+            </div>
+
+            <div class="update-content">
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    Order status updated successfully! Customer has been notified.
+                </div>
+
+                <!-- Order Information -->
+                <div class="order-info">
+                    <h3 style="margin-bottom: var(--space-4); color: var(--text-primary);">Order Information</h3>
+                    <div class="order-detail">
+                        <span class="order-label">Order ID:</span>
+                        <span class="order-value" id="order-id">ORD-001</span>
+                    </div>
+                    <div class="order-detail">
+                        <span class="order-label">Customer:</span>
+                        <span class="order-value" id="customer-name">Hanan Mohammed</span>
+                    </div>
+                    <div class="order-detail">
+                        <span class="order-label">Order Date:</span>
+                        <span class="order-value" id="order-date">January 25, 2024</span>
+                    </div>
+                    <div class="order-detail">
+                        <span class="order-label">Total Amount:</span>
+                        <span class="order-value" id="order-total">2,500 ETB</span>
+                    </div>
+                    <div class="order-detail">
+                        <span class="order-label">Current Status:</span>
+                        <span class="order-value" id="current-status">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Status Update Form -->
+                <form class="status-form" onsubmit="updateStatus(event)">
+                    <h3 style="margin-bottom: var(--space-4); color: var(--text-primary);">Select New Status</h3>
+                    
+                    <div class="status-options">
+                        <label class="status-option status-pending">
+                            <input type="radio" name="status" value="pending">
+                            <div class="status-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="status-details">
+                                <div class="status-title">Pending</div>
+                                <div class="status-description">Order received and awaiting confirmation</div>
+                            </div>
+                        </label>
+
+                        <label class="status-option status-confirmed">
+                            <input type="radio" name="status" value="confirmed">
+                            <div class="status-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="status-details">
+                                <div class="status-title">Confirmed</div>
+                                <div class="status-description">Order confirmed and being prepared</div>
+                            </div>
+                        </label>
+
+                        <label class="status-option status-shipped">
+                            <input type="radio" name="status" value="shipped">
+                            <div class="status-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="status-details">
+                                <div class="status-title">Shipped</div>
+                                <div class="status-description">Order has been shipped and is on the way</div>
+                            </div>
+                        </label>
+
+                        <label class="status-option status-delivered">
+                            <input type="radio" name="status" value="delivered">
+                            <div class="status-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <div class="status-details">
+                                <div class="status-title">Delivered</div>
+                                <div class="status-description">Order has been successfully delivered</div>
+                            </div>
+                        </label>
+
+                        <label class="status-option status-cancelled">
+                            <input type="radio" name="status" value="cancelled">
+                            <div class="status-icon">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <div class="status-details">
+                                <div class="status-title">Cancelled</div>
+                                <div class="status-description">Order has been cancelled</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="notes-section">
+                        <label class="form-label">Additional Notes (Optional)</label>
+                        <textarea class="form-input" id="status-notes" rows="4" placeholder="Add any additional information for the customer..."></textarea>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-back" onclick="goBack()">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Dashboard
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Update Status
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get order ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('orderId') || 'ORD-001';
+
+        // Sample order data (in real app, this would come from backend)
+        const orderData = {
+            'ORD-001': {
+                customer: 'Hanan Mohammed',
+                date: 'January 25, 2024',
+                total: '2,500 ETB',
+                status: 'pending',
+                items: ['Traditional Habesha Dress']
+            },
+            'ORD-002': {
+                customer: 'Sara Bekele',
+                date: 'January 24, 2024',
+                total: '850 ETB',
+                status: 'confirmed',
+                items: ['Handwoven Scarf']
+            },
+            'ORD-003': {
+                customer: 'Dawit Tadesse',
+                date: 'January 23, 2024',
+                total: '1,200 ETB',
+                status: 'shipped',
+                items: ['Traditional Shawl']
+            }
+        };
+
+        // Load order data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderData();
+            setupStatusOptions();
+        });
+
+        function loadOrderData() {
+            const order = orderData[orderId];
+            if (order) {
+                document.getElementById('order-id').textContent = orderId;
+                document.getElementById('customer-name').textContent = order.customer;
+                document.getElementById('order-date').textContent = order.date;
+                document.getElementById('order-total').textContent = order.total;
+                document.getElementById('current-status').textContent = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+                
+                // Pre-select current status
+                const currentStatusRadio = document.querySelector(`input[value="${order.status}"]`);
+                if (currentStatusRadio) {
+                    currentStatusRadio.checked = true;
+                    currentStatusRadio.closest('.status-option').classList.add('selected');
+                }
+            }
+        }
+
+        function setupStatusOptions() {
+            const statusOptions = document.querySelectorAll('.status-option');
+            statusOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    statusOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Check the radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+        }
+
+        function updateStatus(event) {
+            event.preventDefault();
+            
+            const selectedStatus = document.querySelector('input[name="status"]:checked');
+            const notes = document.getElementById('status-notes').value;
+            
+            if (!selectedStatus) {
+                alert('Please select a status');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                document.getElementById('success-message').style.display = 'block';
+                
+                // Update current status display
+                document.getElementById('current-status').textContent = 
+                    selectedStatus.value.charAt(0).toUpperCase() + selectedStatus.value.slice(1);
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Auto redirect after 2 seconds
+                setTimeout(() => {
+                    goBack();
+                }, 2000);
+                
+            }, 1500);
+        }
+
+        function goBack() {
+            window.location.href = 'seller-dashboard.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

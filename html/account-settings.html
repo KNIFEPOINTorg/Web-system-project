@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - LFLshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/account-settings-styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="expand-icon">+</div>
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="sale.html">Sale</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-icons">
+                    <!-- Notification Icon -->
+                    <div class="notification-dropdown" id="notification-dropdown" style="display: none;">
+                        <a href="#" class="nav-icon notification-icon" id="notification-icon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count" id="notification-count">0</span>
+                        </a>
+                        <div class="notification-panel" id="notification-panel">
+                            <div class="notification-header">
+                                <h4>Notifications</h4>
+                                <div class="notification-actions">
+                                    <button class="mark-all-read" id="mark-all-read">Mark all read</button>
+                                    <button class="clear-all" id="clear-all">Clear all</button>
+                                </div>
+                            </div>
+                            <div class="notification-list" id="notification-list">
+                                <!-- Notifications will be populated here -->
+                            </div>
+                            <div class="notification-footer">
+                                <a href="#" class="view-all-notifications">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Icon -->
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="nav-cart-count">0</span>
+                    </a>
+                    
+                    <!-- Auth Links -->
+                    <div class="auth-links">
+                        <a href="signin.html">Sign In</a>
+                        <span class="auth-divider">|</span>
+                        <a href="signup.html">Sign Up</a>
+                    </div>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="profile-dropdown" style="display: none;">
+                        <a href="#" class="nav-icon user-icon"><i class="far fa-user"></i></a>
+                        <div class="dropdown-menu">
+                            <!-- Content will be populated by auth.js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Account Settings Container -->
+    <div class="settings-container">
+        <!-- Settings Header -->
+        <div class="settings-header">
+            <div class="header-content">
+                <h1>Account Settings</h1>
+                <p>Manage your account information and preferences</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Content -->
+        <div class="settings-content">
+            <!-- Settings Navigation -->
+            <div class="settings-nav">
+                <div class="nav-item active" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile Information</span>
+                </div>
+                <div class="nav-item" data-section="contact">
+                    <i class="fas fa-phone"></i>
+                    <span>Contact Details</span>
+                </div>
+                <div class="nav-item" data-section="security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security</span>
+                </div>
+                <div class="nav-item" data-section="preferences">
+                    <i class="fas fa-cog"></i>
+                    <span>Preferences</span>
+                </div>
+                <div class="nav-item seller-only" data-section="business" style="display: none;">
+                    <i class="fas fa-store"></i>
+                    <span>Business Information</span>
+                </div>
+                <div class="nav-item danger" data-section="account">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Account Actions</span>
+                </div>
+            </div>
+
+            <!-- Settings Sections -->
+            <div class="settings-sections">
+                <!-- Profile Information Section -->
+                <div class="settings-section active" id="profile-section">
+                    <div class="section-header">
+                        <h2>Profile Information</h2>
+                        <p>Update your profile picture and basic information</p>
+                    </div>
+                    
+                    <form id="profile-form" class="settings-form">
+                        <!-- Profile Picture -->
+                        <div class="profile-picture-section">
+                            <div class="current-picture">
+                                <img id="profile-picture-preview" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Profile Picture">
+                                <div class="picture-overlay">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                            </div>
+                            <div class="picture-actions">
+                                <input type="file" id="profile-picture-input" accept="image/*" style="display: none;">
+                                <button type="button" class="btn-primary" onclick="document.getElementById('profile-picture-input').click()">
+                                    <i class="fas fa-upload"></i>
+                                    Upload Photo
+                                </button>
+                                <button type="button" class="btn-outline" id="remove-picture-btn">
+                                    <i class="fas fa-trash"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Basic Information -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name *</label>
+                                <input type="text" id="first-name" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name *</label>
+                                <input type="text" id="last-name" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="display-name">Display Name</label>
+                            <input type="text" id="display-name" name="displayName" placeholder="How others see your name">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-outline" id="cancel-profile">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Details Section -->
+                <div class="settings-section" id="contact-section">
+                    <div class="section-header">
+                        <h2>Contact Details</h2>
+                        <p>Manage your email and phone number</p>
+                    </div>
+                    
+                    <form id="contact-form" class="settings-form">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                            <small class="form-help">Used for account notifications and password recovery</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <div class="phone-input-group">
+                                <select id="country-code" name="countryCode">
+                                    <option value="+251">🇪🇹 +251 (Ethiopia)</option>
+                                    <option value="+1">🇺🇸 +1 (USA)</option>
+                                    <option value="+44">🇬🇧 +44 (UK)</option>
+                                </select>
+                                <input type="tel" id="phone" name="phone" placeholder="911234567">
+                            </div>
+                            <small class="form-help">Ethiopian format: 9XXXXXXXX (without country code)</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-outline" id="cancel-contact">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Security Section -->
+                <div class="settings-section" id="security-section">
+                    <div class="section-header">
+                        <h2>Security Settings</h2>
+                        <p>Change your password and manage security preferences</p>
+                    </div>
+                    
+                    <form id="security-form" class="settings-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password *</label>
+                            <div class="password-input-container">
+                                <input type="password" id="current-password" name="currentPassword" required>
+                                <button type="button" class="password-toggle" data-target="current-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new-password">New Password *</label>
+                            <div class="password-input-container">
+                                <input type="password" id="new-password" name="newPassword" required>
+                                <button type="button" class="password-toggle" data-target="new-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength" id="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill"></div>
+                                </div>
+                                <span class="strength-text">Password strength: Very weak</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password *</label>
+                            <div class="password-input-container">
+                                <input type="password" id="confirm-password" name="confirmPassword" required>
+                                <button type="button" class="password-toggle" data-target="confirm-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="password-requirements">
+                            <h4>Password Requirements:</h4>
+                            <ul>
+                                <li id="req-length">At least 8 characters</li>
+                                <li id="req-uppercase">One uppercase letter</li>
+                                <li id="req-lowercase">One lowercase letter</li>
+                                <li id="req-number">One number</li>
+                                <li id="req-special">One special character</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-outline" id="cancel-security">Cancel</button>
+                            <button type="submit" class="btn-primary">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Preferences Section -->
+                <div class="settings-section" id="preferences-section">
+                    <div class="section-header">
+                        <h2>Preferences</h2>
+                        <p>Customize your experience and notification settings</p>
+                    </div>
+                    
+                    <form id="preferences-form" class="settings-form">
+                        <div class="preference-group">
+                            <h3>Language & Region</h3>
+                            <div class="form-group">
+                                <label for="language">Language</label>
+                                <select id="language" name="language">
+                                    <option value="en">English</option>
+                                    <option value="am">አማርኛ (Amharic)</option>
+                                    <option value="or">Afaan Oromoo (Oromo)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <select id="currency" name="currency">
+                                    <option value="ETB">Ethiopian Birr (ETB)</option>
+                                    <option value="USD">US Dollar (USD)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="preference-group">
+                            <h3>Notifications</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="email-notifications" name="emailNotifications" checked>
+                                    <span class="checkmark"></span>
+                                    Email notifications
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="sms-notifications" name="smsNotifications">
+                                    <span class="checkmark"></span>
+                                    SMS notifications
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="order-updates" name="orderUpdates" checked>
+                                    <span class="checkmark"></span>
+                                    Order status updates
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="promotional-emails" name="promotionalEmails" checked>
+                                    <span class="checkmark"></span>
+                                    Promotional emails
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="preference-group">
+                            <h3>Privacy</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="profile-visibility" name="profileVisibility" checked>
+                                    <span class="checkmark"></span>
+                                    Make profile visible to other users
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="purchase-history" name="purchaseHistory">
+                                    <span class="checkmark"></span>
+                                    Show purchase history in reviews
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-outline" id="cancel-preferences">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Preferences</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Business Information Section (Sellers Only) -->
+                <div class="settings-section seller-only" id="business-section" style="display: none;">
+                    <div class="section-header">
+                        <h2>Business Information</h2>
+                        <p>Manage your business profile and store details</p>
+                    </div>
+                    
+                    <form id="business-form" class="settings-form">
+                        <div class="form-group">
+                            <label for="business-name">Business Name *</label>
+                            <input type="text" id="business-name" name="businessName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="business-description">Business Description</label>
+                            <textarea id="business-description" name="businessDescription" rows="4" placeholder="Describe your business and what you sell..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="business-city">City *</label>
+                                <select id="business-city" name="businessCity" required>
+                                    <option value="">Select City</option>
+                                    <option value="Addis Ababa">Addis Ababa</option>
+                                    <option value="Dire Dawa">Dire Dawa</option>
+                                    <option value="Mekelle">Mekelle</option>
+                                    <option value="Gondar">Gondar</option>
+                                    <option value="Hawassa">Hawassa</option>
+                                    <option value="Bahir Dar">Bahir Dar</option>
+                                    <option value="Jimma">Jimma</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="business-subcity">Sub-city/Area</label>
+                                <input type="text" id="business-subcity" name="businessSubcity" placeholder="e.g., Kirkos, Bole, Yeka">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="business-address">Full Address</label>
+                            <textarea id="business-address" name="businessAddress" rows="3" placeholder="Complete business address..."></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-outline" id="cancel-business">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Business Info</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Actions Section -->
+                <div class="settings-section" id="account-section">
+                    <div class="section-header">
+                        <h2>Account Actions</h2>
+                        <p>Manage your account status and data</p>
+                    </div>
+                    
+                    <div class="danger-zone">
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h3>Export Account Data</h3>
+                                <p>Download a copy of all your account data and activity</p>
+                            </div>
+                            <button class="btn-outline" id="export-data-btn">
+                                <i class="fas fa-download"></i>
+                                Export Data
+                            </button>
+                        </div>
+
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h3>Deactivate Account</h3>
+                                <p>Temporarily disable your account. You can reactivate it anytime.</p>
+                            </div>
+                            <button class="btn-warning" id="deactivate-account-btn">
+                                <i class="fas fa-pause"></i>
+                                Deactivate
+                            </button>
+                        </div>
+
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h3>Delete Account</h3>
+                                <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
+                            </div>
+                            <button class="btn-danger" id="delete-account-btn">
+                                <i class="fas fa-trash"></i>
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Confirm Action</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">Are you sure you want to proceed?</p>
+                <div class="modal-input" id="modal-input" style="display: none;">
+                    <input type="password" id="confirmation-password" placeholder="Enter your password to confirm">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" id="modal-cancel">Cancel</button>
+                <button class="btn-danger" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification" id="notification" style="display: none;">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <span class="notification-message"></span>
+            <button class="notification-close">&times;</button>
+        </div>
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/notifications.js"></script>
+    <script src="../javascript/account-settings.js"></script>
+</body>
+</html>

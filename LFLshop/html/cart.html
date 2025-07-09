@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .cart-container {
+            padding: var(--space-8) 0;
+            min-height: calc(100vh - var(--navbar-height) - 200px);
+        }
+        
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: var(--space-8);
+        }
+        
+        .cart-items {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+        }
+        
+        .cart-summary {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: var(--space-4);
+            padding: var(--space-6) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+        }
+        
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .item-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .item-seller {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .item-price {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+        }
+        
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+        }
+        
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border-primary);
+            background: var(--white);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .quantity-btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary-color);
+        }
+        
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            padding: var(--space-2);
+        }
+        
+        .remove-btn {
+            color: var(--error);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            transition: opacity var(--transition-fast);
+        }
+        
+        .remove-btn:hover {
+            opacity: 0.7;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .summary-row.total {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: var(--space-16) var(--space-8);
+        }
+        
+        .empty-cart i {
+            font-size: var(--text-4xl);
+            color: var(--text-muted);
+            margin-bottom: var(--space-6);
+        }
+        
+        .empty-cart h3 {
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .empty-cart p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-8);
+        }
+        
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-summary {
+                position: static;
+                order: 2;
+            }
+            
+            .cart-items {
+                order: 1;
+            }
+            
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                gap: var(--space-3);
+            }
+            
+            .item-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-top: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <!-- Navigation Icons (Hidden by default, shown when authenticated) -->
+                <div class="nav-icons" style="display: none;">
+                    <a href="../wishlist.php" class="nav-icon" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="../notifications.php" class="nav-icon" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </a>
+                </div>
+
+                <!-- User Menu (Hidden by default, shown when authenticated) -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-menu-toggle">
+                        <span>User Name</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <a href="../dashboard.php" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="../account-settings.php" class="dropdown-item">
+                            <i class="fas fa-user-cog"></i>
+                            Account Settings
+                        </a>
+                        <a href="../orders.php" class="dropdown-item">
+                            <i class="fas fa-shopping-bag"></i>
+                            My Orders
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Links (Shown by default, hidden when authenticated) -->
+                <div class="auth-links">
+                    <a href="../login.php">Sign In</a>
+                    <span class="auth-divider">|</span>
+                    <a href="../register.php">Sign Up</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Container -->
+    <div class="cart-container">
+        <div class="container">
+            <h1 class="text-center mb-8">Shopping Cart</h1>
+            
+            <div id="cart-content">
+                <!-- Cart content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartContent = document.getElementById('cart-content');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Looks like you haven't added any items to your cart yet.</p>
+                        <a href="collections.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-shopping-bag"></i>
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = 50; // Standard shipping fee
+            const total = subtotal + shipping;
+            
+            cartContent.innerHTML = `
+                <div class="cart-content">
+                    <div class="cart-items">
+                        <h2 class="mb-6">Cart Items (${cart.length})</h2>
+                        ${cart.map(item => `
+                            <div class="cart-item" data-id="${item.id}">
+                                <img src="${item.image}" alt="${item.title}" class="item-image">
+                                <div class="item-details">
+                                    <div class="item-title">${item.title}</div>
+                                    <div class="item-seller">By ${item.seller || 'LFLshop'}</div>
+                                    <div class="item-price">${item.price} ETB</div>
+                                </div>
+                                <div class="item-actions">
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" 
+                                               onchange="updateQuantity(${item.id}, this.value)">
+                                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h3 class="mb-6">Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>${subtotal} ETB</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span>${shipping} ETB</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span>${total} ETB</span>
+                        </div>
+                        
+                        <button class="btn btn-primary w-full btn-lg" onclick="proceedToCheckout()" style="margin-top: 2rem;">
+                            <i class="fas fa-credit-card"></i>
+                            Proceed to Checkout
+                        </button>
+                        
+                        <a href="collections.html" class="btn btn-secondary w-full" style="margin-top: 1rem;">
+                            <i class="fas fa-arrow-left"></i>
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function updateQuantity(productId, newQuantity) {
+            newQuantity = parseInt(newQuantity);
+            if (newQuantity < 1) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity = newQuantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+                updateCartCount();
+            }
+        }
+        
+        function removeFromCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+            updateCartCount();
+        }
+        
+        function proceedToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Check if user is logged in
+            const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (!user) {
+                if (confirm('You need to sign in to proceed to checkout. Would you like to sign in now?')) {
+                    window.location.href = 'signin.html?redirect=cart.html';
+                }
+                return;
+            }
+            
+            window.location.href = 'checkout.html';
+        }
+        
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+        }
+        
+        function updateAuthState() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const authLinks = document.querySelector('.auth-links');
+            
+            if (user) {
+                authLinks.innerHTML = `
+                    <a href="customer-dashboard.html">Dashboard</a>
+                    <span class="auth-divider">|</span>
+                    <a href="#" onclick="logout()">Logout</a>
+                `;
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadCart();
+            await updateCartCount();
+            await updateAuthState();
+            
+            // Initialize user menu dropdown
+            const userMenuToggle = document.querySelector('.user-menu-toggle');
+            const userDropdown = document.querySelector('.user-dropdown');
+
+            if (userMenuToggle && userDropdown) {
+                userMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    userDropdown.style.opacity = userDropdown.style.opacity === '1' ? '0' : '1';
+                    userDropdown.style.visibility = userDropdown.style.visibility === 'visible' ? 'hidden' : 'visible';
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.style.opacity = '0';
+                        userDropdown.style.visibility = 'hidden';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Load external dependencies -->
+    <script src="../javascript/config.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/auth.js"></script>
+    
+    <!-- Authentication State Manager -->
+    <script src="../javascript/auth-state-manager.js"></script>
+
+    <!-- Initialize Authentication -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize authentication state manager
+            if (window.authStateManager) {
+                window.authStateManager.init().then(() => {
+                    console.log('Authentication state manager initialized on cart page');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Profile - LFLshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/seller-profile.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="expand-icon">+</div>
+                <div class="logo">LFLshop</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="collections.html">Collections</a></li>
+                <li><a href="sale.html">Sale</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-icons">
+                    <!-- Cart Icon -->
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cart-badge">0</span>
+                    </a>
+
+                    <!-- Profile Dropdown -->
+                    <div class="profile-dropdown">
+                        <a href="#" class="nav-icon user-icon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="user-info" id="user-info">
+                                <!-- User info will be populated by JavaScript -->
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="customer-dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Customer Dashboard
+                            </a>
+                            <a href="seller-dashboard.html" class="dropdown-item" id="seller-dashboard-link" style="display: none;">
+                                <i class="fas fa-store"></i>
+                                Seller Dashboard
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="account-settings.html" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Account Settings
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seller Profile Container -->
+    <div class="seller-profile-container">
+        <!-- Seller Header -->
+        <section class="seller-header">
+            <div class="container">
+                <div class="seller-header-content">
+                    <div class="seller-avatar">
+                        <img id="seller-avatar" src="" alt="Seller Profile" class="avatar-image">
+                        <div class="verified-badge" id="verified-badge" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verified</span>
+                        </div>
+                    </div>
+                    
+                    <div class="seller-info">
+                        <h1 id="seller-business-name">Loading...</h1>
+                        <p class="seller-owner">By <span id="seller-owner-name">Loading...</span></p>
+                        <div class="seller-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="seller-location">Loading...</span>
+                        </div>
+                        
+                        <div class="seller-stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="seller-rating">0.0</span>
+                                <span class="stat-label">Rating</span>
+                                <div class="rating-stars" id="rating-stars"></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="total-reviews">0</span>
+                                <span class="stat-label">Reviews</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="total-sales">0</span>
+                                <span class="stat-label">Sales</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="member-since">2024</span>
+                                <span class="stat-label">Member Since</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="seller-actions">
+                        <button class="btn btn-primary" onclick="contactSeller()">
+                            <i class="fas fa-envelope"></i>
+                            Contact Seller
+                        </button>
+                        <button class="btn btn-outline" onclick="followSeller()">
+                            <i class="fas fa-heart"></i>
+                            Follow
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seller Navigation -->
+        <section class="seller-nav">
+            <div class="container">
+                <nav class="seller-nav-links">
+                    <a href="#products" class="nav-link active" data-section="products">
+                        <i class="fas fa-box"></i>
+                        Products
+                    </a>
+                    <a href="#about" class="nav-link" data-section="about">
+                        <i class="fas fa-info-circle"></i>
+                        About
+                    </a>
+                    <a href="#reviews" class="nav-link" data-section="reviews">
+                        <i class="fas fa-star"></i>
+                        Reviews
+                    </a>
+                    <a href="#policies" class="nav-link" data-section="policies">
+                        <i class="fas fa-shield-alt"></i>
+                        Policies
+                    </a>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="seller-main">
+            <div class="container">
+                <!-- Products Section -->
+                <section id="products-section" class="seller-section active">
+                    <div class="section-header">
+                        <h2>Products</h2>
+                        <div class="products-filters">
+                            <select id="category-filter" class="filter-select">
+                                <option value="">All Categories</option>
+                                <option value="textiles">Textiles</option>
+                                <option value="jewelry">Jewelry</option>
+                                <option value="coffee">Coffee</option>
+                                <option value="pottery">Pottery</option>
+                                <option value="spices">Spices</option>
+                            </select>
+                            <select id="sort-filter" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="products-grid" id="seller-products">
+                        <!-- Products will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about-section" class="seller-section">
+                    <div class="section-header">
+                        <h2>About This Seller</h2>
+                    </div>
+                    
+                    <div class="about-content">
+                        <div class="seller-description">
+                            <h3>Our Story</h3>
+                            <p id="seller-description">Loading seller description...</p>
+                        </div>
+                        
+                        <div class="seller-details">
+                            <h3>Business Details</h3>
+                            <div class="details-grid">
+                                <div class="detail-item">
+                                    <label>Business Type:</label>
+                                    <span id="business-type">Loading...</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Established:</label>
+                                    <span id="established-year">Loading...</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Specialties:</label>
+                                    <div id="specialties" class="specialties-tags">Loading...</div>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Languages:</label>
+                                    <span id="languages">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="business-hours">
+                            <h3>Business Hours</h3>
+                            <div id="business-hours" class="hours-list">
+                                <!-- Business hours will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reviews Section -->
+                <section id="reviews-section" class="seller-section">
+                    <div class="section-header">
+                        <h2>Customer Reviews</h2>
+                        <div class="reviews-summary">
+                            <div class="overall-rating">
+                                <span class="rating-number" id="overall-rating">0.0</span>
+                                <div class="rating-stars" id="overall-stars"></div>
+                                <span class="reviews-count">(<span id="reviews-count">0</span> reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reviews-list" id="reviews-list">
+                        <!-- Reviews will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Policies Section -->
+                <section id="policies-section" class="seller-section">
+                    <div class="section-header">
+                        <h2>Shop Policies</h2>
+                    </div>
+                    
+                    <div class="policies-content">
+                        <div class="policy-item">
+                            <h3><i class="fas fa-shipping-fast"></i> Shipping & Delivery</h3>
+                            <p>We ship nationwide across Ethiopia. Standard delivery takes 3-5 business days within Addis Ababa and 5-7 days to other regions.</p>
+                        </div>
+                        
+                        <div class="policy-item">
+                            <h3><i class="fas fa-undo"></i> Returns & Exchanges</h3>
+                            <p>We accept returns within 14 days of delivery for unused items in original condition. Custom orders are non-returnable.</p>
+                        </div>
+                        
+                        <div class="policy-item">
+                            <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
+                            <p>We accept cash on delivery, bank transfers, and mobile payments (CBE Birr, M-Birr, HelloCash).</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/notifications.js"></script>
+    <script src="../javascript/navigation.js"></script>
+    <script src="../javascript/toast-notifications.js"></script>
+    <script src="../javascript/seller-accounts.js"></script>
+    <script src="../javascript/seller-profile.js"></script>
+</body>
+</html>

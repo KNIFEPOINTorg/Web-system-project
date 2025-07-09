@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFLshop Dashboard - List Your Product</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>LFLshop</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    Home
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <span class="nav-icon">📦</span>
+                    Orders
+                </a>
+                <a href="products.html" class="nav-item active">
+                    <span class="nav-icon">📋</span>
+                    List Your Product
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    My Listing
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    Analytics
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <span class="breadcrumb">LFLshop</span>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="notifications">
+                        <span class="notification-icon">🔔</span>
+                    </div>
+                    <div class="help-icon">
+                        <span>❓</span>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <a href="index.html" class="back-button">← Back to Dashboard</a>
+                    <h1>List Your Product</h1>
+                </div>
+
+                <form class="product-form" id="product-form">
+                    <div class="form-section">
+                        <h2>Product details</h2>
+                        <div class="form-group">
+                            <label>Product Name *</label>
+                            <input type="text" id="product-name" placeholder="e.g. Handwoven Ethiopian Scarf" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="product-description" rows="4" placeholder="Describe your product..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="product-category" required>
+                                <option value="">Select Category</option>
+                                <option value="textiles">Traditional Textiles</option>
+                                <option value="coffee">Coffee & Beverages</option>
+                                <option value="spices">Spices & Herbs</option>
+                                <option value="jewelry">Jewelry & Accessories</option>
+                                <option value="pottery">Pottery & Ceramics</option>
+                                <option value="art">Art & Crafts</option>
+                                <option value="leather">Leather Goods</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Product Options</h2>
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select id="product-size">
+                                <option value="">Select Size</option>
+                                <option value="XS">Extra Small</option>
+                                <option value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
+                                <option value="XL">Extra Large</option>
+                                <option value="XXL">XXL</option>
+                                <option value="One Size">One Size</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Color</label>
+                            <div class="color-picker-container">
+                                <div class="color-options">
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="red">
+                                        <span class="color-swatch" style="background-color: #ff4444;"></span>
+                                        <span class="color-name">Red</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="blue">
+                                        <span class="color-swatch" style="background-color: #4444ff;"></span>
+                                        <span class="color-name">Blue</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="green">
+                                        <span class="color-swatch" style="background-color: #44ff44;"></span>
+                                        <span class="color-name">Green</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="yellow">
+                                        <span class="color-swatch" style="background-color: #ffff44;"></span>
+                                        <span class="color-name">Yellow</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="purple">
+                                        <span class="color-swatch" style="background-color: #8844ff;"></span>
+                                        <span class="color-name">Purple</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="orange">
+                                        <span class="color-swatch" style="background-color: #ff8844;"></span>
+                                        <span class="color-name">Orange</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="pink">
+                                        <span class="color-swatch" style="background-color: #ff44aa;"></span>
+                                        <span class="color-name">Pink</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="brown">
+                                        <span class="color-swatch" style="background-color: #8b4513;"></span>
+                                        <span class="color-name">Brown</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="black">
+                                        <span class="color-swatch" style="background-color: #333333;"></span>
+                                        <span class="color-name">Black</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="white">
+                                        <span class="color-swatch" style="background-color: #ffffff; border: 1px solid #ddd;"></span>
+                                        <span class="color-name">White</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="gray">
+                                        <span class="color-swatch" style="background-color: #888888;"></span>
+                                        <span class="color-name">Gray</span>
+                                    </label>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="beige">
+                                        <span class="color-swatch" style="background-color: #f5f5dc;"></span>
+                                        <span class="color-name">Beige</span>
+                                    </label>
+                                </div>
+                                <div class="custom-color-section">
+                                    <label class="color-option custom-color">
+                                        <input type="radio" name="color" value="custom">
+                                        <input type="color" id="customColorPicker" value="#d4a574">
+                                        <span class="color-name">Custom Color</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Pricing & Inventory</h2>
+                        <div class="form-group">
+                            <label>Price (ETB) *</label>
+                            <input type="number" id="product-price" placeholder="0" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock Quantity *</label>
+                            <input type="number" id="product-stock" placeholder="0" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>SKU (Optional)</label>
+                            <input type="text" id="product-sku" placeholder="e.g. ETH-001">
+                        </div>
+                        <div class="form-group">
+                            <label>Sale Price (ETB) - Optional</label>
+                            <input type="number" id="product-sale-price" placeholder="0" min="0" step="0.01">
+                            <small style="color: var(--text-secondary); font-size: var(--text-xs); margin-top: var(--space-1); display: block;">
+                                Leave empty for regular price. Sale price must be lower than regular price.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Location & Seller Info</h2>
+                        <div class="form-group">
+                            <label>Seller/Brand Name *</label>
+                            <input type="text" id="seller-name" placeholder="Your business name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location *</label>
+                            <select id="product-location" required>
+                                <option value="">Select Location</option>
+                                <option value="Addis Ababa">Addis Ababa</option>
+                                <option value="Dire Dawa">Dire Dawa</option>
+                                <option value="Mekelle">Mekelle</option>
+                                <option value="Gondar">Gondar</option>
+                                <option value="Awassa">Awassa</option>
+                                <option value="Bahir Dar">Bahir Dar</option>
+                                <option value="Jimma">Jimma</option>
+                                <option value="Jijiga">Jijiga</option>
+                                <option value="Shashamane">Shashamane</option>
+                                <option value="Nekemte">Nekemte</option>
+                                <option value="Harar">Harar</option>
+                                <option value="Debre Markos">Debre Markos</option>
+                                <option value="Yirgacheffe">Yirgacheffe</option>
+                                <option value="Lalibela">Lalibela</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Product Image</h2>
+                        <div class="photo-upload">
+                            <div class="upload-area" id="upload-area">
+                                <h3>Add Product Image</h3>
+                                <p>Upload a clear image of your product</p>
+                                <input type="file" id="product-image" accept="image/*" style="display: none;">
+                                <button type="button" class="upload-btn" onclick="document.getElementById('product-image').click()">Choose Image</button>
+                                <div id="image-preview" style="margin-top: 1rem; display: none;">
+                                    <img id="preview-img" style="max-width: 200px; max-height: 200px; border-radius: 8px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="saveDraft()">Save as Draft</button>
+                        <button type="submit" class="publish-btn">Publish Product</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Handle image preview
+        document.getElementById('product-image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    const img = document.getElementById('preview-img');
+                    img.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveProduct('active');
+        });
+
+        function saveDraft() {
+            saveProduct('draft');
+        }
+
+        async function saveProduct(status) {
+            // Get form data
+            const regularPrice = parseFloat(document.getElementById('product-price').value);
+            const salePrice = parseFloat(document.getElementById('product-sale-price').value) || null;
+            
+            const formData = {
+                name: document.getElementById('product-name').value,
+                description: document.getElementById('product-description').value,
+                category: document.getElementById('product-category').value,
+                size: document.getElementById('product-size').value,
+                color: getSelectedColor(),
+                price: regularPrice,
+                salePrice: salePrice,
+                onSale: salePrice && salePrice < regularPrice,
+                stock: parseInt(document.getElementById('product-stock').value),
+                sku: document.getElementById('product-sku').value || generateSKU(),
+                seller: document.getElementById('seller-name').value,
+                location: document.getElementById('product-location').value,
+                status: status,
+                visible: status === 'active',
+                dateAdded: new Date(),
+                image: document.getElementById('preview-img').src || null
+            };
+
+            // Validate required fields
+            if (!formData.name || !formData.category || !formData.price || !formData.stock || !formData.seller || !formData.location) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            // Validate sale price
+            if (salePrice && salePrice >= regularPrice) {
+                showNotification('Sale price must be lower than regular price', 'error');
+                return;
+            }
+
+            // Save to database via API
+            try {
+                const response = await fetch('/api/products.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: formData.name,
+                        description: formData.description,
+                        category_id: parseInt(formData.category),
+                        price: formData.price,
+                        sale_price: formData.salePrice,
+                        stock_quantity: formData.stock,
+                        sku: formData.sku,
+                        size: formData.size,
+                        color: formData.color,
+                        location: formData.location,
+                        status: formData.status,
+                        image: formData.image
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const message = status === 'active' ? 'Product published successfully!' : 'Product saved as draft!';
+                    showNotification(message, 'success');
+
+                    document.getElementById('product-form').reset();
+                    document.getElementById('image-preview').style.display = 'none';
+
+                    setTimeout(() => {
+                        window.location.href = 'listings.html';
+                    }, 2000);
+                } else {
+                    showNotification(data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error saving product:', error);
+                showNotification('Failed to save product', 'error');
+            }
+        }
+
+        function getSelectedColor() {
+            const selectedColor = document.querySelector('input[name="color"]:checked');
+            if (selectedColor) {
+                if (selectedColor.value === 'custom') {
+                    return document.getElementById('customColorPicker').value;
+                }
+                return selectedColor.value;
+            }
+            return null;
+        }
+
+        function generateSKU() {
+            const category = document.getElementById('product-category').value.toUpperCase().substring(0, 3);
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `${category}-${random}`;
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#28a745' : '#dc3545'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 3000;
+                font-size: 14px;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+                style.remove();
+            }, 4000);
+        }
+
+        // Auto-generate SKU when category changes
+        document.getElementById('product-category').addEventListener('change', function() {
+            const skuField = document.getElementById('product-sku');
+            if (!skuField.value) {
+                skuField.value = generateSKU();
+            }
+        });
+    </script>
+</body>
+</html>

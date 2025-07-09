@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .dashboard-container {
+            padding: var(--space-6) 0;
+            min-height: calc(100vh - var(--navbar-height));
+        }
+        
+        .dashboard-header {
+            background: var(--white);
+            padding: var(--space-6) 0;
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: var(--space-6);
+        }
+        
+        .dashboard-sidebar {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: var(--space-1);
+        }
+        
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            font-size: var(--text-sm);
+        }
+        
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+        
+        .dashboard-main {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            box-shadow: var(--shadow);
+        }
+        
+        .dashboard-section {
+            display: none;
+        }
+        
+        .dashboard-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-3);
+            color: var(--white);
+            font-size: var(--text-lg);
+        }
+        
+        .stat-number {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .order-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-bottom: var(--space-3);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+            padding-bottom: var(--space-2);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .order-id {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+        }
+        
+        .order-date {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .order-items {
+            margin-bottom: var(--space-3);
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) 0;
+        }
+        
+        .order-item-image {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius);
+            object-fit: cover;
+        }
+        
+        .order-item-details {
+            flex: 1;
+        }
+        
+        .order-item-name {
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .order-item-price {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-2);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .order-total {
+            font-weight: var(--font-bold);
+            font-size: var(--text-lg);
+            color: var(--text-primary);
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .status-badge {
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+        
+        .status-processing {
+            background: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+        
+        .status-out-for-delivery {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+        
+        .status-delivered {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        
+        .status-cancelled {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--error);
+        }
+        
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .wishlist-item {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition-fast);
+        }
+        
+        .wishlist-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+        
+        .wishlist-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .wishlist-content {
+            padding: var(--space-3);
+        }
+        
+        .wishlist-name {
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .wishlist-price {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--space-3);
+        }
+        
+        .wishlist-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .form-section {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-4);
+            border: 1px solid var(--border-light);
+        }
+        
+        .form-section-title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3);
+        }
+        
+        .address-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-bottom: var(--space-3);
+        }
+        
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-2);
+        }
+        
+        .address-type {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+        }
+        
+        .address-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .security-section {
+            background: rgba(220, 53, 69, 0.05);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-top: var(--space-4);
+        }
+        
+        .security-section h4 {
+            color: var(--error);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .no-items {
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--text-secondary);
+        }
+        
+        .no-items i {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--space-3);
+            color: var(--border-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-sidebar {
+                position: static;
+                order: 2;
+            }
+            
+            .dashboard-main {
+                order: 1;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-header,
+            .order-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-2);
+            }
+            
+            .wishlist-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="auth-links">
+                    <a href="customer-dashboard.html">My Account</a>
+                    <span class="auth-divider">|</span>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="container">
+                    <h1><i class="fas fa-user"></i> My Account</h1>
+                    <p>Manage your orders, wishlist, and account settings</p>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <aside class="dashboard-sidebar">
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="#" class="nav-item active" data-section="dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="orders">
+                                <i class="fas fa-shopping-bag"></i>
+                                My Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="wishlist">
+                                <i class="fas fa-heart"></i>
+                                Wishlist
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="account">
+                                <i class="fas fa-user-circle"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item" data-section="security">
+                                <i class="fas fa-shield-alt"></i>
+                                Security
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <main class="dashboard-main">
+                    <!-- Dashboard Overview Section -->
+                    <div id="dashboard-section" class="dashboard-section active">
+                        <h2 class="section-title">
+                            <i class="fas fa-chart-line"></i>
+                            Dashboard Overview
+                        </h2>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                                <div class="stat-number" id="total-orders">0</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="stat-number" id="wishlist-count">0</div>
+                                <div class="stat-label">Wishlist Items</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="stat-number" id="total-spent">0</div>
+                                <div class="stat-label">Total Spent (ETB)</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div class="stat-number" id="pending-deliveries">0</div>
+                                <div class="stat-label">Pending Deliveries</div>
+                            </div>
+                        </div>
+
+                        <h3><i class="fas fa-clock"></i> Recent Orders</h3>
+                        <div id="recent-orders-container">
+                            <!-- Recent orders will be loaded here -->
+                        </div>
+
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                            <a href="collections.html" class="btn btn-primary">
+                                <i class="fas fa-shopping-bag"></i>
+                                Continue Shopping
+                            </a>
+                            <button class="btn btn-outline" onclick="showSection('orders')">
+                                <i class="fas fa-list"></i>
+                                View All Orders
+                            </button>
+                            <button class="btn btn-outline" onclick="showSection('wishlist')">
+                                <i class="fas fa-heart"></i>
+                                View Wishlist
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- My Orders Section -->
+                    <div id="orders-section" class="dashboard-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-bag"></i>
+                            My Orders
+                        </h2>
+                        
+                        <div id="orders-container">
+                            <!-- Orders will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Wishlist Section -->
+                    <div id="wishlist-section" class="dashboard-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-heart"></i>
+                            My Wishlist
+                        </h2>
+                        
+                        <div id="wishlist-container">
+                            <!-- Wishlist items will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- My Account Section -->
+                    <div id="account-section" class="dashboard-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user-circle"></i>
+                            My Account
+                        </h2>
+                        
+                        <form id="account-form">
+                            <div class="form-section">
+                                <div class="form-section-title">
+                                    <i class="fas fa-user"></i>
+                                    Personal Information
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-input" id="account-name" value="Ethiopian Customer">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-input" id="account-email" value="customer@lflshop.et">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Phone</label>
+                                        <input type="tel" class="form-input" id="account-phone" value="+251 911 123 456">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">City</label>
+                                        <select class="form-input" id="account-city">
+                                            <option value="addis-ababa">Addis Ababa</option>
+                                            <option value="dire-dawa">Dire Dawa</option>
+                                            <option value="mekelle">Mekelle</option>
+                                            <option value="gondar">Gondar</option>
+                                            <option value="awassa">Awassa</option>
+                                            <option value="bahir-dar">Bahir Dar</option>
+                                            <option value="jimma">Jimma</option>
+                                            <option value="jijiga">Jijiga</option>
+                                            <option value="harar">Harar</option>
+                                            <option value="nekemte">Nekemte</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Update Profile
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Delivery Addresses -->
+                        <div class="form-section">
+                            <div class="form-section-title">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Delivery Addresses
+                            </div>
+                            
+                            <div id="addresses-container">
+                                <!-- Addresses will be loaded here -->
+                            </div>
+                            
+                            <button type="button" class="btn btn-outline" onclick="addNewAddress()">
+                                <i class="fas fa-plus"></i>
+                                Add New Address
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div id="security-section" class="dashboard-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-shield-alt"></i>
+                            Security Settings
+                        </h2>
+                        
+                        <div style="max-width: 600px;">
+                            <!-- Change Password -->
+                            <div class="form-section">
+                                <div class="form-section-title">
+                                    <i class="fas fa-key"></i>
+                                    Change Password
+                                </div>
+                                
+                                <form id="password-form">
+                                    <div class="form-group">
+                                        <label class="form-label">Current Password</label>
+                                        <input type="password" class="form-input" id="current-password" required>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label">New Password</label>
+                                            <input type="password" class="form-input" id="new-password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Confirm New Password</label>
+                                            <input type="password" class="form-input" id="confirm-password" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-key"></i>
+                                        Change Password
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <!-- Deactivate Account -->
+                            <div class="security-section">
+                                <h4>
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Danger Zone
+                                </h4>
+                                <p style="margin-bottom: var(--space-3); font-size: var(--text-sm);">
+                                    Deactivating your account will disable your ability to place orders and access your account. This action can be reversed by contacting support.
+                                </p>
+                                <button type="button" class="btn btn-outline" style="color: var(--error); border-color: var(--error);" onclick="deactivateAccount()">
+                                    <i class="fas fa-user-times"></i>
+                                    Deactivate Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const isAuthenticated = await checkCustomerAuth();
+            if (isAuthenticated) {
+                setupNavigation();
+                loadDashboardData();
+                setupForms();
+            }
+        });
+
+        async function checkCustomerAuth() {
+            // First check localStorage for immediate access
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (currentUser) {
+                return true;
+            }
+
+            // If not in localStorage, check with server
+            try {
+                const response = await fetch('../api/auth.php?action=check');
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store user data in localStorage for future access
+                    localStorage.setItem('currentUser', JSON.stringify(data.data.user));
+                    return true;
+                } else {
+                    // Not authenticated, redirect to sign in
+                    alert('Please sign in to access your account.');
+                    window.location.href = 'signin.html';
+                    return false;
+                }
+            } catch (error) {
+                // Error checking authentication, redirect to sign in
+                alert('Please sign in to access your account.');
+                window.location.href = 'signin.html';
+                return false;
+            }
+        }
+
+        function setupNavigation() {
+            document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+        }
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(`${sectionName}-section`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            const navItem = document.querySelector(`[data-section="${sectionName}"]`);
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+            
+            // Load section-specific data
+            switch (sectionName) {
+                case 'orders':
+                    loadOrders();
+                    break;
+                case 'wishlist':
+                    loadWishlist();
+                    break;
+                case 'account':
+                    loadAddresses();
+                    break;
+            }
+        }
+
+        function setupForms() {
+            // Account form
+            document.getElementById('account-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateAccount();
+            });
+
+            // Password form
+            document.getElementById('password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                changePassword();
+            });
+        }
+
+        function loadDashboardData() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            
+            // Update stats
+            document.getElementById('total-orders').textContent = orders.length;
+            document.getElementById('wishlist-count').textContent = wishlist.length;
+            document.getElementById('total-spent').textContent = orders.reduce((sum, order) => sum + (order.total || 0), 0).toLocaleString();
+            document.getElementById('pending-deliveries').textContent = orders.filter(order => 
+                ['pending', 'processing', 'out-for-delivery'].includes(order.status)
+            ).length;
+            
+            // Load recent orders
+            loadRecentOrders();
+        }
+
+        function loadRecentOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const recentOrders = orders.slice(0, 3);
+            const container = document.getElementById('recent-orders-container');
+            
+            if (recentOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="no-items">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h3>No Orders Yet</h3>
+                        <p>Start shopping to see your orders here.</p>
+                        <a href="collections.html" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-shopping-bag"></i>
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = recentOrders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Order #${order.id}</div>
+                            <div class="order-date">${new Date(order.date).toLocaleDateString()}</div>
+                        </div>
+                        <span class="status-badge status-${order.status}">${order.status.replace('-', ' ')}</span>
+                    </div>
+                    
+                    <div class="order-items">
+                        ${order.items.slice(0, 2).map(item => `
+                            <div class="order-item">
+                                <img src="${item.image}" alt="${item.title}" class="order-item-image">
+                                <div class="order-item-details">
+                                    <div class="order-item-name">${item.title}</div>
+                                    <div class="order-item-price">Qty: ${item.quantity} × ${item.price.toLocaleString()} ETB</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                        ${order.items.length > 2 ? `<p style="font-size: var(--text-sm); color: var(--text-secondary); margin: 0;">+${order.items.length - 2} more items</p>` : ''}
+                    </div>
+                    
+                    <div class="order-footer">
+                        <div class="order-total">Total: ${order.total.toLocaleString()} ETB</div>
+                        <div class="order-actions">
+                            <button class="btn btn-sm btn-outline" onclick="viewOrderDetails(${order.id})">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const container = document.getElementById('orders-container');
+            
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="no-items">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h3>No Orders Yet</h3>
+                        <p>You haven't placed any orders yet. Start shopping to see your orders here.</p>
+                        <a href="collections.html" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-shopping-bag"></i>
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Order #${order.id}</div>
+                            <div class="order-date">${new Date(order.date).toLocaleDateString()}</div>
+                            <div style="font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-1);">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Delivery to: ${order.deliveryAddress || 'Addis Ababa'}
+                            </div>
+                            <div style="font-size: var(--text-sm); color: var(--text-secondary);">
+                                <i class="fas fa-clock"></i>
+                                Estimated delivery: ${order.estimatedDelivery || '2-3 days'}
+                            </div>
+                        </div>
+                        <span class="status-badge status-${order.status}">${order.status.replace('-', ' ')}</span>
+                    </div>
+                    
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                <img src="${item.image}" alt="${item.title}" class="order-item-image">
+                                <div class="order-item-details">
+                                    <div class="order-item-name">${item.title}</div>
+                                    <div class="order-item-price">Qty: ${item.quantity} × ${item.price.toLocaleString()} ETB</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="order-footer">
+                        <div class="order-total">Total: ${order.total.toLocaleString()} ETB</div>
+                        <div class="order-actions">
+                            <button class="btn btn-sm btn-outline" onclick="viewOrderDetails(${order.id})">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="reorderItems(${order.id})">
+                                <i class="fas fa-redo"></i>
+                                Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadWishlist() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const container = document.getElementById('wishlist-container');
+            
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="no-items">
+                        <i class="fas fa-heart"></i>
+                        <h3>Your Wishlist is Empty</h3>
+                        <p>Save items you love to your wishlist and shop them later.</p>
+                        <a href="collections.html" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-shopping-bag"></i>
+                            Browse Products
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="wishlist-grid">
+                    ${wishlist.map(item => `
+                        <div class="wishlist-item">
+                            <img src="${item.image}" alt="${item.name}" class="wishlist-image">
+                            <div class="wishlist-content">
+                                <div class="wishlist-name">${item.name}</div>
+                                <div class="wishlist-price">${item.price.toLocaleString()} ETB</div>
+                                <div class="wishlist-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="addToCartFromWishlist(${item.id})">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Add to Cart
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="removeFromWishlist(${item.id})">
+                                        <i class="fas fa-trash"></i>
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function loadAddresses() {
+            const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+            const container = document.getElementById('addresses-container');
+            
+            if (addresses.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-6); color: var(--text-secondary);">
+                        <i class="fas fa-map-marker-alt" style="font-size: var(--text-xl); margin-bottom: var(--space-2);"></i>
+                        <p>No delivery addresses added yet.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = addresses.map(address => `
+                <div class="address-card">
+                    <div class="address-header">
+                        <div class="address-type">${address.type}</div>
+                        <div class="address-actions">
+                            <button class="btn btn-sm btn-outline" onclick="editAddress(${address.id})">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="deleteAddress(${address.id})" style="color: var(--error);">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div style="color: var(--text-secondary); font-size: var(--text-sm);">
+                        ${address.street}<br>
+                        ${address.city}, ${address.region}<br>
+                        Phone: ${address.phone}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewOrderDetails(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const order = orders.find(o => o.id === orderId);
+            
+            if (!order) {
+                showMessage('Order not found', 'error');
+                return;
+            }
+            
+            alert(`Order #${order.id}\nStatus: ${order.status}\nTotal: ${order.total.toLocaleString()} ETB\nItems: ${order.items.length}`);
+        }
+
+        function reorderItems(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const order = orders.find(o => o.id === orderId);
+            
+            if (!order) {
+                showMessage('Order not found', 'error');
+                return;
+            }
+            
+            // Add items to cart
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            order.items.forEach(item => {
+                const existingItem = cart.find(cartItem => cartItem.id === item.id);
+                if (existingItem) {
+                    existingItem.quantity += item.quantity;
+                } else {
+                    cart.push({...item});
+                }
+            });
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showMessage('Items added to cart successfully!', 'success');
+            
+            // Update cart count
+            updateCartCount();
+        }
+
+        function addToCartFromWishlist(itemId) {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const item = wishlist.find(w => w.id === itemId);
+            
+            if (!item) {
+                showMessage('Item not found in wishlist', 'error');
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existingItem = cart.find(cartItem => cartItem.id === item.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showMessage('Item added to cart!', 'success');
+            updateCartCount();
+        }
+
+        function removeFromWishlist(itemId) {
+            if (!confirm('Remove this item from your wishlist?')) {
+                return;
+            }
+            
+            let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            wishlist = wishlist.filter(item => item.id !== itemId);
+            
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            loadWishlist();
+            loadDashboardData();
+            showMessage('Item removed from wishlist', 'success');
+        }
+
+        function addNewAddress() {
+            const type = prompt('Address type (e.g., Home, Work):');
+            const street = prompt('Street address:');
+            const city = prompt('City:');
+            const phone = prompt('Phone number:');
+            
+            if (type && street && city && phone) {
+                const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+                const newAddress = {
+                    id: Date.now(),
+                    type: type,
+                    street: street,
+                    city: city,
+                    region: 'Ethiopia',
+                    phone: phone
+                };
+                
+                addresses.push(newAddress);
+                localStorage.setItem('addresses', JSON.stringify(addresses));
+                loadAddresses();
+                showMessage('Address added successfully!', 'success');
+            }
+        }
+
+        function editAddress(addressId) {
+            const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+            const address = addresses.find(a => a.id === addressId);
+            
+            if (!address) {
+                showMessage('Address not found', 'error');
+                return;
+            }
+            
+            const newStreet = prompt('Edit street address:', address.street);
+            const newPhone = prompt('Edit phone number:', address.phone);
+            
+            if (newStreet && newPhone) {
+                address.street = newStreet;
+                address.phone = newPhone;
+                localStorage.setItem('addresses', JSON.stringify(addresses));
+                loadAddresses();
+                showMessage('Address updated successfully!', 'success');
+            }
+        }
+
+        function deleteAddress(addressId) {
+            if (!confirm('Delete this address?')) {
+                return;
+            }
+            
+            let addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+            addresses = addresses.filter(a => a.id !== addressId);
+            
+            localStorage.setItem('addresses', JSON.stringify(addresses));
+            loadAddresses();
+            showMessage('Address deleted successfully!', 'success');
+        }
+
+        function updateAccount() {
+            const name = document.getElementById('account-name').value;
+            const email = document.getElementById('account-email').value;
+            const phone = document.getElementById('account-phone').value;
+            const city = document.getElementById('account-city').value;
+            
+            // Update current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            currentUser.name = name;
+            currentUser.email = email;
+            currentUser.phone = phone;
+            currentUser.city = city;
+            
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showMessage('Account updated successfully!', 'success');
+        }
+
+        function changePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (newPassword !== confirmPassword) {
+                showMessage('New passwords do not match', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showMessage('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            // In a real app, this would verify the current password
+            showMessage('Password changed successfully!', 'success');
+            document.getElementById('password-form').reset();
+        }
+
+        function deactivateAccount() {
+            if (confirm('Are you sure you want to deactivate your account? This will disable your ability to place orders and access your account.')) {
+                if (confirm('This action will deactivate your account. You can contact support to reactivate it. Are you absolutely sure?')) {
+                    // In a real app, this would deactivate the account
+                    alert('Account deactivation request submitted. You will be contacted by support within 24 hours.');
+                }
+            }
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+        }
+
+        function showMessage(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#17a2b8'};
+                color: white;
+                padding: 0.75rem 1rem;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 3000;
+                font-size: var(--text-sm);
+                max-width: 350px;
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        function logout() {
+            // Use authManager if available, otherwise fallback to manual logout
+            if (typeof authManager !== 'undefined') {
+                authManager.logout();
+            } else {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'signin.html';
+            }
+        }
+
+        // Initialize cart count on page load
+        updateCartCount();
+    </script>
+
+    <!-- Include authentication manager -->
+    <script src="../javascript/auth.js"></script>
+</body>
+</html>

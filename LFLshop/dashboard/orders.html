@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFLshop Dashboard - Order History</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>LFLshop</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    Home
+                </a>
+                <a href="orders.html" class="nav-item active">
+                    <span class="nav-icon">📦</span>
+                    Orders
+                </a>
+                <a href="products.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    List Your Product
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    My Listing
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    Analytics
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <span class="breadcrumb">LFLshop</span>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="notifications">
+                        <span class="notification-icon">🔔</span>
+                    </div>
+                    <div class="help-icon">
+                        <span>❓</span>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <a href="index.html" class="back-button">← Back</a>
+                    <h1>Order History</h1>
+                </div>
+
+                <div class="orders-table">
+                    <div class="table-header">
+                        <div class="table-col">Item</div>
+                        <div class="table-col">Quantity</div>
+                        <div class="table-col">Price</div>
+                        <div class="table-col">Status</div>
+                        <div class="table-col">Export Options</div>
+                        <div class="table-col">Invoice</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-col">Handwoven Basket</div>
+                        <div class="table-col">2</div>
+                        <div class="table-col">$50</div>
+                        <div class="table-col"><span class="status delivered">Delivered</span></div>
+                        <div class="table-col"><button class="action-btn export">Export</button></div>
+                        <div class="table-col"><button class="action-btn download">Download</button></div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-col">Ethiopian Coffee Beans</div>
+                        <div class="table-col">1</div>
+                        <div class="table-col">$25</div>
+                        <div class="table-col"><span class="status delivered">Delivered</span></div>
+                        <div class="table-col"><button class="action-btn export">Export</button></div>
+                        <div class="table-col"><button class="action-btn download">Download</button></div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-col">Traditional Dress</div>
+                        <div class="table-col">1</div>
+                        <div class="table-col">$100</div>
+                        <div class="table-col"><span class="status processing">Processing</span></div>
+                        <div class="table-col"><button class="action-btn export">Export</button></div>
+                        <div class="table-col"><button class="action-btn download">Download</button></div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-col">Incense Sticks</div>
+                        <div class="table-col">5</div>
+                        <div class="table-col">$10</div>
+                        <div class="table-col"><span class="status delivered">Delivered</span></div>
+                        <div class="table-col"><button class="action-btn export">Export</button></div>
+                        <div class="table-col"><button class="action-btn download">Download</button></div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-col">Leather Sandals</div>
+                        <div class="table-col">1</div>
+                        <div class="table-col">$40</div>
+                        <div class="table-col"><span class="status delivered">Delivered</span></div>
+                        <div class="table-col"><button class="action-btn export">Export</button></div>
+                        <div class="table-col"><button class="action-btn download">Download</button></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

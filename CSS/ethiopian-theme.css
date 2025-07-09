@@ -1,0 +1,456 @@
+/**
+ * Ethiopian Marketplace Theme for LFLshop
+ * Unified design system with Ethiopian cultural elements
+ */
+
+/* Ethiopian Color Palette */
+:root {
+    /* Primary Ethiopian Colors */
+    --ethiopian-green: #2E8B57;
+    --ethiopian-yellow: #FFD700;
+    --ethiopian-red: #DC143C;
+    
+    /* Marketplace Colors */
+    --primary-color: #2E8B57;
+    --secondary-color: #228B22;
+    --accent-color: #FFD700;
+    --warning-color: #DC143C;
+    
+    /* Neutral Colors */
+    --white: #FFFFFF;
+    --black: #000000;
+    --text-primary: #2C3E50;
+    --text-secondary: #5D6D7E;
+    --text-muted: #85929E;
+    --text-light: #BDC3C7;
+    
+    /* Background Colors */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8F9FA;
+    --bg-accent: #F4F6F7;
+    --bg-light: #FDFEFE;
+    
+    /* Border Colors */
+    --border-primary: #E5E8E8;
+    --border-light: #F4F6F7;
+    --border-dark: #D5DBDB;
+    
+    /* Ethiopian Cultural Elements */
+    --coffee-brown: #8B4513;
+    --spice-orange: #FF8C00;
+    --textile-blue: #4682B4;
+    --gold-accent: #DAA520;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+    
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-full: 9999px;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Layout */
+    --container-max: 1200px;
+    --navbar-height: 80px;
+    
+    /* Z-index */
+    --z-dropdown: 1000;
+    --z-modal: 2000;
+    --z-notification: 3000;
+}
+
+/* Ethiopian Flag Gradient */
+.ethiopian-gradient {
+    background: linear-gradient(135deg, var(--ethiopian-green) 0%, var(--ethiopian-yellow) 50%, var(--ethiopian-red) 100%);
+}
+
+/* Ethiopian Cultural Badges */
+.ethiopian-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: linear-gradient(135deg, var(--ethiopian-green), var(--ethiopian-yellow));
+    color: var(--white);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow);
+}
+
+.coffee-badge {
+    background: linear-gradient(135deg, var(--coffee-brown), #D2691E);
+    color: var(--white);
+}
+
+.spice-badge {
+    background: linear-gradient(135deg, var(--spice-orange), #FF6347);
+    color: var(--white);
+}
+
+.textile-badge {
+    background: linear-gradient(135deg, var(--textile-blue), #87CEEB);
+    color: var(--white);
+}
+
+/* Ethiopian Product Cards */
+.ethiopian-product-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.ethiopian-product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ethiopian-green), var(--ethiopian-yellow), var(--ethiopian-red));
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.ethiopian-product-card:hover::before {
+    opacity: 1;
+}
+
+.ethiopian-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+/* Ethiopian Buttons */
+.btn-ethiopian {
+    background: linear-gradient(135deg, var(--ethiopian-green), var(--secondary-color));
+    color: var(--white);
+    border: none;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius);
+    font-weight: var(--font-medium);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.btn-ethiopian:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--ethiopian-green));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: var(--white);
+}
+
+.btn-coffee {
+    background: linear-gradient(135deg, var(--coffee-brown), #D2691E);
+}
+
+.btn-coffee:hover {
+    background: linear-gradient(135deg, #D2691E, var(--coffee-brown));
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold-accent), var(--accent-color));
+    color: var(--text-primary);
+}
+
+.btn-gold:hover {
+    background: linear-gradient(135deg, var(--accent-color), var(--gold-accent));
+    color: var(--text-primary);
+}
+
+/* Ethiopian Section Headers */
+.ethiopian-section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+    position: relative;
+}
+
+.ethiopian-section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ethiopian-green), var(--ethiopian-yellow), var(--ethiopian-red));
+    border-radius: var(--radius-full);
+}
+
+.ethiopian-section-header h2 {
+    color: var(--text-primary);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-4);
+}
+
+.ethiopian-section-header p {
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Ethiopian Navigation */
+.ethiopian-nav {
+    background: var(--white);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--ethiopian-green), var(--ethiopian-yellow), var(--ethiopian-red)) 1;
+    box-shadow: var(--shadow);
+}
+
+/* Ethiopian Hero Section */
+.ethiopian-hero {
+    background: linear-gradient(135deg, 
+        rgba(46, 139, 87, 0.95) 0%, 
+        rgba(34, 139, 34, 0.95) 100%),
+        url('../IMG/ethiopia-landscape.jpg') center/cover;
+    color: var(--white);
+    padding: var(--space-20) 0;
+    text-align: center;
+    position: relative;
+}
+
+.ethiopian-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(46, 139, 87, 0.8) 0%, 
+        rgba(34, 139, 34, 0.8) 50%,
+        rgba(255, 215, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+.ethiopian-hero .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Ethiopian Category Cards */
+.ethiopian-category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+    margin: var(--space-12) 0;
+}
+
+.ethiopian-category-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.ethiopian-category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ethiopian-green), var(--ethiopian-yellow), var(--ethiopian-red));
+    transform: scaleX(0);
+    transition: transform var(--transition);
+}
+
+.ethiopian-category-card:hover::before {
+    transform: scaleX(1);
+}
+
+.ethiopian-category-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Ethiopian Footer */
+.ethiopian-footer {
+    background: linear-gradient(135deg, var(--text-primary) 0%, #1B2631 100%);
+    color: var(--white);
+    position: relative;
+}
+
+.ethiopian-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ethiopian-green), var(--ethiopian-yellow), var(--ethiopian-red));
+}
+
+/* Ethiopian Cultural Elements */
+.coffee-pattern {
+    background-image: radial-gradient(circle at 20% 50%, var(--coffee-brown) 2px, transparent 2px),
+                      radial-gradient(circle at 80% 50%, var(--coffee-brown) 2px, transparent 2px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+}
+
+.textile-pattern {
+    background-image: repeating-linear-gradient(45deg, 
+        transparent, 
+        transparent 10px, 
+        var(--textile-blue) 10px, 
+        var(--textile-blue) 20px);
+    opacity: 0.1;
+}
+
+/* Ethiopian Price Display */
+.ethiopian-price {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--primary-color);
+    position: relative;
+}
+
+.ethiopian-price::after {
+    content: 'ETB';
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    margin-left: var(--space-2);
+}
+
+/* Ethiopian Loading Animation */
+.ethiopian-loading {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-light);
+    border-top: 3px solid var(--ethiopian-green);
+    border-right: 3px solid var(--ethiopian-yellow);
+    border-bottom: 3px solid var(--ethiopian-red);
+    border-radius: 50%;
+    animation: ethiopianSpin 1s linear infinite;
+}
+
+@keyframes ethiopianSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ethiopian Success/Error Messages */
+.ethiopian-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-left: 4px solid var(--ethiopian-green);
+}
+
+.ethiopian-error {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-left: 4px solid var(--ethiopian-red);
+}
+
+.ethiopian-warning {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    color: #856404;
+    border: 1px solid #ffeaa7;
+    border-left: 4px solid var(--ethiopian-yellow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ethiopian-category-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+    
+    .ethiopian-hero {
+        padding: var(--space-12) 0;
+    }
+    
+    .ethiopian-section-header h2 {
+        font-size: var(--text-2xl);
+    }
+}
+
+/* Ethiopian Cultural Animations */
+@keyframes ethiopianPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes ethiopianGlow {
+    0%, 100% { box-shadow: 0 0 5px var(--ethiopian-green); }
+    50% { box-shadow: 0 0 20px var(--ethiopian-yellow), 0 0 30px var(--ethiopian-green); }
+}
+
+.ethiopian-pulse {
+    animation: ethiopianPulse 2s ease-in-out infinite;
+}
+
+.ethiopian-glow {
+    animation: ethiopianGlow 3s ease-in-out infinite;
+}
+
+/* Ethiopian Flag Colors for Accents */
+.flag-green { color: var(--ethiopian-green); }
+.flag-yellow { color: var(--ethiopian-yellow); }
+.flag-red { color: var(--ethiopian-red); }
+
+.bg-flag-green { background-color: var(--ethiopian-green); }
+.bg-flag-yellow { background-color: var(--ethiopian-yellow); }
+.bg-flag-red { background-color: var(--ethiopian-red); }

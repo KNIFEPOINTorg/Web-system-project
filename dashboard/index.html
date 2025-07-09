@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFLshop Dashboard - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>LFLshop</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active">
+                    <span class="nav-icon">🏠</span>
+                    Home
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <span class="nav-icon">📦</span>
+                    Orders
+                </a>
+                <a href="products.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    List Your Product
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    My Listing
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    Analytics
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <span class="breadcrumb">LFLshop</span>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="notifications" onclick="toggleNotifications()">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge">3</span>
+                        <div id="notificationDropdown" class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read" onclick="markAllAsRead()">Mark all as read</button>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <div class="notification-icon-small">📦</div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">New Order Received</div>
+                                        <div class="notification-text">Order #1237 from Sarah Johnson</div>
+                                        <div class="notification-time">2 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon-small">⭐</div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">Product Review</div>
+                                        <div class="notification-text">New 5-star review for Handwoven Basket</div>
+                                        <div class="notification-time">1 hour ago</div>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon-small">💰</div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">Payment Received</div>
+                                        <div class="notification-text">$125.00 payment confirmed</div>
+                                        <div class="notification-time">3 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon-small">📋</div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">Product Approved</div>
+                                        <div class="notification-text">Ethiopian Spice Blend is now live</div>
+                                        <div class="notification-time">1 day ago</div>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon-small">🚚</div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">Order Shipped</div>
+                                        <div class="notification-text">Order #1234 has been shipped</div>
+                                        <div class="notification-time">2 days ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-footer">
+                                <a href="#" class="view-all-link">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="help-icon">
+                        <span>❓</span>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Sales</h3>
+                        <div class="stat-value">$24,500</div>
+                        <div class="stat-change positive">+10%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Orders</h3>
+                        <div class="stat-value">156</div>
+                        <div class="stat-change positive">+8%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Products</h3>
+                        <div class="stat-value">23</div>
+                        <div class="stat-change neutral">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Customers</h3>
+                        <div class="stat-value">89</div>
+                        <div class="stat-change positive">+12%</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Orders</h3>
+                        <div class="order-list">
+                            <div class="order-item">
+                                <span class="order-id">#1234</span>
+                                <span class="order-customer">John Doe</span>
+                                <span class="order-amount">$125</span>
+                                <span class="order-status delivered">Delivered</span>
+                            </div>
+                            <div class="order-item">
+                                <span class="order-id">#1235</span>
+                                <span class="order-customer">Jane Smith</span>
+                                <span class="order-amount">$89</span>
+                                <span class="order-status processing">Processing</span>
+                            </div>
+                            <div class="order-item">
+                                <span class="order-id">#1236</span>
+                                <span class="order-customer">Mike Johnson</span>
+                                <span class="order-amount">$156</span>
+                                <span class="order-status pending">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>Top Products</h3>
+                        <div class="product-list">
+                            <div class="product-item">
+                                <span class="product-name">Handwoven Ethiopian Scarf</span>
+                                <span class="product-sales">45 sold</span>
+                            </div>
+                            <div class="product-item">
+                                <span class="product-name">Traditional Coffee Set</span>
+                                <span class="product-sales">32 sold</span>
+                            </div>
+                            <div class="product-item">
+                                <span class="product-name">Leather Sandals</span>
+                                <span class="product-sales">28 sold</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function markAllAsRead() {
+            const unreadItems = document.querySelectorAll('.notification-item.unread');
+            unreadItems.forEach(item => {
+                item.classList.remove('unread');
+            });
+            
+            const badge = document.querySelector('.notification-badge');
+            badge.style.display = 'none';
+            
+            // Close dropdown after marking as read
+            document.getElementById('notificationDropdown').style.display = 'none';
+        }
+
+        // Close notification dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const notifications = document.querySelector('.notifications');
+            const dropdown = document.getElementById('notificationDropdown');
+            
+            if (!notifications.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Prevent dropdown from closing when clicking inside it
+        document.getElementById('notificationDropdown').addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

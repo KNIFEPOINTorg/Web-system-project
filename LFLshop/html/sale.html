@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sale - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/enhanced-search.css">
+    <style>
+        .sale-container {
+            padding: var(--space-8) 0;
+            min-height: calc(100vh - var(--navbar-height) - 200px);
+        }
+        
+        .sale-header {
+            background: var(--white);
+            color: var(--text-primary);
+            padding: var(--space-4) 0 var(--space-5) 0;
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+        
+        .sale-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: var(--primary-color);
+            color: var(--white);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            margin-bottom: var(--space-3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .sale-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .sale-subtitle {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        .sale-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-8);
+        }
+        
+        .sale-filters {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .filter-section h3 {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            cursor: pointer;
+        }
+        
+        .filter-option input {
+            margin: 0;
+        }
+        
+        .filter-option label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .price-range-container {
+            margin-top: var(--space-3);
+        }
+        
+        .price-inputs {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+            width: 100%;
+        }
+        
+        .price-input {
+            flex: 1;
+            padding: var(--space-2);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            font-size: var(--text-xs);
+            transition: border-color var(--transition-fast);
+            min-width: 0;
+            width: 100%;
+        }
+        
+        .price-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.1);
+        }
+        
+        .price-inputs span {
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            font-size: var(--text-xs);
+            flex-shrink: 0;
+        }
+        
+        .sale-products {
+            min-height: 600px;
+        }
+        
+        .sale-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .results-count {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .sort-select {
+            padding: var(--space-3);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            background: var(--white);
+            transition: border-color var(--transition-fast);
+        }
+        
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+        
+        .sale-product-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .sale-product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .sale-badge-product {
+            position: absolute;
+            top: var(--space-3);
+            left: var(--space-3);
+            background: var(--primary-color);
+            color: var(--white);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+            z-index: 2;
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .sale-product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            opacity: 0;
+            transition: opacity var(--transition);
+            padding: var(--space-4);
+        }
+        
+        .sale-product-card:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .product-info {
+            padding: var(--space-6);
+        }
+        
+        .product-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-2);
+            line-height: 1.3;
+        }
+        
+        .product-description {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+            line-height: 1.4;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+        }
+        
+        .stars {
+            display: flex;
+            gap: var(--space-1);
+        }
+        
+        .stars i {
+            color: var(--warning);
+            font-size: var(--text-sm);
+        }
+        
+        .rating-text {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+        
+        .product-pricing {
+            margin-bottom: var(--space-4);
+        }
+        
+        .current-price {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            margin-right: var(--space-3);
+        }
+        
+        .original-price {
+            font-size: var(--text-base);
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: var(--space-3);
+        }
+        
+        .discount-percent {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius);
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+        }
+        
+        .product-seller {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+        
+        .seller-link {
+            color: var(--primary-color);
+            font-weight: var(--font-medium);
+        }
+        
+        .clear-filters {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            margin-top: var(--space-4);
+            width: 100%;
+            transition: all var(--transition-fast);
+        }
+        
+        .clear-filters:hover {
+            background: var(--accent-color);
+            transform: translateY(-1px);
+        }
+        
+        @media (max-width: 768px) {
+            .sale-header {
+                padding: var(--space-3) 0 var(--space-4) 0;
+                margin-bottom: var(--space-4);
+            }
+            
+            .sale-title {
+                font-size: var(--text-xl);
+                margin-bottom: var(--space-2);
+            }
+            
+            .sale-subtitle {
+                font-size: var(--text-xs);
+                padding: 0 var(--space-4);
+            }
+            
+            .sale-badge {
+                font-size: 10px;
+                padding: var(--space-1) var(--space-2);
+                margin-bottom: var(--space-2);
+            }
+            
+            .sale-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sale-filters {
+                position: static;
+                order: 2;
+            }
+            
+            .sale-products {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html" class="active">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <!-- Enhanced Search Container -->
+                <div class="search-container enhanced-search">
+                    <div class="search-input-wrapper">
+                        <input type="text"
+                               id="globalSearchInput"
+                               placeholder="Search Ethiopian products..."
+                               class="search-bar"
+                               autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <button class="search-clear" id="searchClear" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Search Suggestions Dropdown -->
+                    <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                        <div class="suggestions-header">
+                            <span>Search Suggestions</span>
+                        </div>
+                        <div class="suggestions-list" id="suggestionsList">
+                            <!-- Dynamic suggestions will be inserted here -->
+                        </div>
+                        <div class="suggestions-footer">
+                            <button class="view-all-results" id="viewAllResults">
+                                <i class="fas fa-search"></i>
+                                View all results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Icons (Hidden by default, shown when authenticated) -->
+                <div class="nav-icons" style="display: none;">
+                    <a href="../wishlist.php" class="nav-icon" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="../cart.php" class="nav-icon" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="../notifications.php" class="nav-icon" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </a>
+                </div>
+
+                <!-- User Menu (Hidden by default, shown when authenticated) -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-menu-toggle">
+                        <span>User Name</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <a href="../dashboard.php" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="../account-settings.php" class="dropdown-item">
+                            <i class="fas fa-user-cog"></i>
+                            Account Settings
+                        </a>
+                        <a href="../orders.php" class="dropdown-item">
+                            <i class="fas fa-shopping-bag"></i>
+                            My Orders
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Links (Shown by default, hidden when authenticated) -->
+                <div class="auth-links">
+                    <a href="../login.php">Sign In</a>
+                    <span class="auth-divider">|</span>
+                    <a href="../register.php">Sign Up</a>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sale Container -->
+    <div class="sale-container">
+        <div class="container">
+            <!-- Sale Header -->
+            <div class="sale-header">
+                <div class="sale-badge">
+                    <i class="fas fa-fire"></i>
+                    <span>Limited Time Offers</span>
+                </div>
+                <h1 class="sale-title">Ethiopian Sale</h1>
+                <p class="sale-subtitle">Discover authentic Ethiopian products at unbeatable prices. Support local artisans while saving big!</p>
+            </div>
+
+            <div class="sale-content">
+                <!-- Sale Filters -->
+                <aside class="sale-filters">
+                    <div class="filter-section">
+                        <h3>Discount Range</h3>
+                        <div class="filter-group">
+                            <div class="filter-option">
+                                <input type="radio" name="discount" id="discount-all" value="0" checked>
+                                <label for="discount-all">All Discounts</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="discount" id="discount-10" value="10">
+                                <label for="discount-10">10% or more</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="discount" id="discount-25" value="25">
+                                <label for="discount-25">25% or more</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="discount" id="discount-50" value="50">
+                                <label for="discount-50">50% or more</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Categories</h3>
+                        <div class="filter-group">
+                            <div class="filter-option">
+                                <input type="checkbox" id="clothing" value="clothing">
+                                <label for="clothing">Clothing</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="coffee-beverages" value="coffee-beverages">
+                                <label for="coffee-beverages">Coffee & Beverages</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="art-collectibles" value="art-collectibles">
+                                <label for="art-collectibles">Art & Collectibles</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="beauty" value="beauty">
+                                <label for="beauty">Beauty</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="books" value="books">
+                                <label for="books">Books</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="tools-craft" value="tools-craft">
+                                <label for="tools-craft">Tools & Craft Tools</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="jewelry" value="jewelry">
+                                <label for="jewelry">Jewelry</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="shoes-accessories" value="shoes-accessories">
+                                <label for="shoes-accessories">Shoes & Accessories</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="gifts" value="gifts">
+                                <label for="gifts">Gifts</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="home-living" value="home-living">
+                                <label for="home-living">Home & Living</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="food-spices" value="food-spices">
+                                <label for="food-spices">Food & Spices</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="toys" value="toys">
+                                <label for="toys">Toys</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="creators-merch" value="creators-merch">
+                                <label for="creators-merch">Creators Merch</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Price Range (ETB)</h3>
+                        <div class="price-range-container">
+                            <div class="price-inputs">
+                                <input type="number" placeholder="Min" class="price-input" id="min-price">
+                                <span>-</span>
+                                <input type="number" placeholder="Max" class="price-input" id="max-price">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="clear-filters" onclick="clearAllFilters()">
+                        <i class="fas fa-refresh"></i>
+                        Clear All Filters
+                    </button>
+                </aside>
+
+                <!-- Sale Products -->
+                <div class="sale-products">
+                    <div class="sale-toolbar">
+                        <div class="results-count" id="results-count">
+                            Showing 12 sale items
+                        </div>
+                        <div class="sort-container">
+                            <label for="sort-select">Sort by:</label>
+                            <select id="sort-select" class="sort-select">
+                                <option value="discount">Highest Discount</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="newest">Newest First</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="sale-products-grid">
+                        <!-- Sale products will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <h3>LFLshop</h3>
+                        <p>🇪🇹 Ethiopia's Authentic Marketplace</p>
+                    </div>
+                    <div class="ethiopian-identity">
+                        <p>Connecting Ethiopian artisans with the world</p>
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i> hello@lflshop.et</span>
+                            <span><i class="fas fa-phone"></i> +251 11 123 4567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-links-container">
+                    <div class="footer-column">
+                        <h4>Shopping</h4>
+                        <ul class="footer-links">
+                            <li><a href="collections.html">Browse Products</a></li>
+                            <li><a href="sale.html">Sale Items</a></li>
+                            <li><a href="cart.html">Shopping Cart</a></li>
+                            <li><a href="customer-dashboard.html">My Account</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Shipping Info</a></li>
+                            <li><a href="#">Returns</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html">About LFLshop</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>For Sellers</h4>
+                        <ul class="footer-links">
+                            <li><a href="seller-dashboard.html">Seller Dashboard</a></li>
+                            <li><a href="#">Start Selling</a></li>
+                            <li><a href="#">Seller Resources</a></li>
+                            <li><a href="#">Success Stories</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <div class="social-links">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                    <div class="ethiopian-badge">
+                        <i class="fas fa-heart"></i>
+                        <span>Proudly Ethiopian</span>
+                    </div>
+                </div>
+
+                <div class="footer-bottom-right">
+                    <div class="legal-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                    <div class="footer-copyright">
+                        <p>© 2024 LFLshop. Made with ❤️ in Ethiopia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/navigation.js"></script>
+    
+    <!-- Include Quick View Modal -->
+    <div class="quick-view-modal" id="quick-view-modal" style="display: none;">
+        <div class="quick-view-overlay" onclick="closeQuickView()"></div>
+        <div class="quick-view-content">
+            <button class="quick-view-close" onclick="closeQuickView()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="quick-view-body">
+                <div class="quick-view-images">
+                    <div class="quick-main-image">
+                        <img src="" alt="" id="quick-main-img">
+                    </div>
+                    <div class="quick-thumbnails" id="quick-thumbnails">
+                        <!-- Thumbnails will be populated -->
+                    </div>
+                </div>
+                
+                <div class="quick-view-info">
+                    <h2 class="quick-product-title" id="quick-title">Product Title</h2>
+                    
+                    <div class="quick-rating">
+                        <div class="stars" id="quick-stars">
+                            <!-- Stars will be populated -->
+                        </div>
+                        <span class="rating-text" id="quick-rating-text">4.5 (127 reviews)</span>
+                    </div>
+                    
+                    <div class="quick-price">
+                        <span class="current-price" id="quick-price">5,050</span>
+                        <span class="price-currency">ETB</span>
+                        <span class="original-price" id="quick-original-price" style="display: none;">6,000</span>
+                        <span class="discount-percent" id="quick-discount" style="display: none;">25% OFF</span>
+                    </div>
+                    
+                    <div class="quick-description" id="quick-description">
+                        <p>Brief product description will appear here...</p>
+                    </div>
+                    
+                    <div class="quick-specs">
+                        <div class="spec-row">
+                            <span class="spec-label">Category:</span>
+                            <span class="spec-value" id="quick-category">Clothing</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Region:</span>
+                            <span class="spec-value" id="quick-region">Addis Ababa</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Stock:</span>
+                            <span class="spec-value" id="quick-stock">15 Available</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <button class="btn btn-primary" onclick="addToCartFromQuickView()">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                        <button class="btn btn-secondary" onclick="viewFullProduct()">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Quick View Modal Styles for Sale Page */
+        .quick-view-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-view-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .quick-view-content {
+            position: relative;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: quickViewSlideIn 0.3s ease-out;
+        }
+
+        @keyframes quickViewSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .quick-view-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition-fast);
+        }
+
+        .quick-view-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        .quick-view-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            padding: var(--space-8);
+        }
+
+        .quick-view-images {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .quick-main-image {
+            width: 100%;
+            height: 300px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .quick-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quick-thumbnails {
+            display: flex;
+            gap: var(--space-2);
+            overflow-x: auto;
+        }
+
+        .quick-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .quick-thumbnail.active {
+            border-color: var(--primary-color);
+        }
+
+        .quick-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quick-view-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .quick-product-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .quick-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .quick-price {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+        }
+
+        .quick-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .quick-specs {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius);
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-2);
+        }
+
+        .spec-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .spec-label {
+            font-weight: var(--font-medium);
+            color: var(--text-secondary);
+        }
+
+        .spec-value {
+            color: var(--text-primary);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .quick-actions button {
+            flex: 1;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        @media (max-width: 768px) {
+            .quick-view-content {
+                width: 95%;
+                margin: var(--space-4);
+            }
+
+            .quick-view-body {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+                padding: var(--space-6);
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <script>
+        // Load sale products from database
+        async function loadSaleProducts() {
+            try {
+                console.log('🔄 Loading sale products from database...');
+                const response = await fetch('../php/handlers/public_products_handler.php?action=get_sales');
+                console.log('📡 Sales API Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('📊 Sales API Response data:', data);
+
+                if (data.success) {
+                    console.log('✅ Loaded', data.products.length, 'sale products');
+                    return data.products;
+                } else {
+                    console.error('❌ Failed to load sale products:', data.error);
+                    return [];
+                }
+            } catch (error) {
+                console.error('❌ Error loading sale products:', error);
+                return [];
+            }
+        }
+
+        let saleProducts = [];
+        let filteredProducts = [];
+
+        function renderSaleProducts(productsToRender) {
+            const grid = document.getElementById('sale-products-grid');
+            const resultsCount = document.getElementById('results-count');
+            
+            resultsCount.textContent = `Showing ${productsToRender.length} sale items`;
+            
+            if (productsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-16); color: var(--text-secondary);">
+                        <i class="fas fa-tags" style="font-size: var(--text-4xl); margin-bottom: var(--space-4); color: var(--border-primary);"></i>
+                        <h3 style="margin-bottom: var(--space-2);">No Sale Items Available</h3>
+                        <p>Sale items will appear here when sellers add discounted products.</p>
+                        <a href="collections.html" class="btn btn-primary" style="margin-top: var(--space-4);">
+                            <i class="fas fa-shopping-bag"></i> Browse All Products
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = productsToRender.map(product => `
+                <div class="sale-product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}">
+                        <div class="sale-badge-product">${product.discount}% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn btn-primary btn-sm" onclick="openQuickView(${product.id})">Quick View</button>
+                            <button class="btn btn-secondary btn-sm" onclick="viewFullProduct(${product.id})">View Details</button>
+                            <button class="btn btn-secondary btn-sm" onclick="addToCart(${product.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                ${'<i class="fas fa-star"></i>'.repeat(product.rating)}
+                                ${'<i class="far fa-star"></i>'.repeat(5 - product.rating)}
+                            </div>
+                            <span class="rating-text">(${Math.floor(Math.random() * 20) + 5} reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">${product.currentPrice} ETB</span>
+                            <span class="original-price">${product.originalPrice} ETB</span>
+                            <span class="discount-percent">${product.discount}% OFF</span>
+                        </div>
+                        <div class="product-seller">
+                            <span>By <a href="#" class="seller-link">${product.seller}</a></span>
+                            <span class="seller-location">${product.location}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function applyFilters() {
+            const minPrice = parseInt(document.getElementById('min-price').value) || 0;
+            const maxPrice = parseInt(document.getElementById('max-price').value) || Infinity;
+            
+            const selectedCategories = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+            
+            const selectedDiscount = parseInt(document.querySelector('input[name="discount"]:checked').value) || 0;
+            
+            filteredProducts = saleProducts.filter(product => {
+                const priceMatch = product.currentPrice >= minPrice && product.currentPrice <= maxPrice;
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+                const discountMatch = product.discount >= selectedDiscount;
+                
+                return priceMatch && categoryMatch && discountMatch;
+            });
+            
+            renderSaleProducts(filteredProducts);
+        }
+
+        function clearAllFilters() {
+            document.getElementById('min-price').value = '';
+            document.getElementById('max-price').value = '';
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.getElementById('discount-all').checked = true;
+            document.getElementById('sort-select').value = 'discount';
+            
+            filteredProducts = [...saleProducts];
+            renderSaleProducts(filteredProducts);
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sort-select').value;
+            
+            switch (sortBy) {
+                case 'discount':
+                    filteredProducts.sort((a, b) => b.discount - a.discount);
+                    break;
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.currentPrice - b.currentPrice);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.currentPrice - a.currentPrice);
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'newest':
+                    filteredProducts.sort((a, b) => b.id - a.id);
+                    break;
+            }
+            
+            renderSaleProducts(filteredProducts);
+        }
+
+        function viewProduct(id) {
+            window.location.href = `product-detail.html?id=${id}`;
+        }
+
+        function addToCart(id) {
+            const product = saleProducts.find(p => p.id === id);
+            if (!product) return;
+            
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ 
+                    ...product, 
+                    price: product.currentPrice, // Use sale price
+                    quantity: 1 
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show success message
+            alert('Sale item added to cart!');
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+        }
+
+        // Quick View Functionality
+        let currentQuickViewProduct = null;
+
+        // Open Quick View Modal
+        function openQuickView(productId) {
+            const product = saleProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            currentQuickViewProduct = product;
+            
+            // Populate modal content
+            document.getElementById('quick-title').textContent = product.title;
+            document.getElementById('quick-price').textContent = `${product.currentPrice}`;
+            document.getElementById('quick-description').innerHTML = `<p>${product.description}</p>`;
+            document.getElementById('quick-category').textContent = product.category;
+            document.getElementById('quick-region').textContent = product.location;
+            document.getElementById('quick-stock').textContent = 'In Stock';
+            document.getElementById('quick-rating-text').textContent = `${product.rating} (${Math.floor(Math.random() * 50) + 10} reviews)`;
+            
+            // Show original price and discount for sale items
+            const originalPriceEl = document.getElementById('quick-original-price');
+            const discountEl = document.getElementById('quick-discount');
+            if (product.originalPrice && product.discount) {
+                originalPriceEl.textContent = `${product.originalPrice} ETB`;
+                originalPriceEl.style.display = 'inline';
+                discountEl.textContent = `${product.discount}% OFF`;
+                discountEl.style.display = 'inline';
+            } else {
+                originalPriceEl.style.display = 'none';
+                discountEl.style.display = 'none';
+            }
+            
+            // Set main image
+            document.getElementById('quick-main-img').src = product.image;
+            document.getElementById('quick-main-img').alt = product.title;
+            
+            // Generate star rating
+            const starsContainer = document.getElementById('quick-stars');
+            const fullStars = Math.floor(product.rating);
+            const hasHalfStar = product.rating % 1 !== 0;
+            
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < fullStars; i++) {
+                starsContainer.innerHTML += '<i class="fas fa-star"></i>';
+            }
+            if (hasHalfStar) {
+                starsContainer.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+            }
+            for (let i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) {
+                starsContainer.innerHTML += '<i class="far fa-star"></i>';
+            }
+            
+            // Generate thumbnails (just one for sale products)
+            const thumbnailsContainer = document.getElementById('quick-thumbnails');
+            thumbnailsContainer.innerHTML = `
+                <div class="quick-thumbnail active">
+                    <img src="${product.image}" alt="${product.title}">
+                </div>
+            `;
+            
+            // Show modal
+            document.getElementById('quick-view-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Quick View Modal
+        function closeQuickView() {
+            document.getElementById('quick-view-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentQuickViewProduct = null;
+        }
+
+        // Add to Cart from Quick View
+        function addToCartFromQuickView() {
+            if (!currentQuickViewProduct) return;
+            
+            // Get existing cart
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // Check if item already exists
+            const existingItem = cart.find(item => item.id === currentQuickViewProduct.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: currentQuickViewProduct.id,
+                    title: currentQuickViewProduct.title,
+                    price: currentQuickViewProduct.currentPrice,
+                    quantity: 1,
+                    image: currentQuickViewProduct.image
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show notification
+            showSaleNotification(`${currentQuickViewProduct.title} added to cart!`, 'success');
+            
+            // Close modal
+            closeQuickView();
+        }
+
+        // View Full Product - Updated to handle both quick view and direct calls
+        function viewFullProduct(productId = null) {
+            // If called from quick view modal
+            if (currentQuickViewProduct && !productId) {
+                closeQuickView();
+                window.location.href = `product-detail.html?id=${currentQuickViewProduct.id}`;
+                return;
+            }
+            
+            // If called directly with product ID
+            if (productId) {
+                window.location.href = `product-detail.html?id=${productId}`;
+                return;
+            }
+            
+            // Fallback - shouldn't happen but just in case
+            console.error('viewFullProduct called without valid product reference');
+        }
+
+        // Notification function for sale page
+        function showSaleNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification-toast ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}" style="color: ${type === 'success' ? '#28a745' : '#dc3545'};"></i>
+                    <span style="color: #333;">${message}</span>
+                </div>
+            `;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1100;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Load sale products from database
+            saleProducts = await loadSaleProducts();
+            filteredProducts = [...saleProducts];
+            renderSaleProducts(saleProducts);
+            updateCartCount();
+            
+            // Add event listeners for filters
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                input.addEventListener('change', applyFilters);
+            });
+            
+            document.getElementById('min-price').addEventListener('input', applyFilters);
+            document.getElementById('max-price').addEventListener('input', applyFilters);
+            document.getElementById('sort-select').addEventListener('change', sortProducts);
+            
+            // Close modal on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && document.getElementById('quick-view-modal').style.display === 'flex') {
+                    closeQuickView();
+                }
+            });
+        });
+    </script>
+
+    <!-- Authentication State Manager -->
+    <script src="../javascript/auth-state-manager.js"></script>
+
+    <!-- Enhanced Search Functionality -->
+    <script src="../javascript/enhanced-search.js"></script>
+
+    <!-- Initialize Authentication and Search -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize authentication state manager
+            if (window.authStateManager) {
+                window.authStateManager.init().then(() => {
+                    console.log('Authentication state manager initialized on sale page');
+                });
+            }
+
+            // Initialize enhanced search
+            if (window.enhancedSearch) {
+                window.enhancedSearch.init();
+                console.log('Enhanced search initialized on sale page');
+            }
+
+            // Initialize user menu dropdown
+            const userMenuToggle = document.querySelector('.user-menu-toggle');
+            const userDropdown = document.querySelector('.user-dropdown');
+
+            if (userMenuToggle && userDropdown) {
+                userMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    userDropdown.style.opacity = userDropdown.style.opacity === '1' ? '0' : '1';
+                    userDropdown.style.visibility = userDropdown.style.visibility === 'visible' ? 'hidden' : 'visible';
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.style.opacity = '0';
+                        userDropdown.style.visibility = 'hidden';
+                    }
+                });
+            }
+        });
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                fetch('../php/handlers/auth_handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'action=logout'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect || 'index.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+    </script>
+</body>
+</html>

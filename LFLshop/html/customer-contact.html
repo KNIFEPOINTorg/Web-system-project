@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Contact - LFLshop Seller</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/enhanced-search.css">
+    <style>
+        .contact-container {
+            padding: var(--space-8) 0;
+            min-height: calc(100vh - var(--navbar-height) - 200px);
+        }
+        
+        .contact-header {
+            background: var(--white);
+            color: var(--text-primary);
+            padding: var(--space-6) 0;
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+        }
+        
+        .customer-info-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            height: fit-content;
+        }
+        
+        .contact-methods-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+        }
+        
+        .customer-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            color: var(--white);
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+        }
+        
+        .customer-name {
+            text-align: center;
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .customer-type {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-6);
+        }
+        
+        .info-section {
+            margin-bottom: var(--space-6);
+        }
+        
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3);
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            margin-bottom: var(--space-3);
+        }
+        
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-label {
+            font-weight: var(--font-medium);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-weight: var(--font-medium);
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-4);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .contact-method:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--text-lg);
+        }
+        
+        .contact-phone .contact-icon {
+            background: var(--success);
+        }
+        
+        .contact-email .contact-icon {
+            background: var(--info);
+        }
+        
+        .contact-whatsapp .contact-icon {
+            background: #25D366;
+        }
+        
+        .contact-telegram .contact-icon {
+            background: #0088cc;
+        }
+        
+        .contact-details {
+            flex: 1;
+        }
+        
+        .contact-title {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .contact-value {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .contact-action {
+            color: var(--primary-color);
+            font-size: var(--text-lg);
+        }
+        
+        .order-context {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+        }
+        
+        .context-title {
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .context-details {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .back-button {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-6);
+            transition: all var(--transition-fast);
+        }
+        
+        .back-button:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--primary-color);
+        }
+        
+        .customer-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: var(--space-3);
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+        }
+        
+        .stat-number {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                margin: 0 var(--space-4);
+                gap: var(--space-6);
+            }
+            
+            .customer-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-method {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <!-- Enhanced Search Container -->
+                <div class="search-container enhanced-search">
+                    <div class="search-input-wrapper">
+                        <input type="text"
+                               id="globalSearchInput"
+                               placeholder="Search Ethiopian products..."
+                               class="search-bar"
+                               autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <button class="search-clear" id="searchClear" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Search Suggestions Dropdown -->
+                    <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                        <div class="suggestions-header">
+                            <span>Search Suggestions</span>
+                        </div>
+                        <div class="suggestions-list" id="suggestionsList">
+                            <!-- Dynamic suggestions will be inserted here -->
+                        </div>
+                        <div class="suggestions-footer">
+                            <button class="view-all-results" id="viewAllResults">
+                                <i class="fas fa-search"></i>
+                                View all results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Icons (Hidden by default, shown when authenticated) -->
+                <div class="nav-icons" style="display: none;">
+                    <a href="../wishlist.php" class="nav-icon" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="../cart.php" class="nav-icon" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="../notifications.php" class="nav-icon" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </a>
+                </div>
+
+                <!-- User Menu (Hidden by default, shown when authenticated) -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-menu-toggle">
+                        <span>User Name</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <a href="../dashboard.php" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="../account-settings.php" class="dropdown-item">
+                            <i class="fas fa-user-cog"></i>
+                            Account Settings
+                        </a>
+                        <a href="../orders.php" class="dropdown-item">
+                            <i class="fas fa-shopping-bag"></i>
+                            My Orders
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Links (Shown by default, hidden when authenticated) -->
+                <div class="auth-links">
+                    <a href="../login.php">Sign In</a>
+                    <span class="auth-divider">|</span>
+                    <a href="../register.php">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+        <div class="container">
+            <a href="seller-dashboard.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+
+            <div class="contact-header">
+                <h1>Customer Contact Information</h1>
+                <p>Connect with your customer regarding their order</p>
+            </div>
+
+            <div class="contact-content">
+                <!-- Customer Information Card -->
+                <div class="customer-info-card">
+                    <div class="customer-avatar" id="customer-avatar">H</div>
+                    <div class="customer-name" id="customer-name">Hanan Mohammed</div>
+                    <div class="customer-type">Verified Customer</div>
+
+                    <!-- Customer Stats -->
+                    <div class="customer-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Total Orders</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.9</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+
+                    <!-- Order Context -->
+                    <div class="order-context">
+                        <div class="context-title">Current Order Context</div>
+                        <div class="context-details" id="order-context">
+                            Order <strong id="context-order-id">ORD-001</strong> - Traditional Habesha Dress (2,500 ETB)
+                        </div>
+                    </div>
+
+                    <!-- Customer Details -->
+                    <div class="info-section">
+                        <div class="info-title">
+                            <i class="fas fa-user"></i>
+                            Customer Details
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Customer ID</span>
+                            <span class="info-value" id="customer-id">CUST-2024-001</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value" id="member-since">January 2024</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Location</span>
+                            <span class="info-value" id="customer-location">Addis Ababa, Ethiopia</span>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Address -->
+                    <div class="info-section">
+                        <div class="info-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Delivery Address
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Address</span>
+                            <span class="info-value" id="delivery-address">Bole, Addis Ababa</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Postal Code</span>
+                            <span class="info-value" id="postal-code">1000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Methods Card -->
+                <div class="contact-methods-card">
+                    <div class="info-title">
+                        <i class="fas fa-phone"></i>
+                        Contact Methods
+                    </div>
+
+                    <!-- Phone Contact -->
+                    <a href="tel:+251911123456" class="contact-method contact-phone">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-title">Phone Call</div>
+                            <div class="contact-value" id="customer-phone">+251 911 123 456</div>
+                        </div>
+                        <div class="contact-action">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <!-- Email Contact -->
+                    <a href="mailto:hanan.mohammed@example.com" class="contact-method contact-email">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-title">Email</div>
+                            <div class="contact-value" id="customer-email">hanan.mohammed@example.com</div>
+                        </div>
+                        <div class="contact-action">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <!-- WhatsApp Contact -->
+                    <a href="https://wa.me/251911123456" target="_blank" class="contact-method contact-whatsapp">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-title">WhatsApp</div>
+                            <div class="contact-value">Send message via WhatsApp</div>
+                        </div>
+                        <div class="contact-action">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <!-- Telegram Contact -->
+                    <a href="https://t.me/+251911123456" target="_blank" class="contact-method contact-telegram">
+                        <div class="contact-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-title">Telegram</div>
+                            <div class="contact-value">Chat on Telegram</div>
+                        </div>
+                        <div class="contact-action">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <!-- Additional Information -->
+                    <div class="info-section" style="margin-top: var(--space-6);">
+                        <div class="info-title">
+                            <i class="fas fa-info-circle"></i>
+                            Additional Information
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Preferred Contact</span>
+                            <span class="info-value">WhatsApp</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Language</span>
+                            <span class="info-value">Amharic, English</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Best Time to Call</span>
+                            <span class="info-value">9 AM - 6 PM EAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('orderId') || 'ORD-001';
+        const customerName = urlParams.get('customer') || 'Hanan Mohammed';
+
+        // Sample customer data (in real app, this would come from backend)
+        const customerData = {
+            'Hanan Mohammed': {
+                id: 'CUST-2024-001',
+                phone: '+251 911 123 456',
+                email: 'hanan.mohammed@example.com',
+                location: 'Addis Ababa, Ethiopia',
+                address: 'Bole, Addis Ababa',
+                postalCode: '1000',
+                memberSince: 'January 2024',
+                totalOrders: 12,
+                rating: 4.9,
+                preferredContact: 'WhatsApp',
+                languages: 'Amharic, English',
+                bestTimeToCall: '9 AM - 6 PM EAT'
+            },
+            'Sara Bekele': {
+                id: 'CUST-2024-002',
+                phone: '+251 911 234 567',
+                email: 'sara.bekele@example.com',
+                location: 'Bahir Dar, Ethiopia',
+                address: 'Kebele 01, Bahir Dar',
+                postalCode: '2000',
+                memberSince: 'December 2023',
+                totalOrders: 8,
+                rating: 4.7,
+                preferredContact: 'Phone',
+                languages: 'Amharic',
+                bestTimeToCall: '10 AM - 5 PM EAT'
+            },
+            'Dawit Tadesse': {
+                id: 'CUST-2024-003',
+                phone: '+251 911 345 678',
+                email: 'dawit.tadesse@example.com',
+                location: 'Hawassa, Ethiopia',
+                address: 'Mehal, Hawassa',
+                postalCode: '3000',
+                memberSince: 'November 2023',
+                totalOrders: 15,
+                rating: 5.0,
+                preferredContact: 'Email',
+                languages: 'English, Amharic',
+                bestTimeToCall: '8 AM - 7 PM EAT'
+            }
+        };
+
+        // Order data for context
+        const orderData = {
+            'ORD-001': {
+                customer: 'Hanan Mohammed',
+                items: ['Traditional Habesha Dress'],
+                total: '2,500 ETB'
+            },
+            'ORD-002': {
+                customer: 'Sara Bekele',
+                items: ['Handwoven Scarf'],
+                total: '850 ETB'
+            },
+            'ORD-003': {
+                customer: 'Dawit Tadesse',
+                items: ['Traditional Shawl'],
+                total: '1,200 ETB'
+            }
+        };
+
+        // Load customer data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCustomerData();
+        });
+
+        function loadCustomerData() {
+            const customer = customerData[customerName];
+            const order = orderData[orderId];
+            
+            if (customer) {
+                // Update customer info
+                document.getElementById('customer-name').textContent = customerName;
+                document.getElementById('customer-avatar').textContent = customerName.charAt(0).toUpperCase();
+                document.getElementById('customer-id').textContent = customer.id;
+                document.getElementById('customer-phone').textContent = customer.phone;
+                document.getElementById('customer-email').textContent = customer.email;
+                document.getElementById('customer-location').textContent = customer.location;
+                document.getElementById('delivery-address').textContent = customer.address;
+                document.getElementById('postal-code').textContent = customer.postalCode;
+                document.getElementById('member-since').textContent = customer.memberSince;
+                
+                // Update stats
+                document.querySelector('.stat-number').textContent = customer.totalOrders;
+                document.querySelectorAll('.stat-number')[1].textContent = customer.rating;
+                
+                // Update contact links
+                document.querySelector('.contact-phone').href = `tel:${customer.phone}`;
+                document.querySelector('.contact-email').href = `mailto:${customer.email}`;
+                document.querySelector('.contact-whatsapp').href = `https://wa.me/${customer.phone.replace(/\s+/g, '').replace('+', '')}`;
+                document.querySelector('.contact-telegram').href = `https://t.me/${customer.phone.replace(/\s+/g, '').replace('+', '')}`;
+                
+                // Update additional info
+                const infoItems = document.querySelectorAll('.info-section:last-child .info-value');
+                infoItems[0].textContent = customer.preferredContact;
+                infoItems[1].textContent = customer.languages;
+                infoItems[2].textContent = customer.bestTimeToCall;
+            }
+            
+            if (order) {
+                // Update order context
+                document.getElementById('context-order-id').textContent = orderId;
+                document.getElementById('order-context').innerHTML = 
+                    `Order <strong>${orderId}</strong> - ${order.items.join(', ')} (${order.total})`;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <!-- Authentication State Manager -->
+    <script src="../javascript/auth-state-manager.js"></script>
+
+    <!-- Enhanced Search Functionality -->
+    <script src="../javascript/enhanced-search.js"></script>
+
+    <!-- Initialize Authentication and Search -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize authentication state manager
+            if (window.authStateManager) {
+                window.authStateManager.init().then(() => {
+                    console.log('Authentication state manager initialized on customer-contact page');
+                });
+            }
+
+            // Initialize enhanced search
+            if (window.enhancedSearch) {
+                window.enhancedSearch.init();
+                console.log('Enhanced search initialized on customer-contact page');
+            }
+
+            // Initialize user menu dropdown
+            const userMenuToggle = document.querySelector('.user-menu-toggle');
+            const userDropdown = document.querySelector('.user-dropdown');
+
+            if (userMenuToggle && userDropdown) {
+                userMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    userDropdown.style.opacity = userDropdown.style.opacity === '1' ? '0' : '1';
+                    userDropdown.style.visibility = userDropdown.style.visibility === 'visible' ? 'hidden' : 'visible';
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.style.opacity = '0';
+                        userDropdown.style.visibility = 'hidden';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

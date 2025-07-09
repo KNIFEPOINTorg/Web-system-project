@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - LFLshop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        .admin-logo {
+            text-align: center;
+            padding: 0 1rem 2rem;
+            border-bottom: 1px solid #34495e;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .admin-nav li {
+            margin: 0;
+        }
+        
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            background: #34495e;
+            color: white;
+        }
+        
+        .admin-nav i {
+            margin-right: 0.75rem;
+            width: 20px;
+        }
+        
+        .admin-main {
+            flex: 1;
+            background: #f8f9fa;
+            overflow-y: auto;
+        }
+        
+        .admin-header {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .admin-content {
+            padding: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .data-table {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-content {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #d4edda; color: #155724; }
+        .status-shipped { background: #d1ecf1; color: #0c5460; }
+        .status-delivered { background: #d4edda; color: #155724; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-warning { background: #ffc107; color: #212529; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.8rem; }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        .hidden { display: none; }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>LFLshop Admin</h2>
+            </div>
+            <nav>
+                <ul class="admin-nav">
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a></li>
+                    <li><a href="#users" class="nav-link" data-section="users">
+                        <i class="fas fa-users"></i> Users
+                    </a></li>
+                    <li><a href="#orders" class="nav-link" data-section="orders">
+                        <i class="fas fa-shopping-bag"></i> Orders
+                    </a></li>
+                    <li><a href="#products" class="nav-link" data-section="products">
+                        <i class="fas fa-box"></i> Products
+                    </a></li>
+                    <li><a href="#analytics" class="nav-link" data-section="analytics">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </a></li>
+                    <li><a href="#settings" class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </a></li>
+                    <li><a href="../html/index.html">
+                        <i class="fas fa-external-link-alt"></i> View Site
+                    </a></li>
+                    <li><a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="admin-user">
+                    Welcome, <strong id="admin-name">Admin</strong>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="admin-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="total-users">0</div>
+                                    <div class="stat-label">Total Users</div>
+                                </div>
+                                <div class="stat-icon" style="background: #007bff;">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="total-orders">0</div>
+                                    <div class="stat-label">Total Orders</div>
+                                </div>
+                                <div class="stat-icon" style="background: #28a745;">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="total-products">0</div>
+                                    <div class="stat-label">Active Products</div>
+                                </div>
+                                <div class="stat-icon" style="background: #ffc107;">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="total-revenue">0 ETB</div>
+                                    <div class="stat-label">Total Revenue</div>
+                                </div>
+                                <div class="stat-icon" style="background: #dc3545;">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h3>Recent Orders</h3>
+                            <a href="#orders" class="btn btn-primary btn-sm">View All</a>
+                        </div>
+                        <div class="table-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-orders">
+                                    <tr>
+                                        <td colspan="6" class="loading">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Users Section -->
+                <section id="users-section" class="admin-section hidden">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h3>User Management</h3>
+                            <div>
+                                <input type="text" id="user-search" placeholder="Search users..." style="margin-right: 1rem; padding: 0.5rem;">
+                                <select id="user-type-filter" style="margin-right: 1rem; padding: 0.5rem;">
+                                    <option value="">All Types</option>
+                                    <option value="customer">Customers</option>
+                                    <option value="seller">Sellers</option>
+                                    <option value="admin">Admins</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="loadUsers()">Refresh</button>
+                            </div>
+                        </div>
+                        <div class="table-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Joined</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table">
+                                    <tr>
+                                        <td colspan="6" class="loading">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders-section" class="admin-section hidden">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h3>Order Management</h3>
+                            <div>
+                                <select id="order-status-filter" style="margin-right: 1rem; padding: 0.5rem;">
+                                    <option value="">All Statuses</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="loadOrders()">Refresh</button>
+                            </div>
+                        </div>
+                        <div class="table-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Payment</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-table">
+                                    <tr>
+                                        <td colspan="7" class="loading">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Other sections would be implemented similarly -->
+                <section id="products-section" class="admin-section hidden">
+                    <h2>Product Management</h2>
+                    <p>Product management interface coming soon...</p>
+                </section>
+
+                <section id="analytics-section" class="admin-section hidden">
+                    <h2>Analytics</h2>
+                    <p>Analytics dashboard coming soon...</p>
+                </section>
+
+                <section id="settings-section" class="admin-section hidden">
+                    <h2>Settings</h2>
+                    <p>System settings coming soon...</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../javascript/auth.js"></script>
+    <script>
+        class AdminDashboard {
+            constructor() {
+                this.currentSection = 'dashboard';
+                this.init();
+            }
+
+            init() {
+                this.checkAdminAuth();
+                this.setupNavigation();
+                this.loadDashboardData();
+            }
+
+            async checkAdminAuth() {
+                try {
+                    const response = await fetch('../api/auth.php?action=check');
+                    const data = await response.json();
+
+                    if (!data.success || data.data.user.user_type !== 'admin') {
+                        window.location.href = 'signin.html';
+                        return;
+                    }
+
+                    document.getElementById('admin-name').textContent = data.data.user.name;
+                } catch (error) {
+                    window.location.href = 'signin.html';
+                }
+            }
+
+            setupNavigation() {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const section = link.dataset.section;
+                        if (section) {
+                            this.showSection(section);
+                        }
+                    });
+                });
+            }
+
+            showSection(sectionName) {
+                // Hide all sections
+                document.querySelectorAll('.admin-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+
+                // Show selected section
+                const targetSection = document.getElementById(`${sectionName}-section`);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+
+                // Update navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+
+                // Update page title
+                const titles = {
+                    dashboard: 'Dashboard',
+                    users: 'User Management',
+                    orders: 'Order Management',
+                    products: 'Product Management',
+                    analytics: 'Analytics',
+                    settings: 'Settings'
+                };
+                document.getElementById('page-title').textContent = titles[sectionName] || sectionName;
+
+                // Load section data
+                this.loadSectionData(sectionName);
+            }
+
+            async loadSectionData(section) {
+                switch (section) {
+                    case 'dashboard':
+                        this.loadDashboardData();
+                        break;
+                    case 'users':
+                        this.loadUsers();
+                        break;
+                    case 'orders':
+                        this.loadOrders();
+                        break;
+                }
+            }
+
+            async loadDashboardData() {
+                try {
+                    const response = await fetch('../api/admin.php?action=dashboard');
+                    const data = await response.json();
+
+                    if (data.success) {
+                        const stats = data.data;
+                        
+                        document.getElementById('total-users').textContent = stats.total_users;
+                        document.getElementById('total-orders').textContent = stats.total_orders;
+                        document.getElementById('total-products').textContent = stats.total_products;
+                        document.getElementById('total-revenue').textContent = `${parseFloat(stats.total_revenue).toLocaleString()} ETB`;
+
+                        this.renderRecentOrders(stats.recent_orders);
+                    }
+                } catch (error) {
+                    console.error('Error loading dashboard data:', error);
+                }
+            }
+
+            renderRecentOrders(orders) {
+                const tbody = document.getElementById('recent-orders');
+                
+                if (!orders || orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No recent orders</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = orders.map(order => `
+                    <tr>
+                        <td>${order.order_number}</td>
+                        <td>${order.customer_name}</td>
+                        <td>${parseFloat(order.total_amount).toLocaleString()} ETB</td>
+                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                        <td>${new Date(order.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="viewOrder(${order.id})">View</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            async loadUsers() {
+                try {
+                    const search = document.getElementById('user-search')?.value || '';
+                    const userType = document.getElementById('user-type-filter')?.value || '';
+                    
+                    const params = new URLSearchParams({
+                        action: 'users',
+                        search: search,
+                        user_type: userType
+                    });
+
+                    const response = await fetch(`../api/admin.php?${params}`);
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.renderUsers(data.data.users);
+                    }
+                } catch (error) {
+                    console.error('Error loading users:', error);
+                }
+            }
+
+            renderUsers(users) {
+                const tbody = document.getElementById('users-table');
+                
+                if (!users || users.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No users found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = users.map(user => `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td><span class="status-badge status-${user.user_type}">${user.user_type}</span></td>
+                        <td><span class="status-badge ${user.is_active ? 'status-confirmed' : 'status-cancelled'}">${user.is_active ? 'Active' : 'Inactive'}</span></td>
+                        <td>${new Date(user.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="editUser(${user.id})">Edit</button>
+                            <button class="btn btn-${user.is_active ? 'warning' : 'success'} btn-sm" onclick="toggleUserStatus(${user.id}, ${user.is_active})">${user.is_active ? 'Deactivate' : 'Activate'}</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            async loadOrders() {
+                try {
+                    const status = document.getElementById('order-status-filter')?.value || '';
+                    
+                    const params = new URLSearchParams({
+                        action: 'orders',
+                        status: status
+                    });
+
+                    const response = await fetch(`../api/admin.php?${params}`);
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.renderOrders(data.data.orders);
+                    }
+                } catch (error) {
+                    console.error('Error loading orders:', error);
+                }
+            }
+
+            renderOrders(orders) {
+                const tbody = document.getElementById('orders-table');
+                
+                if (!orders || orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No orders found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = orders.map(order => `
+                    <tr>
+                        <td>${order.order_number}</td>
+                        <td>${order.customer_name}</td>
+                        <td>${parseFloat(order.total_amount).toLocaleString()} ETB</td>
+                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                        <td><span class="status-badge status-${order.payment_status}">${order.payment_status}</span></td>
+                        <td>${new Date(order.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="viewOrder(${order.id})">View</button>
+                            <button class="btn btn-warning btn-sm" onclick="updateOrderStatus(${order.id})">Update</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Global functions
+        function viewOrder(orderId) {
+            // Implementation for viewing order details
+            alert(`View order ${orderId} - Feature coming soon`);
+        }
+
+        function editUser(userId) {
+            // Implementation for editing user
+            alert(`Edit user ${userId} - Feature coming soon`);
+        }
+
+        function updateOrderStatus(orderId) {
+            // Implementation for updating order status
+            const newStatus = prompt('Enter new status (pending, confirmed, processing, shipped, delivered, cancelled):');
+            if (newStatus) {
+                // Call API to update status
+                alert(`Update order ${orderId} to ${newStatus} - Feature coming soon`);
+            }
+        }
+
+        function loadUsers() {
+            adminDashboard.loadUsers();
+        }
+
+        function loadOrders() {
+            adminDashboard.loadOrders();
+        }
+
+        async function logout() {
+            try {
+                await fetch('../api/auth.php?action=logout', { method: 'POST' });
+                window.location.href = 'signin.html';
+            } catch (error) {
+                window.location.href = 'signin.html';
+            }
+        }
+
+        // Initialize admin dashboard
+        const adminDashboard = new AdminDashboard();
+    </script>
+</body>
+</html>

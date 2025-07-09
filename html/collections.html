@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Product Collections - LFLshop | Coffee, Textiles, Spices & More</title>
+    <meta name="description" content="Browse our curated collections of authentic Ethiopian products. Discover premium coffee, traditional textiles, aromatic spices, and handcrafted items from local Ethiopian artisans.">
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="Ethiopian collections, Ethiopian coffee collection, traditional textiles, Ethiopian spices, handicrafts collection, artisan products, Ethiopian marketplace">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Ethiopian Product Collections - LFLshop">
+    <meta property="og:description" content="Browse our curated collections of authentic Ethiopian products from local artisans.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lflshop.com/collections">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lflshop.com/collections">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/auth-navigation.css">
+    <link rel="stylesheet" href="../css/search-enhanced.css">
+    <link rel="stylesheet" href="../css/enhanced-search.css">
+    <link rel="stylesheet" href="../css/mobile-optimization.css">
+        <style>
+        .collections-container {
+            padding: var(--space-8) 0;
+        }
+        
+        .collections-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+        
+        .collections-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-8);
+        }
+        
+        .filters-sidebar {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .filter-section h3 {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            cursor: pointer;
+        }
+        
+        .filter-option input {
+            margin: 0;
+        }
+        
+        .filter-option label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .price-range {
+            display: flex;
+            gap: var(--space-3);
+            align-items: center;
+        }
+        
+        .price-input {
+            flex: 1;
+            padding: var(--space-2);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+        }
+        
+        .products-section {
+            min-height: 600px;
+        }
+        
+        .products-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .results-count {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .sort-select {
+            padding: var(--space-2) var(--space-3);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            background: var(--white);
+        }
+        
+        .clear-filters {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            margin-top: var(--space-4);
+            width: 100%;
+        }
+        
+        .clear-filters:hover {
+            background: var(--primary-color);
+        }
+        
+        /* Quick View Modal Styles */
+        .quick-view-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-view-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .quick-view-content {
+            position: relative;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: quickViewSlideIn 0.3s ease-out;
+        }
+
+        @keyframes quickViewSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .quick-view-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition-fast);
+        }
+
+        .quick-view-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        .quick-view-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            padding: var(--space-8);
+        }
+
+        .quick-view-images {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .quick-main-image {
+            width: 100%;
+            height: 300px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .quick-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quick-thumbnails {
+            display: flex;
+            gap: var(--space-2);
+            overflow-x: auto;
+        }
+
+        .quick-view-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .quick-product-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .quick-reviews-summary {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius);
+            margin-bottom: var(--space-4);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .quick-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-3);
+        }
+
+        .quick-review-highlights {
+            margin-top: var(--space-3);
+        }
+
+        .review-highlight {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .review-highlight i {
+            color: var(--primary-color);
+            font-size: var(--text-sm);
+        }
+
+        .review-highlight small {
+            margin-left: auto;
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+
+        .quick-price {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--space-4);
+        }
+
+        .quick-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .quick-specs {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            border-radius: var(--radius);
+            margin-bottom: var(--space-4);
+        }
+
+        .quick-specs h4 {
+            margin: 0 0 var(--space-3) 0;
+            font-size: var(--text-lg);
+            color: var(--text-primary);
+            font-weight: var(--font-semibold);
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-2);
+        }
+
+        .spec-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .spec-label {
+            font-weight: var(--font-medium);
+            color: var(--text-secondary);
+        }
+
+        .spec-value {
+            color: var(--text-primary);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .quick-actions button {
+            flex: 1;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-color);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-light);
+        }
+
+        @media (max-width: 768px) {
+            .collections-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: static;
+                order: 2;
+            }
+            
+            .products-section {
+                order: 1;
+            }
+
+            .quick-view-content {
+                width: 95%;
+                margin: var(--space-4);
+            }
+
+            .quick-view-body {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+                padding: var(--space-6);
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="../Logo/LOCALS.png" alt="LFLshop Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collections.html" class="active">Collections</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <!-- Enhanced Search Container -->
+                <div class="search-container enhanced-search">
+                    <div class="search-input-wrapper">
+                        <input type="text"
+                               id="globalSearchInput"
+                               placeholder="Search Ethiopian products..."
+                               class="search-bar"
+                               autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <button class="search-clear" id="searchClear" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Search Suggestions Dropdown -->
+                    <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                        <div class="suggestions-header">
+                            <span>Search Suggestions</span>
+                        </div>
+                        <div class="suggestions-list" id="suggestionsList">
+                            <!-- Dynamic suggestions will be inserted here -->
+                        </div>
+                        <div class="suggestions-footer">
+                            <button class="view-all-results" id="viewAllResults">
+                                <i class="fas fa-search"></i>
+                                View all results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Icons (Hidden by default, shown when authenticated) -->
+                <div class="nav-icons" style="display: none;">
+                    <a href="../wishlist.php" class="nav-icon" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="notification-count">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-icon" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="../notifications.php" class="nav-icon" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </a>
+                </div>
+
+                <!-- User Menu (Hidden by default, shown when authenticated) -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-menu-toggle">
+                        <span>User Name</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <a href="../dashboard.php" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="../account-settings.php" class="dropdown-item">
+                            <i class="fas fa-user-cog"></i>
+                            Account Settings
+                        </a>
+                        <a href="../orders.php" class="dropdown-item">
+                            <i class="fas fa-shopping-bag"></i>
+                            My Orders
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Links (Shown by default, hidden when authenticated) -->
+                <div class="auth-links">
+                    <a href="../login.php">Sign In</a>
+                    <span class="auth-divider">|</span>
+                    <a href="../register.php">Sign Up</a>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Collections Container -->
+    <div class="collections-container">
+        <div class="container">
+            <div class="collections-header">
+                <h1>Product Collections</h1>
+                <p>Discover authentic Ethiopian products from local artisans</p>
+            </div>
+
+            <div class="collections-content">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3>Price Range (ETB)</h3>
+                        <div class="price-range-container">
+                            <div class="price-inputs">
+                                <input type="number" placeholder="Min" class="price-input" id="min-price">
+                                <span>-</span>
+                                <input type="number" placeholder="Max" class="price-input" id="max-price">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Categories</h3>
+                        <div class="filter-group">
+                            <div class="filter-option">
+                                <input type="checkbox" id="clothing" value="clothing">
+                                <label for="clothing">Clothing</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="coffee-beverages" value="coffee-beverages">
+                                <label for="coffee-beverages">Coffee & Beverages</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="art-collectibles" value="art-collectibles">
+                                <label for="art-collectibles">Art & Collectibles</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="beauty" value="beauty">
+                                <label for="beauty">Beauty</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="books" value="books">
+                                <label for="books">Books</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="tools-craft" value="tools-craft">
+                                <label for="tools-craft">Tools & Craft Tools</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="jewelry" value="jewelry">
+                                <label for="jewelry">Jewelry</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="shoes-accessories" value="shoes-accessories">
+                                <label for="shoes-accessories">Shoes & Accessories</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="gifts" value="gifts">
+                                <label for="gifts">Gifts</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="home-living" value="home-living">
+                                <label for="home-living">Home & Living</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="food-spices" value="food-spices">
+                                <label for="food-spices">Food & Spices</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="toys" value="toys">
+                                <label for="toys">Toys</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="creators-merch" value="creators-merch">
+                                <label for="creators-merch">Creators Merch</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>City</h3>
+                        <div class="filter-group">
+                            <div class="filter-option">
+                                <input type="checkbox" id="addis-ababa" value="addis-ababa">
+                                <label for="addis-ababa">Addis Ababa</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="dire-dawa" value="dire-dawa">
+                                <label for="dire-dawa">Dire Dawa</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="mekelle" value="mekelle">
+                                <label for="mekelle">Mekelle</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="gondar" value="gondar">
+                                <label for="gondar">Gondar</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="awassa" value="awassa">
+                                <label for="awassa">Awassa</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="bahir-dar" value="bahir-dar">
+                                <label for="bahir-dar">Bahir Dar</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="jimma" value="jimma">
+                                <label for="jimma">Jimma</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="harar" value="harar">
+                                <label for="harar">Harar</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Rating</h3>
+                        <div class="filter-group">
+                            <div class="filter-option">
+                                <input type="radio" name="rating" id="5-stars" value="5">
+                                <label for="5-stars">5 Stars</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="rating" id="4-stars" value="4">
+                                <label for="4-stars">4+ Stars</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="rating" id="3-stars" value="3">
+                                <label for="3-stars">3+ Stars</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="rating" id="all-ratings" value="0" checked>
+                                <label for="all-ratings">All Ratings</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="clear-filters" onclick="clearAllFilters()">
+                        <i class="fas fa-refresh"></i>
+                        Clear All Filters
+                    </button>
+                </aside>
+
+                <!-- Products Section -->
+                <div class="products-section">
+                    <div class="products-toolbar">
+                        <div class="results-count" id="results-count">
+                            Showing 24 products
+                        </div>
+                        <div class="sort-container">
+                            <label for="sort-select">Sort by:</label>
+                            <select id="sort-select" class="sort-select">
+                                <option value="featured">Featured</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="newest">Newest First</option>
+                                <option value="rating">Highest Rated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="products-grid">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quick-view-modal" style="display: none;">
+        <div class="quick-view-overlay" onclick="closeQuickView()"></div>
+        <div class="quick-view-content">
+            <button class="quick-view-close" onclick="closeQuickView()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="quick-view-body">
+                <div class="quick-view-images">
+                    <div class="quick-main-image">
+                        <img src="" alt="" id="quick-main-img">
+                    </div>
+                    <div class="quick-thumbnails" id="quick-thumbnails">
+                        <!-- Thumbnails will be populated -->
+                    </div>
+                </div>
+                
+                <div class="quick-view-info">
+                    <h2 class="quick-product-title" id="quick-title">Product Title</h2>
+                    
+                    <!-- Reviews Section - Brought Up Front -->
+                    <div class="quick-reviews-summary">
+                        <div class="quick-rating">
+                            <div class="stars" id="quick-stars">
+                                <!-- Stars will be populated -->
+                            </div>
+                            <span class="rating-text" id="quick-rating-text">4.5 (127 reviews)</span>
+                        </div>
+                        <div class="quick-review-highlights" id="quick-review-highlights">
+                            <div class="review-highlight">
+                                <i class="fas fa-quote-left"></i>
+                                <span>"Beautiful traditional craftsmanship!"</span>
+                                <small>- Recent Review</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-price">
+                        <span class="current-price" id="quick-price">5,050</span>
+                        <span class="price-currency">ETB</span>
+                    </div>
+                    
+                    <div class="quick-description" id="quick-description">
+                        <p>Brief product description will appear here...</p>
+                    </div>
+                    
+                    <!-- Product Specifications - Matching Add New Product Structure -->
+                    <div class="quick-specs">
+                        <h4>Product Details</h4>
+                        <div class="spec-row">
+                            <span class="spec-label">Category:</span>
+                            <span class="spec-value" id="quick-category">Traditional Textiles</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Region:</span>
+                            <span class="spec-value" id="quick-region">Addis Ababa</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Stock Quantity:</span>
+                            <span class="spec-value" id="quick-stock">15 Available</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Seller:</span>
+                            <span class="spec-value" id="quick-seller">Almaz Traditional Crafts</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <button class="btn-primary add-to-cart-btn" onclick="addToCartFromQuickView()">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                        <button class="btn-secondary" onclick="viewFullProduct()">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authentication State Manager -->
+    <script src="../javascript/auth-state-manager.js"></script>
+
+    <!-- Enhanced Search Functionality -->
+    <script src="../javascript/enhanced-search.js"></script>
+
+    <!-- Load configuration first -->
+    <script src="../javascript/config.js"></script>
+        <script src="../javascript/auth.js"></script>
+    <script src="../javascript/auth-aware-navigation.js"></script>
+    <script src="../javascript/search-functionality.js"></script>
+    <script src="../javascript/collections.js"></script>
+
+    <!-- Initialize Authentication and Search -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize authentication state manager
+            if (window.authStateManager) {
+                window.authStateManager.init().then(() => {
+                    console.log('Authentication state manager initialized on collections page');
+                });
+            }
+
+            // Initialize enhanced search
+            if (window.enhancedSearch) {
+                window.enhancedSearch.init();
+                console.log('Enhanced search initialized on collections page');
+            }
+
+            // Initialize user menu dropdown
+            const userMenuToggle = document.querySelector('.user-menu-toggle');
+            const userDropdown = document.querySelector('.user-dropdown');
+
+            if (userMenuToggle && userDropdown) {
+                userMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    userDropdown.style.opacity = userDropdown.style.opacity === '1' ? '0' : '1';
+                    userDropdown.style.visibility = userDropdown.style.visibility === 'visible' ? 'hidden' : 'visible';
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.style.opacity = '0';
+                        userDropdown.style.visibility = 'hidden';
+                    }
+                });
+            }
+        });
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                fetch('../php/handlers/auth_handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'action=logout'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect || 'index.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    window.location.href = 'index.html';
+                });
+            }
+        }
+    </script>
+    <script>
+        // Products will be loaded from database
+        let products = [];
+        let allProducts = [];
+
+        // Load products from database
+        async function loadProducts() {
+            try {
+                console.log('🔄 Loading products from database...');
+                // Add cache-busting parameter to prevent browser caching
+                const timestamp = new Date().getTime();
+                const response = await fetch(`../php/handlers/public_products_handler.php?action=get_collections&t=${timestamp}`);
+                console.log('📡 API Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('📊 API Response data:', data);
+
+                if (data.success) {
+                    allProducts = data.products;
+                    products = [...allProducts];
+                    filteredProducts = [...products];
+                    console.log('✅ Loaded', products.length, 'products');
+                    renderProducts(products);
+                    updateResultsCount();
+                } else {
+                    console.error('❌ Failed to load products:', data.error);
+                    showEmptyState();
+                }
+            } catch (error) {
+                console.error('❌ Error loading products:', error);
+                showEmptyState();
+            }
+        }
+
+        // Show empty state when no products are available
+        function showEmptyState() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-16); color: var(--text-secondary);">
+                    <i class="fas fa-box-open" style="font-size: var(--text-4xl); margin-bottom: var(--space-4); color: var(--border-primary);"></i>
+                    <h3 style="margin-bottom: var(--space-2);">No Products Available</h3>
+                    <p>Products will appear here when sellers add them to the marketplace.</p>
+                    <a href="../dashboard.php" class="btn btn-primary" style="margin-top: var(--space-4);">
+                        <i class="fas fa-plus"></i> Become a Seller
+                    </a>
+                </div>
+            `;
+        }
+
+        // Fallback static data for demo purposes
+        const fallbackProducts = [
+            {
+                id: 1,
+                title: "Traditional Habesha Dress",
+                description: "Elegant white cotton dress with traditional embroidery",
+                price: 2500,
+                image: "https://images.unsplash.com/photo-1544829885-9a56ca0fe9e7?w=400&h=300&fit=crop",
+                category: "textiles",
+                region: "addis-ababa",
+                rating: 5,
+                seller: "Almaz Textiles",
+                location: "Addis Ababa",
+                stock: 15,
+                tags: "handmade, traditional, authentic, habesha, dress",
+                recentReview: "Beautiful traditional craftsmanship!",
+                images: [
+                    "https://images.unsplash.com/photo-1544829885-9a56ca0fe9e7?w=400&h=300&fit=crop",
+                    "https://images.unsplash.com/photo-1594549181132-9045fed330ce?w=400&h=300&fit=crop"
+                ]
+            },
+            {
+                id: 2,
+                title: "Yirgacheffe Coffee Beans",
+                description: "Premium single-origin coffee with floral notes",
+                price: 850,
+                image: "https://images.unsplash.com/photo-1559525839-d9d1e38b0a35?w=400&h=300&fit=crop",
+                category: "coffee-beverages",
+                region: "yirgacheffe",
+                rating: 5,
+                seller: "Sidama Coffee",
+                location: "Yirgacheffe",
+                stock: 25,
+                tags: "coffee, organic, single-origin, premium",
+                recentReview: "Amazing aroma and taste!",
+                images: [
+                    "https://images.unsplash.com/photo-1559525839-d9d1e38b0a35?w=400&h=300&fit=crop",
+                    "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop"
+                ]
+            },
+            {
+                id: 3,
+                title: "Authentic Berbere Spice",
+                description: "Traditional Ethiopian spice blend, freshly ground",
+                price: 320,
+                image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=300&fit=crop",
+                category: "food-spices",
+                region: "harar",
+                rating: 4,
+                seller: "Harar Spices",
+                location: "Harar",
+                stock: 50,
+                tags: "spices, berbere, traditional, authentic",
+                recentReview: "Perfect blend of spices!",
+                images: [
+                    "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=300&fit=crop"
+                ]
+            },
+            {
+                id: 4,
+                title: "Ethiopian Silver Cross",
+                description: "Handcrafted traditional silver cross pendant",
+                price: 1800,
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=300&fit=crop",
+                category: "jewelry",
+                region: "lalibela",
+                rating: 5,
+                seller: "Lalibela Crafts",
+                location: "Lalibela"
+            },
+            {
+                id: 5,
+                title: "Traditional Jebena",
+                description: "Handmade clay coffee pot for Ethiopian coffee ceremony",
+                price: 450,
+                image: "https://images.unsplash.com/photo-1530968033775-2c92736b131e?w=400&h=300&fit=crop",
+                category: "home-living",
+                region: "jimma",
+                rating: 4,
+                seller: "Pottery Masters",
+                location: "Jimma"
+            },
+            {
+                id: 6,
+                title: "Ethiopian Orthodox Icon",
+                description: "Traditional religious artwork on wood",
+                price: 3200,
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+                category: "art-collectibles",
+                region: "axum",
+                rating: 5,
+                seller: "Sacred Arts",
+                location: "Axum"
+            }
+        ];
+
+        let filteredProducts = [];
+
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('products-grid');
+            const resultsCount = document.getElementById('results-count');
+            
+            resultsCount.textContent = `Showing ${productsToRender.length} products`;
+            
+            if (productsToRender.length === 0) {
+                grid.innerHTML = '<div class="text-center py-16"><h3>No products found</h3><p>Try adjusting your filters</p></div>';
+                return;
+            }
+            
+            grid.innerHTML = productsToRender.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}">
+                        <div class="product-overlay">
+                            <button class="btn btn-primary btn-sm" onclick="openQuickView(${product.id})">Quick View</button>
+                            <button class="btn btn-secondary btn-sm" onclick="viewFullProduct(${product.id})">View Details</button>
+                            <button class="btn btn-secondary btn-sm" onclick="addToCart(${product.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-rating">
+                            <div class="stars">
+                                ${'<i class="fas fa-star"></i>'.repeat(product.rating)}
+                                ${'<i class="far fa-star"></i>'.repeat(5 - product.rating)}
+                            </div>
+                            <span class="rating-text">(${Math.floor(Math.random() * 20) + 5} reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">${product.price} ETB</span>
+                        </div>
+                        <div class="product-seller">
+                            <span>By <a href="#" class="seller-link">${product.seller}</a></span>
+                            <span class="seller-location">${product.location}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function applyFilters() {
+            const minPrice = parseInt(document.getElementById('min-price').value) || 0;
+            const maxPrice = parseInt(document.getElementById('max-price').value) || Infinity;
+            
+            const selectedCategories = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(cb => cb.value)
+                .filter(value => ['clothing', 'coffee-beverages', 'art-collectibles', 'beauty', 'books', 'tools-craft', 'jewelry', 'shoes-accessories', 'gifts', 'home-living', 'food-spices', 'toys', 'creators-merch'].includes(value));
+            
+            const selectedRegions = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(cb => cb.value)
+                .filter(value => ['addis-ababa', 'dire-dawa', 'mekelle', 'gondar', 'awassa', 'bahir-dar', 'jimma', 'harar', 'yirgacheffe', 'lalibela', 'axum'].includes(value));
+            
+            const selectedRating = parseInt(document.querySelector('input[name="rating"]:checked').value) || 0;
+            
+            filteredProducts = products.filter(product => {
+                const priceMatch = product.price >= minPrice && product.price <= maxPrice;
+                const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+                const regionMatch = selectedRegions.length === 0 || selectedRegions.includes(product.region);
+                const ratingMatch = selectedRating === 0 || product.rating >= selectedRating;
+                
+                return priceMatch && categoryMatch && regionMatch && ratingMatch;
+            });
+            
+            renderProducts(filteredProducts);
+        }
+
+        function clearAllFilters() {
+            document.getElementById('min-price').value = '';
+            document.getElementById('max-price').value = '';
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.getElementById('all-ratings').checked = true;
+            document.getElementById('sort-select').value = 'featured';
+            
+            filteredProducts = [...products];
+            renderProducts(filteredProducts);
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sort-select').value;
+            
+            switch (sortBy) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'newest':
+                    filteredProducts.sort((a, b) => b.id - a.id);
+                    break;
+                default:
+                    // Featured - keep original order
+                    break;
+            }
+            
+            renderProducts(filteredProducts);
+        }
+
+        function viewProduct(id) {
+            window.location.href = `product-detail.html?id=${id}`;
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                // Ensure ETB pricing is properly formatted
+                const cartItem = {
+                    ...product,
+                    quantity: 1,
+                    price: parseFloat(product.price) || 0,
+                    formattedPrice: `${(parseFloat(product.price) || 0).toLocaleString()} ETB`
+                };
+                cart.push(cartItem);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+
+            // Show success message with Ethiopian styling
+            if (typeof showNotification === 'function') {
+                showNotification(`${product.title} added to cart! 🇪🇹`, 'success');
+            } else {
+                alert(`${product.title} added to cart! 🇪🇹`);
+            }
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+        }
+
+        function updateResultsCount() {
+            const resultsCount = document.getElementById('results-count');
+            if (resultsCount) {
+                resultsCount.textContent = `Showing ${filteredProducts.length} products`;
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load products from database
+            loadProducts();
+            updateCartCount();
+            
+            // Add event listeners for filters
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                input.addEventListener('change', applyFilters);
+            });
+            
+            document.getElementById('min-price').addEventListener('input', applyFilters);
+            document.getElementById('max-price').addEventListener('input', applyFilters);
+            document.getElementById('sort-select').addEventListener('change', sortProducts);
+            
+            // Check for category filter from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                const categoryCheckbox = document.getElementById(category);
+                if (categoryCheckbox) {
+                    categoryCheckbox.checked = true;
+                    applyFilters();
+                }
+            }
+        });
+
+        // Quick View Functionality
+        let currentQuickViewProduct = null;
+
+        // Open Quick View Modal
+        function openQuickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            currentQuickViewProduct = product;
+            
+            // Populate modal content
+            document.getElementById('quick-title').textContent = product.title;
+            document.getElementById('quick-price').textContent = product.price.toLocaleString();
+            document.getElementById('quick-description').innerHTML = `<p>${product.description}</p>`;
+            document.getElementById('quick-category').textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+            document.getElementById('quick-region').textContent = product.location || product.region;
+            document.getElementById('quick-stock').textContent = `${product.stock || 'In'} Stock`;
+            document.getElementById('quick-seller').textContent = product.seller;
+            document.getElementById('quick-rating-text').textContent = `${product.rating} (${Math.floor(Math.random() * 50) + 10} reviews)`;
+            
+            // Update review highlight
+            const reviewHighlight = document.querySelector('.review-highlight span');
+            if (reviewHighlight && product.recentReview) {
+                reviewHighlight.textContent = `"${product.recentReview}"`;
+            }
+            
+            // Set main image
+            const mainImage = product.images ? product.images[0] : product.image;
+            document.getElementById('quick-main-img').src = mainImage;
+            document.getElementById('quick-main-img').alt = product.title;
+            
+            // Generate star rating
+            const starsContainer = document.getElementById('quick-stars');
+            const fullStars = Math.floor(product.rating);
+            const hasHalfStar = product.rating % 1 !== 0;
+            
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < fullStars; i++) {
+                starsContainer.innerHTML += '<i class="fas fa-star"></i>';
+            }
+            if (hasHalfStar) {
+                starsContainer.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+            }
+            for (let i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) {
+                starsContainer.innerHTML += '<i class="far fa-star"></i>';
+            }
+            
+            // Generate thumbnails if multiple images exist
+            const thumbnailsContainer = document.getElementById('quick-thumbnails');
+            thumbnailsContainer.innerHTML = '';
+            if (product.images && product.images.length > 1) {
+                product.images.forEach((image, index) => {
+                    const thumbnail = document.createElement('div');
+                    thumbnail.className = `quick-thumbnail ${index === 0 ? 'active' : ''}`;
+                    thumbnail.innerHTML = `<img src="${image}" alt="${product.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;">`;
+                    thumbnail.onclick = () => switchQuickImage(image, thumbnail);
+                    thumbnailsContainer.appendChild(thumbnail);
+                });
+            }
+            
+            // Show modal
+            document.getElementById('quick-view-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Quick View Modal
+        function closeQuickView() {
+            document.getElementById('quick-view-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentQuickViewProduct = null;
+        }
+
+        // Switch Quick View Image
+        function switchQuickImage(imageSrc, thumbnailElement) {
+            document.getElementById('quick-main-img').src = imageSrc;
+            
+            // Update active thumbnail
+            document.querySelectorAll('.quick-thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            thumbnailElement.classList.add('active');
+        }
+
+        // Add to Cart from Quick View
+        function addToCartFromQuickView() {
+            if (!currentQuickViewProduct) return;
+            
+            // Get existing cart
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // Check if item already exists
+            const existingItemIndex = cart.findIndex(item => item.id === currentQuickViewProduct.id);
+            
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: currentQuickViewProduct.id,
+                    title: currentQuickViewProduct.title,
+                    price: currentQuickViewProduct.price,
+                    quantity: 1,
+                    image: currentQuickViewProduct.images ? currentQuickViewProduct.images[0] : currentQuickViewProduct.image
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show notification
+            showNotification(`${currentQuickViewProduct.title} added to cart!`, 'success');
+            
+            // Close modal
+            closeQuickView();
+        }
+
+        // View Full Product - Updated to handle both quick view and direct calls
+        function viewFullProduct(productId = null) {
+            // If called from quick view modal
+            if (currentQuickViewProduct && !productId) {
+                closeQuickView();
+                window.location.href = `product-detail.html?id=${currentQuickViewProduct.id}`;
+                return;
+            }
+            
+            // If called directly with product ID
+            if (productId) {
+                window.location.href = `product-detail.html?id=${productId}`;
+                return;
+            }
+            
+            // Fallback - shouldn't happen but just in case
+            console.error('viewFullProduct called without valid product reference');
+        }
+
+        // Notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification-toast ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}" style="color: ${type === 'success' ? '#28a745' : '#dc3545'};"></i>
+                    <span style="color: #333;">${message}</span>
+                </div>
+            `;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1100;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('quick-view-modal').style.display === 'flex') {
+                closeQuickView();
+            }
+        });
+    </script>
+</body>
+</html>
